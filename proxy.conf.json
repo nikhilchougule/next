@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "http://34.196.47.45:100/cwp/api",
+    "secure": false
+  }
+}

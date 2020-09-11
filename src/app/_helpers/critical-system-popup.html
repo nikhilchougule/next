@@ -1,0 +1,155 @@
+<h2 mat-dialog-title><strong>{{action}}</strong></h2>
+<div mat-dialog-content class="mat-typography" *ngIf="action != 'Delete'; else elseTemplate">
+     <!-- 4 step stepform !-->
+     <mat-horizontal-stepper [linear]="true" #stepper>
+            <!--step 1 -->
+          <mat-step [stepControl]="form1.control">
+            <form #form1="ngForm">
+              <ng-template matStepLabel>Update Basic CS</ng-template>
+              <mat-form-field>
+                <mat-label>LocationId</mat-label>
+                <input type="text" matInput required id="LocationId" name="LocationId" [(ngModel)]="local_data.LocationId" placeholder="Enter LocationId">
+              </mat-form-field>
+              <mat-form-field>
+                  <mat-label>Name</mat-label>
+                  <input type="text" matInput required id="Name" name="Name" [(ngModel)]="local_data.Name" placeholder="Enter Name">
+                </mat-form-field>
+              <mat-form-field>
+                  <mat-label>SystemDescription</mat-label>
+                  <input type="text" matInput required id="SystemDescription" name="SystemDescription" [(ngModel)]="local_data.SystemDescription" placeholder="Enter SystemDescription">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>CriticalSystemId</mat-label>
+                  <input type="number" matInput required id="CriticalSystemId" name="CriticalSystemId" [(ngModel)]="local_data.CriticalSystemId" placeholder="Enter CriticalSystemId">
+                </mat-form-field>
+                 <mat-form-field>
+                    <mat-label>ApprovalStatus</mat-label>              
+                  <input type="text" matInput required id="ApprovalStatus" name="ApprovalStatus" [(ngModel)]="local_data.ApprovalStatus" placeholder="Enter ApprovalStatus">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>CategoryId</mat-label>
+                  <input type="text" matInput required id="CategoryId" name="CategoryId" [(ngModel)]="local_data.CategoryId" placeholder="CategoryId">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>IdentificationApprovalStatus</mat-label>
+                  <input type="text" matInput required id="IdentificationApprovalStatus" name="IdentificationApprovalStatus" [(ngModel)]="local_data.IdentificationApprovalStatus" placeholder="IdentificationApprovalStatus">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>EmergencyPlan</mat-label>
+                    <input type="text" matInput required id="EmergencyPlan" name="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" placeholder="Enter EmergencyPlan">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <mat-label>SafetyRelated</mat-label>
+                      <input type="text" matInput required id="SafetyRelated" name="SafetyRelated" [(ngModel)]="local_data.SafetyRelated" placeholder="Enter SafetyRelated">
+                    </mat-form-field>
+                  <mat-form-field>
+                      <mat-label>ImportantToSafety</mat-label>
+                      <input type="text" matInput required id="ImportantToSafety" name="ImportantToSafety" [(ngModel)]="local_data.ImportantToSafety" placeholder="Enter ImportantToSafety">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-label>ExtDescription</mat-label>
+                      <input type="text" matInput required id="ExtDescription" name="ExtDescription" [(ngModel)]="local_data.ExtDescription" placeholder="Enter ExtDescription">
+                    </mat-form-field>
+               
+                <!-- <mat-form-field> -->
+                  <div>
+                  <mat-label>Security</mat-label>
+                  <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.Security" name= "Security">
+                    <mat-radio-button class="example-radio-button"  [value]="true">
+                      true
+                    </mat-radio-button>
+                    <mat-radio-button class="example-radio-button" [value]="false">
+                        false
+                      </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                  <!-- <input type="text" matInput required id="Security" name="Security" [(ngModel)]="local_data.Security" placeholder="Enter Security"> -->
+                <!-- </mat-form-field> -->
+                <mat-form-field>
+                  <mat-label>SafetyOrImportantToSafety</mat-label>
+                  <input type="text" matInput required id="SafetyOrImportantToSafety" name="ModelNumber" [(ngModel)]="local_data.SafetyOrImportantToSafety" placeholder="Enter SafetyOrImportantToSafety">
+                </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+            <!--step 2 -->
+          <mat-step [stepControl]="form2.control">
+            <form #form2="ngForm">
+               <ng-template matStepLabel>Update SSEP</ng-template>
+                    <mat-form-field>
+                        <mat-label>SSEPDetailedDescription</mat-label>
+                        <input type="text" matInput required id="SSEPDetailedDescription" name="SSEPDetailedDescription" [(ngModel)]="local_data.SSEPDetailedDescription" placeholder="Enter SSEPDetailedDescription">
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>SSEPJustification</mat-label>
+                        <input type="text" matInput required id="SSEPJustification" name="SSEPJustification" [(ngModel)]="local_data.SSEPJustification" placeholder="Enter SSEPJustification">
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>SSEPDecisionComment</mat-label>
+                        <input type="text" matInput required id="SSEPDecisionComment" name="SSEPDecisionComment" [(ngModel)]="local_data.SSEPDecisionComment" placeholder="Enter SSEPDecisionComment">
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>SSEPDecisionDate</mat-label>
+                        <input type="text" matInput required id="SSEPDecisionDate" name="SSEPDecisionDate" [(ngModel)]="local_data.SSEPDecisionDate" placeholder="Enter SSEPDecisionDate">
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>SSEPDecisionBy</mat-label>
+                        <input type="text" matInput required id="SSEPDecisionBy" name="SSEPDecisionBy" [(ngModel)]="local_data.SSEPDecisionBy" placeholder="Enter SSEPDecisionBy">
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>SSEPReviewerComment</mat-label>
+                        <input type="text" matInput required id="SSEPReviewerComment" name="SSEPReviewerComment" [(ngModel)]="local_data.SSEPReviewerComment" placeholder="Enter SSEPReviewerComment">
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>SSEPReviewDate</mat-label>
+                        <input type="date" matInput required id="SSEPReviewDate" name="SSEPReviewDate" [(ngModel)]="local_data.SSEPReviewDate" placeholder="Enter SSEPReviewDate">
+                      </mat-form-field>
+                      <mat-form-field>
+                          <mat-label>SSEPReviewedBy</mat-label>
+                          <input type="text" matInput required id="SSEPReviewedBy" name="SSEPReviewedBy" [(ngModel)]="local_data.SSEPReviewedBy" placeholder="Enter SSEPReviewedBy">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>SSEPApproverComment</mat-label>
+                          <input type="text" matInput required id="SSEPApproverComment" name="ReconciledDate" [(ngModel)]="local_data.SSEPApproverComment" placeholder="Enter SSEPApproverComment">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>SSEPApprovedDate</mat-label>
+                          <input type="date" matInput required id="SSEPApprovedDate" name="SSEPApprovedDate" [(ngModel)]="local_data.SSEPApprovedDate" placeholder="Enter SSEPApprovedDate">
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>SSEPApprovedBy</mat-label>
+                          <input type="text" matInput required id="SSEPApprovedBy" name="SSEPApprovedBy" [(ngModel)]="local_data.SSEPApprovedBy" placeholder="Enter SSEPApprovedBy">
+                        </mat-form-field>
+                 <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+           
+                <mat-form-field>
+                    <mat-label>Structure</mat-label>
+                    <input type="text" matInput required id="Structure" name="Structure" [(ngModel)]="local_data.Structure" placeholder="Enter Structure">
+                  </mat-form-field>
+                
+            <div>
+              <div mat-dialog-actions align="end">
+                  <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
+                  <button mat-button (click)="closeDialog()">Cancel</button>
+              </div>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+    
+</div>
+<ng-template #elseTemplate>
+    Sure to delete <b>{{local_data.Name}}</b>?
+    <div mat-dialog-actions align="end">
+            <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
+            <button mat-button (click)="closeDialog()">Cancel</button>
+        </div>
+</ng-template>

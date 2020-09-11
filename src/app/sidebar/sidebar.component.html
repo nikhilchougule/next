@@ -1,0 +1,52 @@
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+<div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
+    <!-- User profile image -->
+    <div class="profile-img">
+        <img src="assets/images/users/profile.png" alt="user"> </div>
+    <!-- User profile text-->
+    <!-- ============================================================== -->
+    <!-- Profile - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <div class="profile-text">
+        <a [matMenuTriggerFor]="sdprofile" class=""> Markarn Doe
+            <i class="ti-angle-down font-12 m-l-5"></i>
+        </a>
+    </div>
+    <mat-menu #sdprofile="matMenu" class="mymegamenu">
+        <button mat-menu-item>
+            <mat-icon>settings</mat-icon> Settings
+        </button>
+        <button mat-menu-item>
+            <mat-icon>account_box</mat-icon> Profile
+        </button>
+        <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon> Disable notifications
+        </button>
+        <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon> Sign Out
+        </button>
+    </mat-menu>
+</div>
+<mat-nav-list appAccordion>
+    <!-- <mat-list-item appAccordionLink > -->
+        <mat-list-item>
+        <a  [routerLink]="['/critical-digital-asset']">
+            <!-- <mat-icon>{{ menuitem.icon }}</mat-icon> -->
+            <span>critical-digital-asset</span>
+            <!-- <span fxFlex></span> -->
+            <!-- <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span> -->
+        </a>
+    </mat-list-item>
+<mat-list-item>
+         <!-- <mat-list-item appAccordionLink > -->
+                <a  [routerLink]="['/critical-system']">
+                    <!-- <mat-icon>{{ menuitem.icon }}</mat-icon> -->
+                    <span>critical-system</span>
+                    <!-- <span fxFlex></span> -->
+                    <!-- <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span> -->
+                </a>
+            </mat-list-item>
+</mat-nav-list>
+<!-- </mat-nav-list> -->

@@ -1,0 +1,232 @@
+
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <!-- <div class="example-rate-limit-reached"  *ngIf="isRateLimitReached">
+      GitHub's API rate limit has been reached. It will be reset in one minute.
+    </div>  || isRateLimitReached-->
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <div fxLayout="row wrap" class="align-items-center">
+            <div fxFlex.gt-md="25" fxFlex.gt-lg="25" fxFlex="100">
+              <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-md="75" class="text-right">
+              <button mat-raised-button  color="primary">Add Digital Assets</button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource" class="table employee-list no-wrap"
+            matSort  matSortDirection="desc">
+        
+              <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header >Name </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Name}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Location">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header > Location Name </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Location}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="IsDigital">
+                <th mat-header-cell *matHeaderCellDef> IsDigital </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.IsDigital}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="ManualComponent">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ManualComponent </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.ManualComponent}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="ECode">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ECode </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.ECode}} </td>
+              </ng-container>
+
+               <ng-container matColumnDef="SerialNumber" >
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> SerialNumber </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.SerialNumber}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="EquipmentType">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> EquipmentType </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.EquipmentType}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="CDADefensiveSecurityLevelsLookupId">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDADefensiveSecurityLevelsLookupId </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.CDADefensiveSecurityLevelsLookupId}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="Manufacturer">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header>Manufacturer </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Manufacturer}} </td>
+              </ng-container>
+     
+              <ng-container matColumnDef="ModelNumber">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ModelNumber </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.ModelNumber}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="CDAOwner">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAOwner </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.CDAOwner}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="CDAProcessSoftware1OrRevision">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAProcessSoftware1OrRevision </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.CDAProcessSoftware1OrRevision}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="CDAProcessSoftware2OrRevision">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAProcessSoftware2OrRevision </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.CDAProcessSoftware2OrRevision}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="PlannedReplacementModificationDate">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> PlannedReplacementModificationDate </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.PlannedReplacementModificationDate}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="HasthisComponentbeenEvaluated">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> HasthisComponentbeenEvaluated </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.HasthisComponentbeenEvaluated}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="EmergencyPlan">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> EmergencyPlan </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.EmergencyPlan}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="Description">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Description </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Description}} </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="Room">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Room </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Room}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Builiding">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Builiding </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Builiding}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Elevation">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Elevation </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Elevation}} </td>
+              </ng-container>
+,
+              <ng-container matColumnDef="ColumnLine">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ColumnLine </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.ColumnLine}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="Azimuth">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Azimuth </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Azimuth}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="Area">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Area </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Area}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="PlantUnit">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> PlantUnit </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.PlantUnit}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="CDATypeId">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDATypeId </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.CDATypeId}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="Cyber_Security">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Cyber_Security </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Cyber_Security}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="Justification">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Justification </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Justification}} </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="RevisionNumber">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> RevisionNumber </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.RevisionNumber}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="RevisionStatus">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> RevisionStatus </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.RevisionStatus}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="DateInstalled">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> DateInstalled </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.DateInstalled}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Reconciled">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Reconciled </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.Reconciled}} </td>
+              </ng-container>
+         
+              <ng-container matColumnDef="ReconciledDate">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ReconciledDate </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.ReconciledDate}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="ReconcilerName">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ReconcilerName </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.ReconcilerName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="CDAOrComponentType">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAOrComponentType </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.CDAOrComponentType}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="CDADisplayOrderId">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDADisplayOrderId </th>
+                <td mat-cell *matCellDef="let cda"> {{cda.CDADisplayOrderId}} </td>
+              </ng-container>
+              
+              
+
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Action </th>
+                <td mat-cell *matCellDef="let cda" class="action-link">
+                  <a (click)="openDialog('Update',cda)" class="marR10 m-r-10 cursor-pointer"><i class="fa fa-pencil"></i></a>
+                  <span><a (click)="openDialog('Delete',cda)" class="m-r-10 cursor-pointer">
+                    <i class="fa fa-trash text-danger"></i>
+                  </a></span>
+                  
+                </td>
+              </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
