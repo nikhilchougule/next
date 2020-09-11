@@ -17,4 +17,13 @@ export class CriticalSystemService {
   deleteCriticalSystemRecord(data){
     return this.http.delete(`${environment.apiUrl}/criticalsystems/${data.CriticalSystemId}`);
   }
-}
+  addCriticalSystemRecord(data){
+    return this.http.put(`${environment.apiUrl}/criticalsystems`,data)
+  }}
+
+
+
+
+
+
+  

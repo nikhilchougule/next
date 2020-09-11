@@ -1,5 +1,4 @@
 export interface ICDA {
-    
         CriticalDigitalAssetId:Number,
         Name:String,
         Description:String,
@@ -68,250 +67,230 @@ export interface ICDA {
         AdditionalParam48:String
         AdditionalParam49:String
         AdditionalParam50:String
+        AC_ProtectionLevel: String
+        AI_ProtectionLevel: String
+        AV1: Boolean
+        AV1_Degree: String
+        AV1_Justification: String
+        AV1_Value: String
+        AV2: Boolean
+        AV2_Degree: String
+        AV2_Justification: String
+        AV2_Value: String
+        AV3: Boolean
+        AV3_Degree: String
+        AV3_Justification: String
+        AV3_Value: String
+        AV4: Boolean
+        AV4_Degree: String
+        AV4_Justification: String
+        AV4_Value: String
+        AV5: Boolean
+        AV5_Degree: String
+        AV5_Justification: String
+        AV5_Value: String
+        AV_ProtectionLevel: String
+        AboveGround: String
+        AcccountTypesUsernamesGroups: String
+        AdditionalPhysicalSecurityAttributes: String
+        AppSWLocalUpdation: String
+        ApplicationSWInSQATool: String
+        ApplicationSWInstalled: String
+        ApplicationSWPasswordProtect: String
+        ApprovalStatus: String
+        AssetId: String
+        AssociateMandTE: String
+        AudibleEventsCapability: String
+        AuditCapable: String
+        AuditLogCapability: String
+        AuditRecordCaptureMethod: String
+        AuditRecordContentsOrDescription: String
+        AuditRecordsCapable: Boolean
+        AuthenticatorSupport: String
+        Azimuth: String
+        BackupFrequency: String
+        BackupLocationsForCriticalCDASoftware: String
+        BackupPrimaryLocation: String
+        BackupSecondaryLocation: String
+        BackupsPerformed: String
+        Building: String
+        CDAComplexityCategory: String
+        CDAComponentDisplayOrderId: Number
+        CDAConfigSettingsChangeableUsingLocalHMI: String
+        CDACurrentStatusId: Number
+        CDADisplayOrderId: Number
+        CDAFunctionId: Number
+        CDAHasHMI: String
+        CDAOperationalParametersChangeableUsingLocalHMI: String
+        CDAOrComponentType: String
+        CDAOwner: String
+        CDAPhysicalSecurityZoneLookupId: Number
+        CDAPrimaryCategoryLookupId: Number
+        CDAProcessSoftware1OrRevision: String
+        CDAProcessSoftware2OrRevision: String
+        CDAProcessSoftware3OrRevision: String
+        CDASecurity: String
+        CDASecurityFunctionInteraction: String
+        CDATag: String
+        CDATypeId: Number
+        CI_ProtectionLevel: String
+        CMS: String
+        CameraMonitored: String
+        CollaborativeComputingCapability: String
+        CollaborativeComputingDisabled: String
+        CollaborativeUnitList: String
+        ColumnLine: String
+        CommunicationAcrossDefensiveLevel: String
+        CommunicationPorts: String
+        CreatedBy: String
+        CreatedDate: Date
+        CriticalSystemId: Number
+        CryptographicKeyFunctionUsesOrSupport: String
+        CurrentStatusDate: Date
+        CyberControlPeriodicity: String
+        CyberSecurityRequirements: Date
+        Cyber_Security: Boolean
+        DAUserAccessLevelsCapabilities: String
+        DNSCapable: String
+        DNSClientOrServer: String
+        DNSEnabled: String
+        DREId: Number
+        DateInstalled: Date
+        DesignConfigReferences: String
+        DigitalDisplayOrSignage: String
+        DigitalPathways: String
+        DigitallyConnectedMaintToolsRequirement: String
+        DomainBasedAuthenticationCapability: String
+        ECAddition: String
+        ECModification: String
+        ECRetirement: String
+        EmergencyPlan: String
+        EntityAssignmentStatusId: Number
+        EventsCaptured: String
+        FWLocalUpdationCapability: String
+        FWOrSWBackupCapability: String
+        FWOrSWPatchingCapability: String
+        FWinSQATool: String
+        FirewallSoftwareOrPacketFilteringSupportOrUse: String
+        FirmwareRevisionOrIdentifier: String
+        FirmwareVersion: String
+        HIDSCapable: String
+        HIDSProtocolConfiguration: String
+        HMIAccessControlCapable: String
+        HasFirmware: String
+        HasIPAddress: String
+        HasOpeartingSystem: String
+        HasremovableMedia: Boolean
+        HasthisComponentbeenEvaluated: Boolean
+        II_ProtectionLevel: String
+        IMAA: String
+        IPAddress: String
+        IdentificationApprovalStatus: String
+        ImpactClassification: String
+        IsItCDA: Boolean
+        Justification:String 
+        LockableCabinet: String
+        LockedCabinet: String
+        LockedCabinetAdminKeyControl: String
+        LockedRoom: String
+        LockedRoomAdminKeyControl: String
+        LockedRoomKeyCardAccess: String
+        LogicalAccountsImplementation: String
+        MalwareDefinitionsUpdated: String
+        MalwareDetectionSWInstalled: String
+        Manned: String
+        MobileCodeExecutionConfiguration: String
+        MobileCodeExecutionTechnicalCapability: String
+        ModelOptions: String
+        ModemInstalled: String
+        ModifiedBy:String
+        ModifiedDate: Date
+        MultipleAccountSupportConfiguration: String
+        MultipleAccountsSupportCapability: String
+        MultipleConnectionNetwork: String
+        NetworkCommunnicationProtocols: String
+        NetworkDataCommunicationWithExtCDAorDAds: Boolean
+        NetworkOrSystemProectionDetails: String
+        OSServicePackInstalled: String
+        OSServicePackList: String
+        OSSoftwareSQATool: String
+        OSType: String
+        OSVersion: String
+        OperatingSWRevision: String
+        OperatorSecurityRoundsProcedure: String
+        PDMProgramMaintTools: String
+        PKICertificateUse: String
+        PMD: String
+        PM_WO_RWT_AR: String
+        PR_ProtectionLevel: String
+        PasswordCapable: String
+        PasswordImplementation: String
+        PasswordProtectFW: String
+        PasswordProtection: Boolean
+        PasswordSupportCapability: String
+        PatchingPerformed: String
+        PatchingSourcesList: String
+        PhysicalDevices: String
+        PhysicalSecurityLocation: String
+        PlannedReplacementModificationDate: String
+        PlantUnit: String
+        PortableMediaCapable: String
+        PortableRemoteControlDevicesInventory: String
+        PrimaryIP: String
+        PrimaryMeansOfRestoration: String
+        ProcedureReferenceList: String
+        Procedures: String
+        ProductControls: String
+        ProtectsOtherCDAs: String
+        ProtocolsInUse: String
+        Reconciled: Boolean
+        ReconciledDate: Date
+        ReconcilerName: String
+        RecordStatus: String
+        RecordStatusDate: String
+        RecordStatusDetails: String
+        RemoteControlCapability: String
+        RemoteControlDisabled: String
+        RemovableMediaTypeList: String
+        RespMaintTechGroup: String
+        RevisionNumber: String
+        RevisionStatus: String
+        SC_ProtectionLevel: String
+        SGIStoresAndProcesses: String
+        SSEPFunctions: String
+        SSEP_EOP: String
+        SSEP_EP: Boolean
+        SSEP_ITS_AugmentedQuality: String
+        SSEP_ITS_ImpactsReactivity: Boolean
+        SSEP_SEC: Boolean
+        SSEP_SafetyRelated: Boolean
+        SSEP_Support: Boolean
+        SWItemNumber: String
+        SWItemNumberAppSW: String
+        SWItemNumberFW: String
+        SafetyClassDetails: String
+        ScreenedSubnetFirewall: String
+        SecuritySpecificHWorSW: String
+        SerialDataCommunicationProtocols: String
+        SerialDataCommunicationWithExtCDAorDAs: Boolean
+        SessionLockCapability: String
+        SessionLockOccurance: String
+        StatusDetails: String
+        SupportsAccounts: String
+        SupportsAuditing: String
+        SupportsLogicalAccounts: String
+        SuuportsEncryption: String
+        SystemNotificationDisplayed: String
+        TamperAlarmedCabinet: String
+        TamperAlarmedCabinetAdminKeyControl: String
+        TimeSource: String
+        TimeSyncCapability: String
+        UI_ProtectionLevel: String
+        VendorMaintained: Boolean
+        VendorRestrictions: String
+        WirelessCapability: String
+        WirelessCapable: String
+        WirelessDisabled: String
+        WirelessTypesList: String
         
 }
-// {CriticalDigitalAssetId: 1, Name: "DA-1", Description: "ELECTRONIC PROGRAMMABLE  THERMOSTAT FOR VUC-25                   ", Location: "Live Location", Manufacturer: "New Test", …}
-// AC_ProtectionLevel
-// AI_ProtectionLevel
-// ASME: true
-// AV1: false
-// AV1_Degree
-// AV1_Justification
-// AV1_Value
-// AV2: false
-// AV2_Degree
-// AV2_Justification
-// AV2_Value
-// AV3: false
-// AV3_Degree
-// AV3_Justification
-// AV3_Value
-// AV4: false
-// AV4_Degree
-// AV4_Justification
-// AV4_Value
-// AV5: false
-// AV5_Degree
-// AV5_Justification
-// AV5_Value
-// AV_ProtectionLevel
-// AboveGround
-// AcccountTypesUsernamesGroups
-
-// AdditionalPhysicalSecurityAttributes
-// AppSWLocalUpdation
-// ApplicationSWInSQATool
-// ApplicationSWInstalled
-// ApplicationSWPasswordProtect
-// ApprovalStatus: "Not Approved"
-// Area: "Area"
-// AssetId
-// AssociateMandTE
-// AudibleEventsCapability
-// AuditCapable
-// AuditLogCapability
-// AuditRecordCaptureMethod
-// AuditRecordContentsOrDescription
-// AuditRecordsCapable: true
-// AuthenticatorSupport
-// Azimuth
-// BackupFrequency
-// BackupLocationsForCriticalCDASoftware
-// BackupPrimaryLocation
-// BackupSecondaryLocation
-// BackupsPerformed
-// Building
-// Builiding
-// CDAComplexityCategory: " Default"
-// CDAComponentDisplayOrderId: 0
-// CDAConfigSettingsChangeableUsingLocalHMI
-// CDACurrentStatusId: 12
-// CDADefensiveSecurityLevelsLookupId: 5
-// CDADisplayOrderId: 0
-// CDAFunctionId: 1
-// CDAHasHMI
-// CDAOperationalParametersChangeableUsingLocalHMI
-// CDAOrComponentType: "CDA"
-// CDAOwner
-// CDAPhysicalSecurityZoneLookupId: 1
-// CDAPrimaryCategoryLookupId: 13
-// CDAProcessSoftware1OrRevision
-// CDAProcessSoftware2OrRevision
-// CDAProcessSoftware3OrRevision
-// CDASecurity: "YES"
-// CDASecurityFunctionInteraction
-// CDATag
-// CDATypeId: 53
-// CI_ProtectionLevel
-// CMS
-// CameraMonitored
-// CollaborativeComputingCapability
-// CollaborativeComputingDisabled
-// CollaborativeUnitList
-// ColumnLine
-// CommunicationAcrossDefensiveLevel
-// CommunicationPorts
-// CreatedBy
-// CreatedDate: "2018-06-06T15:27:02.443"
-// CriticalDigitalAssetId: 1
-// CriticalSystemId: 1
-// CryptographicKeyFunctionUsesOrSupport
-// CurrentStatusDate: "1998-11-12T00:00:00"
-// CyberControlPeriodicity
-// CyberSecurityRequirements: "Special Cyber Requirements"
-// Cyber_Security: true
-// DAUserAccessLevelsCapabilities
-// DNSCapable
-// DNSClientOrServer
-// DNSEnabled
-// DREId: 3
-// DateInstalled: "2018-03-29T12:23:59"
-// Description: "ELECTRONIC PROGRAMMABLE  THERMOSTAT FOR VUC-25                   "
-// DesignConfigReferences
-// DigitalDisplayOrSignage
-// DigitalPathways
-// DigitallyConnectedMaintToolsRequirement
-// DomainBasedAuthenticationCapability
-// ECAddition
-// ECModification
-// ECRetirement
-// ECode: "ECode"
-// Elevation
-// EmergencyPlan
-// EntityAssignmentStatusId: 5
-// EquipmentType: "ICNTRL"
-// EventsCaptured
-// FWLocalUpdationCapability
-// FWOrSWBackupCapability
-// FWOrSWPatchingCapability
-// FWinSQATool
-// FirewallSoftwareOrPacketFilteringSupportOrUse
-// FirmwareRevisionOrIdentifier
-// FirmwareVersion
-// HIDSCapable
-// HIDSProtocolConfiguration
-// HMIAccessControlCapable
-// HasFirmware
-// HasIPAddress
-// HasOpeartingSystem
-// HasremovableMedia: true
-// HasthisComponentbeenEvaluated: true
-// II_ProtectionLevel
-// IMAA
-// IPAddress
-// IdentificationApprovalStatus
-// ImpactClassification: "New Class"
-// IsDigital: true
-// IsItCDA: false
-// Justification: "TIC-2976 (ELECTRONIC PROGRAMMABLE THERMOSTAT FOR VUC-25) is a York Model 2ET04700324 Electric thermostat that is microprocessor based. It is used to control VUC-25 Seal Lapping Enclosure and the Seal Disassembly Enclosure. This area is not critical to plant operation. It is used for the maintenance purpose of rebuilding RCP seals. This component does not meet the EN-FAP-IT-003 criteria for being a CDA. -- TIC-2976 (ELECTRONIC PROGRAMMABLE THERMOSTAT FOR VUC-25) is a York Model 2ET04700324 Electric thermostat that is microprocessor based. It is used to control VUC-25 Seal Lapping Enclosure and the Seal Disassembly Enclosure. This area is not critical to plant operation. It is used for the maintenance purpose of rebuilding RCP seals. This component does not meet the EN-FAP-IT-003 criteria for being a CDA.  -- TIC-2976 (ELECTRONIC PROGRAMMABLE THERMOSTAT FOR VUC-25) is a York Model 2ET04700324 Electric thermostat that is microprocessor based. It is used to control VUC-25 Seal Lapping Enclosure and the Seal Disassembly Enclosure. This area is not critical to plant operation. It is used for the maintenance purpose of rebuilding RCP seals. This component does not meet the EN-FAP-IT-003 criteria for being a CDA.  --TIC-2976 (ELECTRONIC PROGRAMMABLE THERMOSTAT FOR VUC-25) is a York Model 2ET04700324 Electric thermostat that is microprocessor based. It is used to control VUC-25 Seal Lapping Enclosure and the Seal Disassembly Enclosure. This area is not critical to plant operation. It is used for the maintenance purpose of rebuilding RCP seals. This component does not meet the EN-FAP-IT-003 criteria for being a CDA.  "
-// Location: "Live Location"
-// LockableCabinet
-// LockedCabinet
-// LockedCabinetAdminKeyControl
-// LockedRoom
-// LockedRoomAdminKeyControl
-// LockedRoomKeyCardAccess
-// LogicalAccountsImplementation
-// MalwareDefinitionsUpdated
-// MalwareDetectionSWInstalled
-// Manned
-// ManualComponent: "NO"
-// Manufacturer: "New Test"
-// MobileCodeExecutionConfiguration
-// MobileCodeExecutionTechnicalCapability
-// ModelNumber: "2ET04700224"
-// ModelOptions
-// ModemInstalled
-// ModifiedBy: ""
-// ModifiedDate: "2020-03-31T15:09:32.27"
-// MultipleAccountSupportConfiguration
-// MultipleAccountsSupportCapability
-// MultipleConnectionNetwork
-// Name: "DA-1"
-// NetworkCommunnicationProtocols
-// NetworkDataCommunicationWithExtCDAorDAds: true
-// NetworkOrSystemProectionDetails
-// OSServicePackInstalled
-// OSServicePackList
-// OSSoftwareSQATool
-// OSType
-// OSVersion
-// OperatingSWRevision
-// OperatorSecurityRoundsProcedure
-// PDMProgramMaintTools
-// PKICertificateUse
-// PMD
-// PM_WO_RWT_AR
-// PR_ProtectionLevel
-// PartNumber
-// PasswordCapable
-// PasswordImplementation
-// PasswordProtectFW
-// PasswordProtection: true
-// PasswordSupportCapability
-// PatchingPerformed
-// PatchingSourcesList
-// PhysicalDevices
-// PhysicalSecurityLocation
-// PlannedReplacementModificationDate
-// PlantUnit: "Plant_Unit"
-// PortableMediaCapable
-// PortableRemoteControlDevicesInventory
-// PrimaryIP
-// PrimaryMeansOfRestoration
-// ProcedureReferenceList
-// Procedures
-// ProductControls
-// ProtectsOtherCDAs
-// ProtocolsInUse
-// Reconciled: false
-// ReconciledDate: "2018-03-29T12:23:59"
-// ReconcilerName: "Admin"
-// RecordStatus
-// RecordStatusDate
-// RecordStatusDetails
-// RemoteControlCapability
-// RemoteControlDisabled
-// RemovableMediaTypeList
-// RespMaintTechGroup
-// RevisionNumber: "000"
-// RevisionStatus: "ISSUED"
-// Room
-// SC_ProtectionLevel
-// SGIStoresAndProcesses
-// SSEPFunctions
-// SSEP_EOP
-// SSEP_EP: true
-// SSEP_ITS_AugmentedQuality
-// SSEP_ITS_ImpactsReactivity: false
-// SSEP_SEC: true
-// SSEP_SafetyRelated: false
-// SSEP_Support: true
-// SWItemNumber
-// SWItemNumberAppSW
-// SWItemNumberFW
-// SafetyClassDetails
-// ScreenedSubnetFirewall
-// SecuritySpecificHWorSW
-// SerialDataCommunicationProtocols
-// SerialDataCommunicationWithExtCDAorDAs: true
-// SerialNumber: "TIC-2976"
-// SessionLockCapability
-// SessionLockOccurance
-// StatusDetails
-// SupportsAccounts
-// SupportsAuditing
-// SupportsLogicalAccounts
-// SuuportsEncryption
-// SystemNotificationDisplayed
-// TamperAlarmedCabinet
-// TamperAlarmedCabinetAdminKeyControl
-// TimeSource
-// TimeSyncCapability
-// UI_ProtectionLevel
-// VendorMaintained: true
-// VendorRestrictions
-// WirelessCapability
-// WirelessCapable
-// WirelessDisabled
-// WirelessTypesList

@@ -29,20 +29,10 @@ export class CdaService {
     return this.http.put(`${environment.apiUrl}/criticaldigitalassets/${data.CriticalDigitalAssetId}`, data)
   }
   deleteCriticalAssetsRecord(data) {
-
-    // let result = from(fetch(
-    //   `${environment.apiUrl}/criticaldigitalassets/${data.CriticalDigitalAssetId}`,      {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     method: 'DELETE',
-    //     mode: 'no-cors'
-    //   }
-    // )
-    // );
-    // console.log(result);
-    // return result;
     return this.http.delete(`${environment.apiUrl}/criticaldigitalassets/${data.CriticalDigitalAssetId}`,HTTP_OPTIONS);
+  }
+  addCriticalDigitalAssetsRecord(data:ICDA) {
+    return this.http.put(`${environment.apiUrl}/criticaldigitalassets`, data)
   }
 
 }

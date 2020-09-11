@@ -1,155 +1,464 @@
-<h2 mat-dialog-title><strong>{{action}}</strong></h2>
+<h2 mat-dialog-title>
+  <strong>{{action}}</strong>
+</h2>
 <div mat-dialog-content class="mat-typography" *ngIf="action != 'Delete'; else elseTemplate">
-     <!-- 4 step stepform !-->
-     <mat-horizontal-stepper [linear]="true" #stepper>
-            <!--step 1 -->
-          <mat-step [stepControl]="form1.control">
-            <form #form1="ngForm">
-              <ng-template matStepLabel>Update Basic CS</ng-template>
-              <mat-form-field>
-                <mat-label>LocationId</mat-label>
-                <input type="text" matInput required id="LocationId" name="LocationId" [(ngModel)]="local_data.LocationId" placeholder="Enter LocationId">
-              </mat-form-field>
-              <mat-form-field>
-                  <mat-label>Name</mat-label>
-                  <input type="text" matInput required id="Name" name="Name" [(ngModel)]="local_data.Name" placeholder="Enter Name">
-                </mat-form-field>
-              <mat-form-field>
-                  <mat-label>SystemDescription</mat-label>
-                  <input type="text" matInput required id="SystemDescription" name="SystemDescription" [(ngModel)]="local_data.SystemDescription" placeholder="Enter SystemDescription">
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>CriticalSystemId</mat-label>
-                  <input type="number" matInput required id="CriticalSystemId" name="CriticalSystemId" [(ngModel)]="local_data.CriticalSystemId" placeholder="Enter CriticalSystemId">
-                </mat-form-field>
-                 <mat-form-field>
-                    <mat-label>ApprovalStatus</mat-label>              
-                  <input type="text" matInput required id="ApprovalStatus" name="ApprovalStatus" [(ngModel)]="local_data.ApprovalStatus" placeholder="Enter ApprovalStatus">
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>CategoryId</mat-label>
-                  <input type="text" matInput required id="CategoryId" name="CategoryId" [(ngModel)]="local_data.CategoryId" placeholder="CategoryId">
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>IdentificationApprovalStatus</mat-label>
-                  <input type="text" matInput required id="IdentificationApprovalStatus" name="IdentificationApprovalStatus" [(ngModel)]="local_data.IdentificationApprovalStatus" placeholder="IdentificationApprovalStatus">
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>EmergencyPlan</mat-label>
-                    <input type="text" matInput required id="EmergencyPlan" name="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" placeholder="Enter EmergencyPlan">
-                  </mat-form-field>
-                  <mat-form-field>
-                      <mat-label>SafetyRelated</mat-label>
-                      <input type="text" matInput required id="SafetyRelated" name="SafetyRelated" [(ngModel)]="local_data.SafetyRelated" placeholder="Enter SafetyRelated">
-                    </mat-form-field>
-                  <mat-form-field>
-                      <mat-label>ImportantToSafety</mat-label>
-                      <input type="text" matInput required id="ImportantToSafety" name="ImportantToSafety" [(ngModel)]="local_data.ImportantToSafety" placeholder="Enter ImportantToSafety">
-                    </mat-form-field>
-                    <mat-form-field>
-                      <mat-label>ExtDescription</mat-label>
-                      <input type="text" matInput required id="ExtDescription" name="ExtDescription" [(ngModel)]="local_data.ExtDescription" placeholder="Enter ExtDescription">
-                    </mat-form-field>
-               
-                <!-- <mat-form-field> -->
-                  <div>
-                  <mat-label>Security</mat-label>
-                  <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.Security" name= "Security">
-                    <mat-radio-button class="example-radio-button"  [value]="true">
-                      true
-                    </mat-radio-button>
-                    <mat-radio-button class="example-radio-button" [value]="false">
-                        false
-                      </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-                  <!-- <input type="text" matInput required id="Security" name="Security" [(ngModel)]="local_data.Security" placeholder="Enter Security"> -->
-                <!-- </mat-form-field> -->
-                <mat-form-field>
-                  <mat-label>SafetyOrImportantToSafety</mat-label>
-                  <input type="text" matInput required id="SafetyOrImportantToSafety" name="ModelNumber" [(ngModel)]="local_data.SafetyOrImportantToSafety" placeholder="Enter SafetyOrImportantToSafety">
-                </mat-form-field>
-              <div>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-            <!--step 2 -->
-          <mat-step [stepControl]="form2.control">
-            <form #form2="ngForm">
-               <ng-template matStepLabel>Update SSEP</ng-template>
-                    <mat-form-field>
-                        <mat-label>SSEPDetailedDescription</mat-label>
-                        <input type="text" matInput required id="SSEPDetailedDescription" name="SSEPDetailedDescription" [(ngModel)]="local_data.SSEPDetailedDescription" placeholder="Enter SSEPDetailedDescription">
+  <!-- 4 step stepform !-->
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <!--step 1 -->
+    <mat-step [stepControl]="form1.control">
+      <form #form1="ngForm">
+        <ng-template matStepLabel>Update Basic CS</ng-template>
+        <mat-form-field>
+          <mat-label>LocationId</mat-label>
+          <input type="text" matInput  id="LocationId" name="LocationId" [(ngModel)]="local_data.LocationId" placeholder="Enter LocationId">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input type="text" matInput  id="Name" name="Name" [(ngModel)]="local_data.Name" placeholder="Enter Name">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SystemDescription</mat-label>
+          <input type="text" matInput  id="SystemDescription" name="SystemDescription" [(ngModel)]="local_data.SystemDescription"
+            placeholder="Enter SystemDescription">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>CriticalSystemId</mat-label>
+          <input type="number" matInput  id="CriticalSystemId" name="CriticalSystemId" [(ngModel)]="local_data.CriticalSystemId"
+            placeholder="Enter CriticalSystemId">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>ApprovalStatus</mat-label>
+          <input type="text" matInput  id="ApprovalStatus" name="ApprovalStatus" [(ngModel)]="local_data.ApprovalStatus" placeholder="Enter ApprovalStatus">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>CategoryId</mat-label>
+          <input type="text" matInput  id="CategoryId" name="CategoryId" [(ngModel)]="local_data.CategoryId" placeholder="CategoryId">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>IdentificationApprovalStatus</mat-label>
+          <input type="text" matInput  id="IdentificationApprovalStatus" name="IdentificationApprovalStatus" [(ngModel)]="local_data.IdentificationApprovalStatus"
+            placeholder="IdentificationApprovalStatus">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>EmergencyPlan</mat-label>
+          <input type="text" matInput  id="EmergencyPlan" name="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" placeholder="Enter EmergencyPlan">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SafetyRelated</mat-label>
+          <input type="text" matInput  id="SafetyRelated" name="SafetyRelated" [(ngModel)]="local_data.SafetyRelated" placeholder="Enter SafetyRelated">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>ImportantToSafety</mat-label>
+          <input type="text" matInput  id="ImportantToSafety" name="ImportantToSafety" [(ngModel)]="local_data.ImportantToSafety"
+            placeholder="Enter ImportantToSafety">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>ExtDescription</mat-label>
+          <input type="text" matInput  id="ExtDescription" name="ExtDescription" [(ngModel)]="local_data.ExtDescription" placeholder="Enter ExtDescription">
+        </mat-form-field>
+
+        <!-- <mat-form-field> -->
+        <div>
+          <mat-label>Security</mat-label>
+          <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.Security" name="Security">
+            <mat-radio-button class="example-radio-button" [value]="true">
+              true
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" [value]="false">
+              false
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- <input type="text" matInput  id="Security" name="Security" [(ngModel)]="local_data.Security" placeholder="Enter Security"> -->
+        <!-- </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>SafetyOrImportantToSafety</mat-label>
+          <input type="text" matInput  id="SafetyOrImportantToSafety" name="ModelNumber" [(ngModel)]="local_data.SafetyOrImportantToSafety"
+            placeholder="Enter SafetyOrImportantToSafety">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <!--step 2 -->
+    <mat-step [stepControl]="form2.control">
+      <form #form2="ngForm">
+        <ng-template matStepLabel>Update SSEP</ng-template>
+        <mat-form-field>
+          <mat-label>SSEPDetailedDescription</mat-label>
+          <input type="text" matInput  id="SSEPDetailedDescription" name="SSEPDetailedDescription" [(ngModel)]="local_data.SSEPDetailedDescription"
+            placeholder="Enter SSEPDetailedDescription">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPJustification</mat-label>
+          <input type="text" matInput  id="SSEPJustification" name="SSEPJustification" [(ngModel)]="local_data.SSEPJustification"
+            placeholder="Enter SSEPJustification">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPDecisionComment</mat-label>
+          <input type="text" matInput  id="SSEPDecisionComment" name="SSEPDecisionComment" [(ngModel)]="local_data.SSEPDecisionComment"
+            placeholder="Enter SSEPDecisionComment">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPDecisionDate</mat-label>
+          <input type="text" matInput  id="SSEPDecisionDate" name="SSEPDecisionDate" [(ngModel)]="local_data.SSEPDecisionDate"
+            placeholder="Enter SSEPDecisionDate">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPDecisionBy</mat-label>
+          <input type="text" matInput  id="SSEPDecisionBy" name="SSEPDecisionBy" [(ngModel)]="local_data.SSEPDecisionBy" placeholder="Enter SSEPDecisionBy">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPReviewerComment</mat-label>
+          <input type="text" matInput  id="SSEPReviewerComment" name="SSEPReviewerComment" [(ngModel)]="local_data.SSEPReviewerComment"
+            placeholder="Enter SSEPReviewerComment">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPReviewDate</mat-label>
+          <input type="date" matInput  id="SSEPReviewDate" name="SSEPReviewDate" [(ngModel)]="local_data.SSEPReviewDate" placeholder="Enter SSEPReviewDate">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPReviewedBy</mat-label>
+          <input type="text" matInput  id="SSEPReviewedBy" name="SSEPReviewedBy" [(ngModel)]="local_data.SSEPReviewedBy" placeholder="Enter SSEPReviewedBy">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPApproverComment</mat-label>
+          <input type="text" matInput  id="SSEPApproverComment" name="ReconciledDate" [(ngModel)]="local_data.SSEPApproverComment"
+            placeholder="Enter SSEPApproverComment">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPApprovedDate</mat-label>
+          <input type="date" matInput  id="SSEPApprovedDate" name="SSEPApprovedDate" [(ngModel)]="local_data.SSEPApprovedDate"
+            placeholder="Enter SSEPApprovedDate">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPApprovedBy</mat-label>
+          <input type="text" matInput  id="SSEPApprovedBy" name="SSEPApprovedBy" [(ngModel)]="local_data.SSEPApprovedBy" placeholder="Enter SSEPApprovedBy">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>SSEPFunction</mat-label>
+          <input type="text" matInput  id="SSEPFunction" name="SSEPFunction" [(ngModel)]="local_data.SSEPFunction" placeholder="Enter SSEPFunction">
+        </mat-form-field>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="form3.control">
+      <form #form3="ngForm">
+        <ng-template matStepLabel>Additional Param</ng-template>
+        <mat-form-field>
+          <mat-label>Additional_Param_1</mat-label>
+          <input type="text" matInput id="Additional_Param_1" name="Additional_Param_1" [(ngModel)]="local_data.Additional_Param_1"
+            placeholder="Enter Additional_Param_1">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Additional_Param_2</mat-label>
+          <input type="text" matInput id="AdditionalParam2" name="Additional_Param_2" [(ngModel)]="local_data.Additional_Param_2" placeholder="Enter Additional_Param_2">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Additional_Param_3</mat-label>
+          <input type="text" matInput id="Additional_Param_3" name="Additional_Param_3" [(ngModel)]="local_data.Additional_Param_3"
+            placeholder="Enter Additional_Param_3">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Additional_Param_4</mat-label>
+          <input type="text" matInput id="Additional_Param_4" name="Additional_Param_4" [(ngModel)]="local_data.Additional_Param_4"
+            placeholder="Enter Additional_Param_4">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Additional_Param_5</mat-label>
+          <input type="text" matInput id="Additional_Param_5" name="Additional_Param_5" [(ngModel)]="local_data.Additional_Param_5"
+            placeholder="Enter Additional_Param_5">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Additional_Param_6</mat-label>
+          <input type="text" matInput id="Additional_Param_6" name="Additional_Param_6" [(ngModel)]="local_data.Additional_Param_6"
+            placeholder="Enter Additional_Param_6">
+        </mat-form-field>
+        <!-- <mat-form-field>
+                          <mat-label>AdditionalParam7</mat-label>
+                          <input type="text" matInput  id="AdditionalParam7" name="AdditionalParam7" [(ngModel)]="local_data.AdditionalParam7" placeholder="Enter AdditionalParam7">
                       </mat-form-field>
                       <mat-form-field>
-                        <mat-label>SSEPJustification</mat-label>
-                        <input type="text" matInput required id="SSEPJustification" name="SSEPJustification" [(ngModel)]="local_data.SSEPJustification" placeholder="Enter SSEPJustification">
+                          <mat-label>AdditionalParam8</mat-label>
+                          <input type="text" matInput  id="AdditionalParam8" name="AdditionalParam8" [(ngModel)]="local_data.AdditionalParam8" placeholder="Enter AdditionalParam8">
                       </mat-form-field>
                       <mat-form-field>
-                        <mat-label>SSEPDecisionComment</mat-label>
-                        <input type="text" matInput required id="SSEPDecisionComment" name="SSEPDecisionComment" [(ngModel)]="local_data.SSEPDecisionComment" placeholder="Enter SSEPDecisionComment">
+                          <mat-label>AdditionalParam9</mat-label>
+                          <input type="text" matInput  id="AdditionalParam9" name="AdditionalParam9" [(ngModel)]="local_data.AdditionalParam9" placeholder="Enter AdditionalParam9">
                       </mat-form-field>
                       <mat-form-field>
-                        <mat-label>SSEPDecisionDate</mat-label>
-                        <input type="text" matInput required id="SSEPDecisionDate" name="SSEPDecisionDate" [(ngModel)]="local_data.SSEPDecisionDate" placeholder="Enter SSEPDecisionDate">
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>SSEPDecisionBy</mat-label>
-                        <input type="text" matInput required id="SSEPDecisionBy" name="SSEPDecisionBy" [(ngModel)]="local_data.SSEPDecisionBy" placeholder="Enter SSEPDecisionBy">
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>SSEPReviewerComment</mat-label>
-                        <input type="text" matInput required id="SSEPReviewerComment" name="SSEPReviewerComment" [(ngModel)]="local_data.SSEPReviewerComment" placeholder="Enter SSEPReviewerComment">
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>SSEPReviewDate</mat-label>
-                        <input type="date" matInput required id="SSEPReviewDate" name="SSEPReviewDate" [(ngModel)]="local_data.SSEPReviewDate" placeholder="Enter SSEPReviewDate">
-                      </mat-form-field>
-                      <mat-form-field>
-                          <mat-label>SSEPReviewedBy</mat-label>
-                          <input type="text" matInput required id="SSEPReviewedBy" name="SSEPReviewedBy" [(ngModel)]="local_data.SSEPReviewedBy" placeholder="Enter SSEPReviewedBy">
-                        </mat-form-field>
-                        <mat-form-field>
-                          <mat-label>SSEPApproverComment</mat-label>
-                          <input type="text" matInput required id="SSEPApproverComment" name="ReconciledDate" [(ngModel)]="local_data.SSEPApproverComment" placeholder="Enter SSEPApproverComment">
-                        </mat-form-field>
-                        <mat-form-field>
-                          <mat-label>SSEPApprovedDate</mat-label>
-                          <input type="date" matInput required id="SSEPApprovedDate" name="SSEPApprovedDate" [(ngModel)]="local_data.SSEPApprovedDate" placeholder="Enter SSEPApprovedDate">
-                        </mat-form-field>
-                        <mat-form-field>
-                          <mat-label>SSEPApprovedBy</mat-label>
-                          <input type="text" matInput required id="SSEPApprovedBy" name="SSEPApprovedBy" [(ngModel)]="local_data.SSEPApprovedBy" placeholder="Enter SSEPApprovedBy">
-                        </mat-form-field>
-                 <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-           
-                <mat-form-field>
-                    <mat-label>Structure</mat-label>
-                    <input type="text" matInput required id="Structure" name="Structure" [(ngModel)]="local_data.Structure" placeholder="Enter Structure">
-                  </mat-form-field>
-                
-            <div>
-              <div mat-dialog-actions align="end">
-                  <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
-                  <button mat-button (click)="closeDialog()">Cancel</button>
-              </div>
-            </div>
-          </mat-step>
-        </mat-horizontal-stepper>
-    
+                          <mat-label>AdditionalParam10</mat-label>
+                          <input type="text" matInput  id="AdditionalParam10" name="AdditionalParam10" [(ngModel)]="local_data.AdditionalParam10" placeholder="Enter AdditionalParam10">
+                      </mat-form-field> -->
+
+        <mat-form-field>
+          <mat-label>AdditionalParam11</mat-label>
+          <input type="text" matInput id="AdditionalParam11" name="AdditionalParam11" [(ngModel)]="local_data.AdditionalParam11" placeholder="Enter AdditionalParam11">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam12</mat-label>
+          <input type="text" matInput id="AdditionalParam12" name="AdditionalParam12" [(ngModel)]="local_data.AdditionalParam12" placeholder="Enter AdditionalParam12">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam13</mat-label>
+          <input type="text" matInput id="AdditionalParam13" name="AdditionalParam13" [(ngModel)]="local_data.AdditionalParam13" placeholder="Enter AdditionalParam13">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam14</mat-label>
+          <input type="text" matInput id="AdditionalParam14" name="AdditionalParam14" [(ngModel)]="local_data.AdditionalParam14" placeholder="Enter AdditionalParam14">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam15</mat-label>
+          <input type="text" matInput id="AdditionalParam15" name="AdditionalParam15" [(ngModel)]="local_data.AdditionalParam15" placeholder="Enter AdditionalParam15">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>AdditionalParam16</mat-label>
+          <input type="text" matInput id="AdditionalParam16" name="AdditionalParam16" [(ngModel)]="local_data.AdditionalParam16" placeholder="Enter AdditionalParam16">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam17</mat-label>
+          <input type="text" matInput id="AdditionalParam17" name="AdditionalParam17" [(ngModel)]="local_data.AdditionalParam17" placeholder="Enter AdditionalParam17">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam18</mat-label>
+          <input type="text" matInput id="AdditionalParam18" name="AdditionalParam18" [(ngModel)]="local_data.AdditionalParam18" placeholder="Enter AdditionalParam18">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam19</mat-label>
+          <input type="text" matInput id="AdditionalParam19" name="AdditionalParam19" [(ngModel)]="local_data.AdditionalParam19" placeholder="Enter AdditionalParam19">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam20</mat-label>
+          <input type="text" matInput id="AdditionalParam20" name="AdditionalParam20" [(ngModel)]="local_data.AdditionalParam20" placeholder="Enter AdditionalParam20">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>AdditionalParam21</mat-label>
+          <input type="text" matInput id="AdditionalParam21" name="AdditionalParam21" [(ngModel)]="local_data.AdditionalParam21" placeholder="Enter AdditionalParam21">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam22</mat-label>
+          <input type="text" matInput id="AdditionalParam22" name="AdditionalParam22" [(ngModel)]="local_data.AdditionalParam22" placeholder="Enter AdditionalParam22">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam23</mat-label>
+          <input type="text" matInput id="AdditionalParam23" name="AdditionalParam23" [(ngModel)]="local_data.AdditionalParam23" placeholder="Enter AdditionalParam23">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam24</mat-label>
+          <input type="text" matInput id="AdditionalParam24" name="AdditionalParam24" [(ngModel)]="local_data.AdditionalParam24" placeholder="Enter AdditionalParam24">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam25</mat-label>
+          <input type="text" matInput id="AdditionalParam25" name="AdditionalParam25" [(ngModel)]="local_data.AdditionalParam25" placeholder="Enter AdditionalParam25">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam26</mat-label>
+          <input type="text" matInput id="AdditionalParam26" name="AdditionalParam26" [(ngModel)]="local_data.AdditionalParam26" placeholder="Enter AdditionalParam26">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam27</mat-label>
+          <input type="text" matInput id="AdditionalParam27" name="AdditionalParam27" [(ngModel)]="local_data.AdditionalParam27" placeholder="Enter AdditionalParam27">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam28</mat-label>
+          <input type="text" matInput id="AdditionalParam28" name="AdditionalParam28" [(ngModel)]="local_data.AdditionalParam28" placeholder="Enter AdditionalParam28">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam29</mat-label>
+          <input type="text" matInput id="AdditionalParam29" name="AdditionalParam29" [(ngModel)]="local_data.AdditionalParam29" placeholder="Enter AdditionalParam29">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam30</mat-label>
+          <input type="text" matInput id="AdditionalParam30" name="AdditionalParam30" [(ngModel)]="local_data.AdditionalParam30" placeholder="Enter AdditionalParam30">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>AdditionalParam31</mat-label>
+          <input type="text" matInput id="AdditionalParam31" name="AdditionalParam31" [(ngModel)]="local_data.AdditionalParam31" placeholder="Enter AdditionalParam31">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam32</mat-label>
+          <input type="text" matInput id="AdditionalParam32" name="AdditionalParam32" [(ngModel)]="local_data.AdditionalParam32" placeholder="Enter AdditionalParam32">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam33</mat-label>
+          <input type="text" matInput id="AdditionalParam33" name="AdditionalParam33" [(ngModel)]="local_data.AdditionalParam33" placeholder="Enter AdditionalParam33">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam34</mat-label>
+          <input type="text" matInput id="AdditionalParam34" name="AdditionalParam34" [(ngModel)]="local_data.AdditionalParam34" placeholder="Enter AdditionalParam34">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam35</mat-label>
+          <input type="text" matInput id="AdditionalParam35" name="AdditionalParam35" [(ngModel)]="local_data.AdditionalParam35" placeholder="Enter AdditionalParam35">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>AdditionalPara36</mat-label>
+          <input type="text" matInput id="AdditionalParam36" name="AdditionalParam36" [(ngModel)]="local_data.AdditionalParam36" placeholder="Enter AdditionalParam36">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam37</mat-label>
+          <input type="text" matInput id="AdditionalParam37" name="AdditionalParam37" [(ngModel)]="local_data.AdditionalParam37" placeholder="Enter AdditionalParam37">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam38</mat-label>
+          <input type="text" matInput id="AdditionalParam38" name="AdditionalParam38" [(ngModel)]="local_data.AdditionalParam38" placeholder="Enter AdditionalParam38">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam39</mat-label>
+          <input type="text" matInput id="AdditionalParam39" name="AdditionalParam39" [(ngModel)]="local_data.AdditionalParam39" placeholder="Enter AdditionalParam39">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam40</mat-label>
+          <input type="text" matInput id="AdditionalParam40" name="AdditionalParam40" [(ngModel)]="local_data.AdditionalParam40" placeholder="Enter AdditionalParam40">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>AdditionalParam41</mat-label>
+          <input type="text" matInput id="AdditionalParam41" name="AdditionalParam41" [(ngModel)]="local_data.AdditionalParam41" placeholder="Enter AdditionalParam41">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam42</mat-label>
+          <input type="text" matInput id="AdditionalParam42" name="AdditionalParam42" [(ngModel)]="local_data.AdditionalParam42" placeholder="Enter AdditionalParam42">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam43</mat-label>
+          <input type="text" matInput id="AdditionalParam43" name="AdditionalParam43" [(ngModel)]="local_data.AdditionalParam43" placeholder="Enter AdditionalParam43">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam44</mat-label>
+          <input type="text" matInput id="AdditionalParam44" name="AdditionalParam44" [(ngModel)]="local_data.AdditionalParam44" placeholder="Enter AdditionalParam44">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam45</mat-label>
+          <input type="text" matInput id="AdditionalParam45" name="AdditionalParam45" [(ngModel)]="local_data.AdditionalParam45" placeholder="Enter AdditionalParam45">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>AdditionalParam46</mat-label>
+          <input type="text" matInput id="AdditionalParam46" name="AdditionalParam46" [(ngModel)]="local_data.AdditionalParam46" placeholder="Enter AdditionalParam46">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam47</mat-label>
+          <input type="text" matInput id="AdditionalParam47" name="AdditionalParam47" [(ngModel)]="local_data.AdditionalParam47" placeholder="Enter AdditionalParam47">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam48</mat-label>
+          <input type="text" matInput id="AdditionalParam48" name="AdditionalParam48" [(ngModel)]="local_data.AdditionalParam48" placeholder="Enter AdditionalParam48">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam49</mat-label>
+          <input type="text" matInput id="AdditionalParam49" name="AdditionalParam49" [(ngModel)]="local_data.AdditionalParam49" placeholder="Enter AdditionalParam49">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>AdditionalParam50</mat-label>
+          <input type="text" matInput id="AdditionalParam50" name="AdditionalParam50" [(ngModel)]="local_data.AdditionalParam50" placeholder="Enter AdditionalParam50">
+        </mat-form-field>
+
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+
+      <mat-form-field>
+        <mat-label>Structure</mat-label>
+        <input type="text" matInput  id="Structure" name="Structure" [(ngModel)]="local_data.Structure" placeholder="Enter Structure">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>CreatedBy</mat-label>
+        <input type="text" matInput  id="CreatedBy" name="CreatedBy" [(ngModel)]="local_data.CreatedBy" placeholder="Enter CreatedBy">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>CreatedDate</mat-label>
+        <input type="date" matInput  id="CreatedDate" name="CreatedDate" [(ngModel)]="local_data.CreatedDate" placeholder="Enter CreatedDate">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>InstallationDate</mat-label>
+        <input type="date" matInput  id="InstallationDate" name="InstallationDate" [(ngModel)]="local_data.InstallationDate"
+          placeholder="Enter InstallationDate">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>MaintenanceRep</mat-label>
+        <input type="text" matInput  id="MaintenanceRep" name="MaintenanceRep" [(ngModel)]="local_data.MaintenanceRep" placeholder="Enter MaintenanceRep">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>ModifiedBy</mat-label>
+        <input type="text" matInput  id="ModifiedBy" name="ModifiedBy" [(ngModel)]="local_data.ModifiedBy" placeholder="Enter ModifiedBy">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>ModifiedDate</mat-label>
+        <input type="date" matInput  id="ModifiedDate" name="ModifiedDate" [(ngModel)]="local_data.ModifiedDate" placeholder="Enter ModifiedDate">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Notes</mat-label>
+        <input type="text" matInput  id="Notes" name="Notes" [(ngModel)]="local_data.Notes" placeholder="Enter Notes">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>OperationsRep</mat-label>
+        <input type="text" matInput  id="OperationsRep" name="OperationsRep" [(ngModel)]="local_data.OperationsRep" placeholder="Enter OperationsRep">
+      </mat-form-field>
+      <div>
+        <mat-label>RiskSignificant</mat-label>
+        <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.RiskSignificant" name="RiskSignificant">
+          <mat-radio-button class="example-radio-button" [value]="true">
+            true
+          </mat-radio-button>
+          <mat-radio-button class="example-radio-button" [value]="false">
+            false
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <mat-form-field>
+        <mat-label>SystemEngineer</mat-label>
+        <input type="text" matInput  id="SystemEngineer" name="SystemEngineer" [(ngModel)]="local_data.SystemEngineer" placeholder="Enter SystemEngineer">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>SystemFunction</mat-label>
+        <input type="text" matInput  id="SystemFunction" name="SystemFunction" [(ngModel)]="local_data.SystemFunction" placeholder="Enter SystemFunction">
+      </mat-form-field>
+
+
+
+
+      <div>
+        <div mat-dialog-actions align="end">
+          <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
+          <button mat-button (click)="closeDialog()">Cancel</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
 </div>
 <ng-template #elseTemplate>
-    Sure to delete <b>{{local_data.Name}}</b>?
-    <div mat-dialog-actions align="end">
-            <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
-            <button mat-button (click)="closeDialog()">Cancel</button>
-        </div>
+  Sure to delete
+  <b>{{local_data.Name}}</b>?
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </div>
 </ng-template>
