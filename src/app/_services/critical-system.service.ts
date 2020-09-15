@@ -19,7 +19,11 @@ export class CriticalSystemService {
   }
   addCriticalSystemRecord(data){
     return this.http.put(`${environment.apiUrl}/criticalsystems`,data)
-  }}
+  }
+  getGenerateTree(){
+    return this.http.get(`${environment.apiUrl}/securitycontrols`)
+  }
+}
 
 
 

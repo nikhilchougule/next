@@ -5,12 +5,15 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { CriticalSystemService } from '../_services/critical-system.service';
 import { ICriticalSystem } from '../_models/criticalSyst.interface'
 import { MatSort } from '@angular/material/sort';
+import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControlName, FormControl } from '@angular/forms';
 @Component({
     selector: 'app-critical-system',
     templateUrl: './critical-system.component.html',
     styleUrls: ['./critical-system.component.css']
 })
 export class CriticalSystemComponent implements OnInit {
+    csForm: FormGroup;
     dataSource: MatTableDataSource<ICriticalSystem>;
     isLoadingResults = true;
     update: boolean = false;
@@ -100,20 +103,23 @@ export class CriticalSystemComponent implements OnInit {
            SystemEngineer: null,
            SystemFunction: null,
    }
-    constructor(private criticalSys: CriticalSystemService, public dialog: MatDialog) {
+    constructor(private criticalSys: CriticalSystemService, public dialog: MatDialog,private route:ActivatedRoute) {
     }
     @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
     @ViewChild(MatSort) sort: MatSort;
 
-    displayedColumns: string[] = ['LocationId', 'Name', 'SystemDescription', 'CriticalSystemId', 'ApprovalStatus', 'CategoryId',
+    displayedColumns: string[] = ['Action','LocationId', 'Name', 'SystemDescription', 'CriticalSystemId', 'ApprovalStatus', 'CategoryId',
         'IdentificationApprovalStatus', 'Structure', 'SSEPDetailedDescription', 'Security', 'SafetyOrImportantToSafety',
         'EmergencyPlan', 'SafetyRelated', 'ImportantToSafety', 'ExtDescription', 'SSEPJustification', 'SSEPDecisionComment', 'SSEPDecisionDate',
-        'SSEPDecisionBy', 'SSEPReviewerComment', 'SSEPReviewDate', 'SSEPReviewedBy', 'SSEPApproverComment', 'SSEPApprovedDate', 'SSEPApprovedBy', 'Action'];
+        'SSEPDecisionBy', 'SSEPReviewerComment', 'SSEPReviewDate', 'SSEPReviewedBy', 'SSEPApproverComment', 'SSEPApprovedDate', 'SSEPApprovedBy'];
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
     ngOnInit(): void {
-        this.criticalSys.getCriticalSystemData().subscribe((res: ICriticalSystem[]) => {
-            this.data = res;
+        
+        this.route.data.subscribe(res =>{
+            // this.cda.getCriticalDigitalAssetsData().subscribe((res: ICDA[]) => {
+                this.data = res.items;
+        // this.criticalSys.getCriticalSystemData().subscribe((res: ICriticalSystem[]) => {
             this.dataSource = new MatTableDataSource(this.data);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -137,6 +143,7 @@ export class CriticalSystemComponent implements OnInit {
     }
     openDialog(action: string, element: any) {
         element.action = action;
+        
         const dialogRef = this.dialog.open(CSDialogContent, {
             data: element
         });
@@ -172,8 +179,10 @@ export class CriticalSystemComponent implements OnInit {
 })
 // tslint:disable-next-line: component-class-suffix
 export class CSDialogContent {
+    csForm: FormGroup;
     action: string;
     local_data: any;
+    
     constructor(
         public dialogRef: MatDialogRef<CSDialogContent>,
         // @Optional() is used to prevent error if no data is passed
@@ -183,10 +192,82 @@ export class CSDialogContent {
         console.log(this.local_data);
         this.action = this.local_data.action;
         console.log(this.action)
+        this.csForm = new FormGroup({
+            'form1': new FormGroup({
+                'LocationId':new FormControl(null),
+                'Name':new FormControl(null),
+                'SystemDescription':new FormControl(null),
+                'CriticalSystemId':new FormControl(null),
+                'ApprovalStatus':new FormControl(null),
+                'CategoryId':new FormControl(null),
+                'IdentificationApprovalStatus':new FormControl(null),
+                'EmergencyPlan':new FormControl(null),
+                'SafetyRelated':new FormControl(null),
+                'ImportantToSafety':new FormControl(null),
+                'ExtDescription':new FormControl(null),
+                'Security':new FormControl(null),
+                'SafetyOrImportantToSafety':new FormControl(null),
 
+            }),
+
+        'form2': new FormGroup({
+                'SSEPDetailedDescription':new FormControl(null),
+                'SSEPJustification':new FormControl(null),
+                'SSEPDecisionComment':new FormControl(null),
+                'SSEPDecisionDate':new FormControl(null),
+                'SSEPDecisionBy':new FormControl(null),
+                'SSEPReviewerComment':new FormControl(null),
+                'SSEPReviewDate':new FormControl(null),
+                'SSEPReviewedBy':new FormControl(null),
+                'SSEPApproverComment':new FormControl(null),
+                'SSEPApprovedDate':new FormControl(null),
+                'SSEPApprovedBy':new FormControl(null),
+                'SSEPFunction':new FormControl(null),
+              }),
+        'form3': new FormGroup({
+                'Additional_Param_1':new FormControl(null),
+                'Additional_Param_2':new FormControl(null),
+                'Additional_Param_3':new FormControl(null),
+                'Additional_Param_4':new FormControl(null),
+                'Additional_Param_5':new FormControl(null),
+                'Additional_Param_6':new FormControl(null),
+                'AdditionalParam11':new FormControl(null),
+                'AdditionalParam12':new FormControl(null),
+                'AdditionalParam13':new FormControl(null),
+                'AdditionalParam14':new FormControl(null),
+                'AdditionalParam15':new FormControl(null),
+                'AdditionalParam16':new FormControl(null),
+                'AdditionalParam17':new FormControl(null),
+                'AdditionalParam18':new FormControl(null),
+                'AdditionalParam19':new FormControl(null),
+                'AdditionalParam20':new FormControl(null),
+                'AdditionalParam21':new FormControl(null),
+                'AdditionalParam22':new FormControl(null),
+                'AdditionalParam23':new FormControl(null),
+                'AdditionalParam24':new FormControl(null),
+                'AdditionalParam25':new FormControl(null),
+            }),
+                'form4': new FormGroup({
+                  'Structure':new FormControl(null),
+                  'CreatedBy':new FormControl(null),
+                  'CreatedDate' :new FormControl(null),
+                  'InstallationDate':new FormControl(null),
+                  'MaintenanceRep':new FormControl(null),
+                  'ModifiedBy':new FormControl(null),
+                  'ModifiedDate':new FormControl(null),
+                  'Notes':new FormControl(null),
+                  'OperationsRep':new FormControl(null),
+                  'RiskSignificant':new FormControl(null),
+                  'SystemEngineer':new FormControl(null),
+                  'SystemFunction':new FormControl(null)
+                })
+           
+           
+        })
     }
 
     doAction() {
+        console.log(this.csForm.value)
         delete this.local_data.action;
         this.dialogRef.close({ event: this.action, data: this.local_data });
     }

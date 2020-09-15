@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
-
+import { MenuItems } from '../_helpers/menu-items';
 
 @Component({
   selector: 'app-sidebar',
@@ -40,6 +40,8 @@ export class SidebarComponent implements OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    public menuItems: MenuItems
+
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

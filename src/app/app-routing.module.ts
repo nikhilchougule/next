@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CriticalSystemComponent } from './critical-system/critical-system.component';
 import { ViewCdaComponent } from './view-cda/view-cda.component';
+import { cdaResolver } from './_resolver/cda-resolver-service';
+import { csResolver } from './_resolver/criticalSyst-resolver-service';
+import { SecurityControlTreeComponent } from './security-control-tree/security-control-tree.component';
 
 const routes: Routes = [
   {
@@ -12,12 +15,22 @@ const routes: Routes = [
       {
 
         path: 'critical-system',
-        component: CriticalSystemComponent
+        component: CriticalSystemComponent,
+        resolve:{
+          items:csResolver
+        }
 
       },
       {
         path: 'critical-digital-asset',
-        component: ViewCdaComponent
+        component: ViewCdaComponent,
+        resolve:{
+          items:cdaResolver
+        }
+      },
+      {
+        path:'security-control-tree',
+        component:SecurityControlTreeComponent
       }
     ]
   }

@@ -18,6 +18,13 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {SpinnerComponent} from './ui-component/spinner.component';
+import { MenuItems } from './_helpers/menu-items';
+import {
+  AccordionAnchorDirective,
+  AccordionLinkDirective,
+  AccordionDirective
+} from './_helpers/accordion/index';
+import { SecurityControlTreeComponent, DialogSelectedElement } from './security-control-tree/security-control-tree.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 2,
@@ -27,13 +34,20 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [
     AppComponent,
     ViewCdaComponent,
-    CdaDialogContent,
-    CSDialogContent,
     CriticalSystemComponent,
     HomeComponent,
     SidebarComponent,
     HeaderComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SecurityControlTreeComponent,
+// ---------- directives ---------------------
+    AccordionAnchorDirective,
+    AccordionLinkDirective,
+    AccordionDirective,
+// ---------- dilog box ---------------------
+    CdaDialogContent,
+    CSDialogContent,
+    DialogSelectedElement,
   ],
   imports: [
     BrowserModule,
@@ -51,10 +65,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MainMaterialModule,
    
   ],
-  entryComponents:[CdaDialogContent,CSDialogContent],
+  entryComponents:[CdaDialogContent,CSDialogContent,DialogSelectedElement],
 
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    MenuItems
 
   ],
   bootstrap: [AppComponent]

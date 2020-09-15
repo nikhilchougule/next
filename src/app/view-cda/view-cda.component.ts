@@ -6,6 +6,7 @@ import { CdaService } from "../_services/cda.service";
 import { ICDA } from '../_models/cda.interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
+import { ActivatedRoute } from '@angular/router';
 export interface DialogData {
     action: string;
     local_data: any;
@@ -321,26 +322,26 @@ export class ViewCdaComponent implements OnInit {
     dataLength: number = 0;
     data: ICDA[];
     
-    constructor(private cda: CdaService, public dialog: MatDialog) {
+    constructor(private cda: CdaService, public dialog: MatDialog,private route: ActivatedRoute) {
 
 
     }
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    // @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;    
     searchText: any;
     displayedColumns: string[] =
-        ['Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'CDADefensiveSecurityLevelsLookupId', 'Manufacturer', 'ModelNumber',
+        [ 'Action','Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'CDADefensiveSecurityLevelsLookupId', 'Manufacturer', 'ModelNumber',
             'CDAOwner', 'CDAProcessSoftware1OrRevision', 'CDAProcessSoftware2OrRevision', 'PlannedReplacementModificationDate', 'HasthisComponentbeenEvaluated',
             'EmergencyPlan', 'Description', 'Room', 'Builiding', 'Elevation', 'ColumnLine', 'Azimuth', 'Area', 'PlantUnit', 'CDATypeId', 'Cyber_Security', 'Justification', 'RevisionNumber',
-            'RevisionStatus', 'DateInstalled', 'Reconciled', 'ReconciledDate', 'ReconcilerName', 'CDAOrComponentType', 'CDADisplayOrderId', 'Action'];
+            'RevisionStatus', 'DateInstalled', 'Reconciled', 'ReconciledDate', 'ReconcilerName', 'CDAOrComponentType', 'CDADisplayOrderId'];
 
 
-    // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
     ngOnInit(): void {
-        
-        this.cda.getCriticalDigitalAssetsData().subscribe((res: ICDA[]) => {
-            this.data = res;
+        this.route.data.subscribe(res =>{
+        // this.cda.getCriticalDigitalAssetsData().subscribe((res: ICDA[]) => {
+            this.data = res.items;
             this.dataSource = new MatTableDataSource(this.data);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

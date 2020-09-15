@@ -5,7 +5,11 @@
   "projects": {
     "newProject": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -19,14 +23,25 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.scss",
+              "node_modules/chartist/dist/chartist.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/angular-calendar/css/angular-calendar.css",
+              "node_modules/dragula/dist/dragula.css",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/@swimlane/ngx-datatable/index.css",
+              "node_modules/@swimlane/ngx-datatable/themes/material.css",
+              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+              "src/assets/styles/style.scss"
             ],
+            
             "scripts": []
           },
           "configurations": {
@@ -89,8 +104,8 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.scss"
+
             ],
             "scripts": []
           }
@@ -123,5 +138,8 @@
       }
     }
   },
-  "defaultProject": "newProject"
+  "defaultProject": "newProject",
+  "cli": {
+    "analytics": "9301ccc3-a05e-44c2-a9df-b081f23d06e3"
+  }
 }

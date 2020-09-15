@@ -41,6 +41,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PlatformModule } from '@angular/cdk/platform';
 import { ObserversModule } from '@angular/cdk/observers';
 import { PortalModule } from '@angular/cdk/portal';
+import { MatTreeModule } from '@angular/material/tree';
+import { CdkTreeModule } from '@angular/cdk/tree';
+
 @NgModule({
     exports:[
         MatAutocompleteModule,
@@ -49,7 +52,7 @@ import { PortalModule } from '@angular/cdk/portal';
         MatButtonToggleModule,
         MatCardModule,
         MatCheckboxModule,
-        // MatChipsModule,
+        MatChipsModule,
         MatTableModule,
         MatDatepickerModule,
         MatDialogModule,
@@ -84,7 +87,9 @@ import { PortalModule } from '@angular/cdk/portal';
         ObserversModule,
         OverlayModule,
         PlatformModule,
-        PortalModule
+        PortalModule,
+        MatTreeModule,
+        CdkTreeModule
     ]
 })
 

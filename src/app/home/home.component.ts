@@ -7,10 +7,8 @@ import {
 
 
 } from '@angular/core';
-
-
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
-
+import {themeColor,themeDirection,themeLayout } from "../_config/theme-cofig";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,15 +16,15 @@ import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-
 })
 export class HomeComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
-  dir = 'ltr';
-  green = false;
-  blue = false;
+  green = themeColor.green;
+  blue = themeColor.blue;
   dark = false;
   minisidebar = false;
-  boxed = false;
-  danger = false;
+  boxed = themeLayout.boxed;
+  danger = themeColor.danger;
   showHide = false;
   url = '';
+  dir = themeDirection.dir;
   sidebarOpened = false;
   status = false;
 
