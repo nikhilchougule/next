@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+.closeIcon{
+    color: white;
+    background: darkcyan;
+    border: none;
+    cursor: pointer;
+}
+.popHeader{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+.radioMain{
+    margin: 15px 0;
+}
+.radioMain mat-label{
+    display: inline-block;
+    width: 220px;
+    color: #04b7a6;
+    margin-right: 20px;
+}
+.radioMain mat-radio-button{
+    margin-right: 30px;
+}
+.displayPopUp {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dddddd;
+}
+.displayPopUp h3{
+    font-size: 14px !important;
+    margin: 0 0 5px !important;
+    color: #b3aeae;
+    font-weight: normal;
+}
+.displayPopUpMain {
+    width: 700px;
+}

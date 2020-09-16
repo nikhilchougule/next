@@ -6,6 +6,8 @@ import { ViewCdaComponent } from './view-cda/view-cda.component';
 import { cdaResolver } from './_resolver/cda-resolver-service';
 import { csResolver } from './_resolver/criticalSyst-resolver-service';
 import { SecurityControlTreeComponent } from './security-control-tree/security-control-tree.component';
+import { ScipComponent } from 'src/app/scip/scip.component';
+import { scipsResolver } from './_resolver/scips-resolver';
 
 const routes: Routes = [
   {
@@ -31,6 +33,13 @@ const routes: Routes = [
       {
         path:'security-control-tree',
         component:SecurityControlTreeComponent
+      },
+      {
+        path:'scip',
+        component:ScipComponent,
+        resolve:{
+          items:scipsResolver
+        }
       }
     ]
   }

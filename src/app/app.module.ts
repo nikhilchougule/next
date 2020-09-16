@@ -13,7 +13,8 @@ import { CriticalSystemComponent,CSDialogContent } from './critical-system/criti
 import { HomeComponent } from './home/home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
-
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -25,10 +26,22 @@ import {
   AccordionDirective
 } from './_helpers/accordion/index';
 import { SecurityControlTreeComponent, DialogSelectedElement } from './security-control-tree/security-control-tree.component';
+import { ScipComponent, ScipsDialogContent } from './scip/scip.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 2,
   wheelPropagation: true
+};
+export const MY_FORMATS = {
+  parse: {
+      dateInput: 'LL'
+  },
+  display: {
+      dateInput: 'YYYY-MM-DD',
+      monthYearLabel: 'YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'YYYY'
+  }
 };
 @NgModule({
   declarations: [
@@ -48,6 +61,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CdaDialogContent,
     CSDialogContent,
     DialogSelectedElement,
+    ScipComponent,
+    ScipsDialogContent,
   ],
   imports: [
     BrowserModule,
@@ -65,10 +80,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MainMaterialModule,
    
   ],
-  entryComponents:[CdaDialogContent,CSDialogContent,DialogSelectedElement],
+  entryComponents:[CdaDialogContent,CSDialogContent,DialogSelectedElement,ScipsDialogContent],
 
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     MenuItems
 
   ],

@@ -1,0 +1,276 @@
+<h2 mat-dialog-title class="popHeader">
+    <strong>{{action}}</strong> 
+    <button *ngIf="action != 'Delete'" class="mat-step-icon closeIcon" (click)="closeDialog()"><i class="fa fa-close"></i></button>
+
+  </h2>
+  <div mat-dialog-content class="mat-typography" *ngIf="action != 'Delete'; else elseTemplate">
+    <!-- 4 step stepform !-->
+    <form [formGroup]="scipsForm">
+    <mat-horizontal-stepper [linear]="true" #stepper>
+
+      <!--step 1 -->
+      <mat-step >
+          
+          <ng-template matStepLabel>{{action}} Basic SCIPS</ng-template>
+          <!-- <mat-form-field>
+            <mat-label>ComplexityCategoryId</mat-label>
+            <input type="number" matInput  id="ComplexityCategoryId" required name="ComplexityCategoryId" formControlName="ComplexityCategoryId" [(ngModel)]="local_data.ComplexityCategoryId" placeholder="Enter ComplexityCategoryId">
+          </mat-form-field> -->
+          <div>
+                <mat-label>ControlApplicability</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="ControlApplicability" [(ngModel)]="local_data.ControlApplicability" name="ControlApplicability">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+          <mat-form-field>
+            <mat-label>ControlOrRequirementId</mat-label>
+            <input type="number" matInput  id="ControlOrRequirementId" name="ControlOrRequirementId"formControlName="ControlOrRequirementId"  [(ngModel)]="local_data.ControlOrRequirementId"
+              placeholder="Enter ControlOrRequirementId">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>CorrectiveAction</mat-label>
+            <input type="number" matInput  id="CorrectiveAction" name="CorrectiveAction" formControlName="CorrectiveAction"  [(ngModel)]="local_data.CorrectiveAction"
+              placeholder="Enter CorrectiveAction">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>CorrectiveActionAnswerOptions</mat-label>
+            <input type="text" matInput  id="CorrectiveActionAnswerOptions" name="CorrectiveActionAnswerOptions" formControlName="CorrectiveActionAnswerOptions" [(ngModel)]="local_data.CorrectiveActionAnswerOptions" placeholder="Enter CorrectiveActionAnswerOptions">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Decision</mat-label>
+            <input type="text" matInput  id="Decision" name="Decision" formControlName="Decision"  [(ngModel)]="local_data.Decision" placeholder="Decision">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>DecisionAnswerOptions</mat-label>
+            <input type="text" matInput  id="DecisionAnswerOptions" name="DecisionAnswerOptions"formControlName="DecisionAnswerOptions" [(ngModel)]="local_data.DecisionAnswerOptions"
+              placeholder="DecisionAnswerOptions">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Focus</mat-label>
+            <input type="text" matInput  id="Focus" name="Focus"formControlName="Focus" [(ngModel)]="local_data.Focus" placeholder="Enter EmergencyPlan">
+          </mat-form-field>
+          <div>
+                <mat-label>ImplementControl</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="ImplementControl" [(ngModel)]="local_data.ImplementControl" name="ImplementControl">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-form-field>   
+            <mat-label>Observation</mat-label>
+            <input type="text" matInput  id="Observation" name="Observation" formControlName="Observation" [(ngModel)]="local_data.Observation"
+              placeholder="Enter Observation">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Purpose</mat-label>
+            <input type="text" matInput  id="Purpose" name="Purpose" formControlName="Purpose" [(ngModel)]="local_data.Purpose" placeholder="Enter Purpose">
+          </mat-form-field>
+  
+          <!-- <mat-form-field> -->
+          <div>
+            <mat-label>UseAlternate</mat-label>
+            <mat-radio-group class="example-radio-group" formControlName="UseAlternate" [(ngModel)]="local_data.UseAlternate" name="UseAlternate">
+              <mat-radio-button class="example-radio-button" [value]="true">
+                true
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" [value]="false">
+                false
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <mat-form-field>
+                <mat-label>CommanControlExample</mat-label>
+                <input type="text" matInput  id="CommanControlExample" name="CommanControlExample" formControlName="CommanControlExample" [(ngModel)]="local_data.CommanControlExample" placeholder="Enter CommanControlExample">
+        </mat-form-field>
+        <mat-form-field>
+                <mat-label>AssessmentStatus</mat-label>
+                <input type="text" matInput  id="AssessmentStatus" name="AssessmentStatus" formControlName="AssessmentStatus" [(ngModel)]="local_data.AssessmentStatus" placeholder="Enter AssessmentStatus">
+        </mat-form-field>
+        <mat-form-field>
+                <mat-label>AppliesTo</mat-label>
+                <input type="text" matInput  id="AppliesTo" name="AppliesTo" formControlName="AppliesTo" [(ngModel)]="local_data.AppliesTo" placeholder="Enter AppliesTo">
+        </mat-form-field>
+        <mat-form-field>
+                <mat-label>Analysis</mat-label>
+                <input type="text" matInput  id="Analysis" name="Analysis" formControlName="Analysis" [(ngModel)]="local_data.Analysis" placeholder="Enter Analysis">
+        </mat-form-field>
+        <mat-form-field>
+                <mat-label>AlternateControlExample</mat-label>
+                <input type="text" matInput  id="AlternateControlExample" name="AlternateControlExample" formControlName="AlternateControlExample" [(ngModel)]="local_data.AlternateControlExample" placeholder="Enter AlternateControlExample">
+        </mat-form-field>
+        <div>
+                <mat-label>ActiveFlag</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="ActiveFlag" [(ngModel)]="local_data.ActiveFlag" name="ActiveFlag">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+        
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+      </mat-step>
+     
+      <mat-step >
+        <ng-template matStepLabel>Done</ng-template>
+        <div>
+                <mat-label>AV1</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="AV1" [(ngModel)]="local_data.AV1" name="AV1">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+        
+        <mat-form-field>
+          <mat-label>AV1_Degree</mat-label>
+          <input type="text" matInput  id="AV1_Degree" name="AV1_Degree" formControlName="AV1_Degree" [(ngModel)]="local_data.AV1_Degree" placeholder="Enter AV1_Degree">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV1_Justification</mat-label>
+          <input type="text" matInput  id="AV1_Justification" name="AV1_Justification" formControlName="AV1_Justification" [(ngModel)]="local_data.AV1_Justification" placeholder="Enter AV1_Justification">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV1_Value</mat-label>
+          <input type="text" matInput  id="AV1_Value" name="AV1_Value" formControlName="AV1_Value" [(ngModel)]="local_data.AV1_Value" placeholder="Enter AV1_Value">
+        </mat-form-field>
+        <div>
+                <mat-label>AV2</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="AV2" [(ngModel)]="local_data.AV2" name="AV2">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+        
+        <mat-form-field>
+          <mat-label>AV2_Degree</mat-label>
+          <input type="text" matInput  id="AV2_Degree" name="AV2_Degree" formControlName="AV2_Degree" [(ngModel)]="local_data.AV2_Degree" placeholder="Enter AV2_Degree">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV2_Justification</mat-label>
+          <input type="text" matInput  id="AV2_Justification" name="AV2_Justification" formControlName="AV2_Justification" [(ngModel)]="local_data.AV2_Justification" placeholder="Enter AV2_Justification">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV2_Value</mat-label>
+          <input type="text" matInput  id="AV2_Value" name="AV2_Value" formControlName="AV2_Value" [(ngModel)]="local_data.AV2_Value" placeholder="Enter AV2_Value">
+        </mat-form-field>
+        <div>
+                <mat-label>AV3</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="AV3" [(ngModel)]="local_data.AV3" name="AV3">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+        
+        <mat-form-field>
+          <mat-label>AV3_Degree</mat-label>
+          <input type="text" matInput  id="AV3_Degree" name="AV3_Degree" formControlName="AV3_Degree" [(ngModel)]="local_data.AV3_Degree" placeholder="Enter AV3_Degree">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV3_Justification</mat-label>
+          <input type="text" matInput  id="AV3_Justification" name="AV3_Justification" formControlName="AV3_Justification" [(ngModel)]="local_data.AV3_Justification" placeholder="Enter AV3_Justification">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV3_Value</mat-label>
+          <input type="text" matInput  id="AV3_Value" name="AV3_Value" formControlName="AV3_Value" [(ngModel)]="local_data.AV3_Value" placeholder="Enter AV3_Value">
+        </mat-form-field>
+        <div>
+                <mat-label>AV4</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="AV4" [(ngModel)]="local_data.AV4" name="AV4">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+        
+        <mat-form-field>
+          <mat-label>AV4_Degree</mat-label>
+          <input type="text" matInput  id="AV4_Degree" name="AV4_Degree" formControlName="AV4_Degree" [(ngModel)]="local_data.AV4_Degree" placeholder="Enter AV4_Degree">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV4_Justification</mat-label>
+          <input type="text" matInput  id="AV4_Justification" name="AV4_Justification" formControlName="AV4_Justification" [(ngModel)]="local_data.AV4_Justification" placeholder="Enter AV4_Justification">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV4_Value</mat-label>
+          <input type="text" matInput  id="AV4_Value" name="AV4_Value" formControlName="AV4_Value" [(ngModel)]="local_data.AV4_Value" placeholder="Enter AV4_Value">
+        </mat-form-field>
+        <div>
+                <mat-label>AV5</mat-label>
+                <mat-radio-group class="example-radio-group" formControlName="AV5" [(ngModel)]="local_data.AV5" name="AV5">
+                  <mat-radio-button class="example-radio-button" [value]="true">
+                    true
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="false">
+                    false
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+        
+        <mat-form-field>
+          <mat-label>AV5_Degree</mat-label>
+          <input type="text" matInput  id="AV5_Degree" name="AV5_Degree" formControlName="AV5_Degree" [(ngModel)]="local_data.AV5_Degree" placeholder="Enter AV5_Degree">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV5_Justification</mat-label>
+          <input type="text" matInput  id="AV5_Justification" name="AV5_Justification" formControlName="AV5_Justification" [(ngModel)]="local_data.AV5_Justification" placeholder="Enter AV5_Justification">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>AV5_Value</mat-label>
+          <input type="text" matInput  id="AV5_Value" name="AV5_Value" formControlName="AV5_Value" [(ngModel)]="local_data.AV5_Value" placeholder="Enter AV5_Value">
+        </mat-form-field>
+        <div>
+          <div mat-dialog-actions align="end">
+            <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
+            <button mat-button (click)="closeDialog()">Cancel</button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+  </div>
+  <ng-template #elseTemplate>
+    Sure to delete
+    <b>{{local_data.ComplexityCategoryId}}</b>?
+    <div mat-dialog-actions align="end">
+      <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
+      <button mat-button (click)="closeDialog()">Cancel</button>
+    </div>
+  </ng-template>

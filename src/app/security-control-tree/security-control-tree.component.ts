@@ -55,10 +55,8 @@ export class ChecklistDatabase {
   }
   initialize() {
     this.csData.getGenerateTree().subscribe(async(res)=>{
-      this.treeData = await res;
-
+    this.treeData = await res;
     const nextData = await this.getNestedChildren(this.treeData,null);
-    console.log(nextData)
     await this.dataChange.next(nextData);
 
     // Notify the change.
@@ -88,31 +86,21 @@ export class ChecklistDatabase {
 }
   
   public filter(filterText: string) {
-    console.log(this.treeData)
     let filteredTreeData;
+    let datafilter;
     if (filterText) {
       filteredTreeData = this.treeData.filter(d => d.Name.toLocaleLowerCase().indexOf(filterText.toLocaleLowerCase()) > -1);
       Object.assign([], filteredTreeData).forEach(ftd => {
-        let str = (<string>ftd.Name);
-        while (str.lastIndexOf('.') > -1) {
-          const index = str.lastIndexOf('.');
-          str = str.substring(0, index);
-          if (filteredTreeData.findIndex(t => t.Name === str) === -1) {
-            const obj = this.treeData.find(d => d.Name === str);
-            if (obj) {
-              filteredTreeData.push(obj);
+        let str = (<number>ftd.ParentId);
+        datafilter = this.getNestedChildren(this.treeData,ftd.Id);
 
-            }
-          }
-        }
       });
     } else {
       filteredTreeData = this.treeData;
+       datafilter = this.getNestedChildren(filteredTreeData,null);
+
     }
-    console.log(filteredTreeData)
-    const datafilter = this.getNestedChildren(filteredTreeData,null);
-    console.log(datafilter)
-    // Notify the change.
+
     this.dataChange.next(datafilter);
 }
 }
@@ -170,6 +158,7 @@ export class SecurityControlTreeComponent implements OnInit {
 
   /** Toggle the to-do id selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: CsNode): void {
+
    this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
      this.checklistSelection.isSelected(node)
@@ -177,14 +166,19 @@ export class SecurityControlTreeComponent implements OnInit {
       : this.checklistSelection.deselect(...descendants);
     // Force update for the parent
     descendants.forEach(child => this.checklistSelection.isSelected(child));
-    this.allnode = [];
    this.selectedNodeData = this.checkAllParentsSelection(node);
-   this.dialog.open(DialogSelectedElement, {
-    data:{
-      value:this.selectedNodeData,
-      selected:this.checklistSelection.isSelected(node)
-    } 
-    });
+   console.log(this.checklistSelection.isSelected(node));
+ 
+   let dialogRef 
+   if(this.checklistSelection.isSelected(node)){
+       this.dialog.open(DialogSelectedElement, {
+      data:{
+        value:node,
+        selected:this.checklistSelection.isSelected(node)
+      } 
+      });
+   }
+ 
 
 
   }
@@ -224,11 +218,7 @@ getChild(node: CsNode){
   
   
   ngOnInit(): void {
-    // this.source =  this.database.buildTree()
-    // console.log(this.source);
-    // // this.dataSource.data = TREE_DATA;
-    // this.dataSource.data = this.source;
-    // console.log(this.dataSource);
+
  
   }
   filterChanged(filterText: string,) {
@@ -247,13 +237,52 @@ getChild(node: CsNode){
 @Component({
   selector: 'dialog-elements-example-dialog',
   template:  `
-  <h1 mat-dialog-title>{{title}} ID:</h1>
-<div mat-dialog-content >
-    <mat-list-item *ngFor="let ids of local_data">
-    {{ids}}
-    </mat-list-item>
+  <h1 mat-dialog-title></h1>
+  
+  <div mat-dialog-content class="displayPopUpMain" >
+   <div class="displayPopUp">
+         <h3 mat-dialog-title>ParentId:</h3>
+         <span mat-dialog-content>{{local_data.ParentId}}</span>
 
-</div>
+    </div>
+    <div class="displayPopUp">
+         <h3 mat-dialog-title>Name:</h3>
+         <span mat-dialog-content>{{local_data.Name}}</span>
+
+    </div>
+    <div class="displayPopUp">
+         <h3 mat-dialog-title>Description:</h3>
+         <span mat-dialog-content>{{local_data.Description}}</span>
+
+    </div>
+     <div class="displayPopUp">
+         <h3 mat-dialog-title>DisplayOrderId:</h3>
+         <span mat-dialog-content>{{local_data.DisplayOrderId}}</span>
+         </div>
+     <div class="displayPopUp">
+         <h3 mat-dialog-title>EntityTypeId:</h3>
+         <span mat-dialog-content>{{local_data.EntityTypeId}}</span>
+
+    </div> 
+    <div class="displayPopUp">
+         <h3 mat-dialog-title>ReportColumnHeader:</h3>
+         <span mat-dialog-content>{{local_data.ReportColumnHeader}}</span>
+
+    </div> 
+     <div class="displayPopUp">
+         <h3 mat-dialog-title>ReportTableControlColumnName:</h3>
+         <span mat-dialog-content>{{local_data.ReportTableControlColumnName}}</span>
+
+    </div> 
+      <div class="displayPopUp">
+         <h3 mat-dialog-title>ReportTableName:</h3>
+         <span mat-dialog-content>{{local_data.ReportTableName}}</span>
+    </div> 
+    
+    
+  <div>
+
+  
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
 </div>
@@ -261,17 +290,19 @@ getChild(node: CsNode){
 })
 export class DialogSelectedElement {
   title: string;
-  local_data = [];
+  local_data : CsNode ;
 
   constructor(
     public dialogRef: MatDialogRef<DialogSelectedElement>,
     // @Optional() is used to prevent error if no data is passed
-    @Optional() @Inject(MAT_DIALOG_DATA) public data:any) {
+    @Optional() @Inject(MAT_DIALOG_DATA) public data:any,) {
       this.local_data = data.value;
+      console.log(this.local_data)
       if(data.selected){
         this.title = 'Selected';
       }else{
         this.title = 'Deselected';
+        this.closeDialog();
       }
 
     }

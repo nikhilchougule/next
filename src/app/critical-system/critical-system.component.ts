@@ -103,7 +103,7 @@ export class CriticalSystemComponent implements OnInit {
            SystemEngineer: null,
            SystemFunction: null,
    }
-    constructor(private criticalSys: CriticalSystemService, public dialog: MatDialog,private route:ActivatedRoute) {
+    constructor(private criticalSys: CriticalSystemService,public dialog: MatDialog,private route:ActivatedRoute) {
     }
     @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
     @ViewChild(MatSort) sort: MatSort;

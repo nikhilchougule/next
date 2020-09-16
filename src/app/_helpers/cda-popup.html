@@ -1,6 +1,8 @@
-<h2 mat-dialog-title>
-  <strong>{{action}}</strong>
-</h2>
+<h2 mat-dialog-title class="popHeader">
+    <strong>{{action}}</strong> 
+    <button *ngIf="action != 'Delete'" class="mat-step-icon closeIcon" (click)="closeDialog()"><i class="fa fa-close"></i></button>
+
+  </h2>
 <div mat-dialog-content class="mat-typography" *ngIf="action != 'Delete'; else elseTemplate">
   <!-- 4 step stepform !-->
   <mat-horizontal-stepper [linear]="true" #stepper>
@@ -336,10 +338,16 @@
           <mat-label>RevisionStatus</mat-label>
           <input type="text" matInput  id="RevisionStatus" name="RevisionStatus" [(ngModel)]="local_data.RevisionStatus" placeholder="Enter RevisionStatus">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>DateInstalled</mat-label>
+            <input matInput [matDatepicker]="picker3" [value]="local_data.DateInstalled" [(ngModel)]="local_data.DateInstalled">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>DateInstalled</mat-label>
           <input type="date" matInput  id="DateInstalled" name="DateInstalled" [(ngModel)]="local_data.DateInstalled" placeholder="Enter DateInstalled">
-        </mat-form-field>
+        </mat-form-field> -->
         <mat-form-field>
           <mat-label>CI_ProtectionLevel</mat-label>
           <input type="text" matInput  id="CI_ProtectionLevel" name="CI_ProtectionLevel" [(ngModel)]="local_data.CI_ProtectionLevel" placeholder="Enter CI_ProtectionLevel">
@@ -828,7 +836,7 @@
           <mat-label>SSEP_ITS_AugmentedQuality</mat-label>
           <input type="text" matInput  id="SSEP_ITS_AugmentedQuality" name="SSEP_ITS_AugmentedQuality" [(ngModel)]="local_data.SSEP_ITS_AugmentedQuality" placeholder="Enter SSEP_ITS_AugmentedQuality">
         </mat-form-field>
-        <div>
+        <div class="radioMain">
           <mat-label>SSEP_EP</mat-label>
           <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.SSEP_EP" name="SSEP_EP">
             <mat-radio-button class="example-radio-button" [value]="true">
@@ -839,7 +847,7 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-        <div>
+        <div class="radioMain">
           <mat-label>SSEP_SEC</mat-label>
           <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.SSEP_SEC" name="SSEP_SEC">
             <mat-radio-button class="example-radio-button" [value]="true">
@@ -850,7 +858,7 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-        <div>
+        <div class="radioMain">
           <mat-label>SSEP_SafetyRelated</mat-label>
           <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.SSEP_SafetyRelated" name="SSEP_SafetyRelated">
             <mat-radio-button class="example-radio-button" [value]="true">
@@ -861,7 +869,7 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-        <div>
+        <div class="radioMain">
           <mat-label>SSEP_ITS_ImpactsReactivity</mat-label>
           <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.SSEP_ITS_ImpactsReactivity" name="SSEP_EP">
             <mat-radio-button class="example-radio-button" [value]="true">
@@ -872,7 +880,7 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-        <div>
+        <div class="radioMain">
           <mat-label>SSEP_Support</mat-label>
           <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.SSEP_Support" name="SSEP_Support">
             <mat-radio-button class="example-radio-button" [value]="true">

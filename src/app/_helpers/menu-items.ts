@@ -186,6 +186,12 @@ const MENUITEMS = [
         type: 'link',
         icon: 'brightness_7'
     },
+    {
+        state: 'scip',
+        name: 'SCIP',
+        type: 'link',
+        icon: 'border_all'
+    },
     // {
     //     state: '',
     //     name: 'Extra Component',
