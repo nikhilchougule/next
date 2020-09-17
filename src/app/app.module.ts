@@ -27,6 +27,7 @@ import {
 } from './_helpers/accordion/index';
 import { SecurityControlTreeComponent, DialogSelectedElement } from './security-control-tree/security-control-tree.component';
 import { ScipComponent, ScipsDialogContent } from './scip/scip.component';
+import { WrapTextPipe } from "./_helpers/wrap-text.pipe";
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 2,
@@ -63,6 +64,8 @@ export const MY_FORMATS = {
     DialogSelectedElement,
     ScipComponent,
     ScipsDialogContent,
+//--------pipes--------------------------
+     WrapTextPipe    
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ export const MY_FORMATS = {
     MainMaterialModule,
     HttpClientModule,
     MatDialogModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    
   ],
   exports:[
     MainMaterialModule,

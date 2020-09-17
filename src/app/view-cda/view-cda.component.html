@@ -125,7 +125,7 @@
               
               <ng-container matColumnDef="Description">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> Description </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Description}} </td>
+                <td mat-cell *matCellDef="let cda"  matTooltip="{{cda.Description}}"> {{cda.Description | WrapTextPipe}} </td>
               </ng-container>
   
               <ng-container matColumnDef="Room">
@@ -175,7 +175,7 @@
               
               <ng-container matColumnDef="Justification">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> Justification </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Justification}} </td>
+                <td mat-cell *matCellDef="let cda" matTooltip="{{cda.Justification}}"> {{cda.Justification | WrapTextPipe}} </td>
               </ng-container>
   
               <ng-container matColumnDef="RevisionNumber">

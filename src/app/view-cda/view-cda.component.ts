@@ -21,7 +21,7 @@ export interface DialogData {
 
 export class ViewCdaComponent implements OnInit {
     obj = {
-        CriticalDigitalAssetId:null,
+        // CriticalDigitalAssetId:null,
         Name:null,
         Description:null,
         Location:null,
@@ -366,6 +366,7 @@ export class ViewCdaComponent implements OnInit {
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+    
     openDialog(action: string, element: any) {
         element.action = action;
         const dialogRef = this.dialog.open(CdaDialogContent, {
@@ -423,9 +424,12 @@ export class CdaDialogContent {
           });
 
     }
-
+     onDate(event): void {
+         console.log(event)
+        this.local_data.DateInstalled = event;
+      }
     doAction() {
-        
+        console.log(this.local_data.DateInstalled)
         delete this.local_data.action;
         this.obj = this.local_data
         this.dialogRef.close({ event: this.action, data: this.obj });

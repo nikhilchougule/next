@@ -338,16 +338,17 @@
           <mat-label>RevisionStatus</mat-label>
           <input type="text" matInput  id="RevisionStatus" name="RevisionStatus" [(ngModel)]="local_data.RevisionStatus" placeholder="Enter RevisionStatus">
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <!-- <mat-form-field appearance="fill">
             <mat-label>DateInstalled</mat-label>
             <input matInput [matDatepicker]="picker3" [value]="local_data.DateInstalled" [(ngModel)]="local_data.DateInstalled">
-            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-            <mat-datepicker #picker3></mat-datepicker>
+            <mat-datepicker-toggle matSuffix [for]="picker3" ></mat-datepicker-toggle>
+            <mat-datepicker #picker3 [(ngModel)]="local_data.DateInstalled" (selectedChanged)="onDate($event)"></mat-datepicker>
           </mat-form-field>
-        <!-- <mat-form-field>
+         -->
+        <mat-form-field>
           <mat-label>DateInstalled</mat-label>
           <input type="date" matInput  id="DateInstalled" name="DateInstalled" [(ngModel)]="local_data.DateInstalled" placeholder="Enter DateInstalled">
-        </mat-form-field> -->
+        </mat-form-field>
         <mat-form-field>
           <mat-label>CI_ProtectionLevel</mat-label>
           <input type="text" matInput  id="CI_ProtectionLevel" name="CI_ProtectionLevel" [(ngModel)]="local_data.CI_ProtectionLevel" placeholder="Enter CI_ProtectionLevel">

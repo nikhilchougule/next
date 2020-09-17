@@ -7,13 +7,33 @@
   <!-- 4 step stepform !-->
   <form [formGroup]="csForm">
   <mat-horizontal-stepper [linear]="true" #stepper>
-    <!--step 1 -->
-    <mat-step [stepControl]="csForm.get('form1')" formGroupName="form1">
+    <!--step 1[stepControl]="csForm.get('form1')" formGroupName="form1" -->
+    <mat-step >
         <ng-template matStepLabel>Update Basic CS</ng-template>
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>LocationId</mat-label>
           <input type="text" matInput  id="LocationId" name="LocationId" formControlName="LocationId" [(ngModel)]="local_data.LocationId" placeholder="Enter LocationId">
-        </mat-form-field>
+        </mat-form-field> -->
+        <!-- <mat-form-field>
+            <mat-label>LocationId</mat-label>
+            <mat-select formControlName="LocationId" [(value)]="local_data.LocationId" #singleSelect>
+              <mat-option>
+                <ngx-mat-select-search name="LocationId" formControlName="LocationId" ngModel (ngModelChange)="filterMyOptions($event)"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let location of location" [(value)]="local_data.LocationId">
+                {{location.LocationName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+         
+          <mat-form-field appearance="fill">
+              <mat-label>LocationId</mat-label>
+              <mat-select [(value)]="local_data.LocationId"  (change)="filterMyOptions($event)" >
+                  <mat-option *ngFor="let location of location" [(value)]="location.LocationId"  >
+                      {{location.LocationName}}
+                    </mat-option>
+              </mat-select>
+            </mat-form-field>
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input type="text" matInput  id="Name" name="Name" formControlName="Name" [(ngModel)]="local_data.Name" placeholder="Enter Name">
@@ -28,19 +48,34 @@
           <input type="number" matInput  id="CriticalSystemId" name="CriticalSystemId" formControlName="CriticalSystemId"  [(ngModel)]="local_data.CriticalSystemId"
             placeholder="Enter CriticalSystemId">
         </mat-form-field>
-        <mat-form-field>
-          <mat-label>ApprovalStatus</mat-label>
-          <input type="text" matInput  id="ApprovalStatus" name="ApprovalStatus" formControlName="ApprovalStatus" [(ngModel)]="local_data.ApprovalStatus" placeholder="Enter ApprovalStatus">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>CategoryId</mat-label>
-          <input type="text" matInput  id="CategoryId" name="CategoryId" formControlName="CategoryId"  [(ngModel)]="local_data.CategoryId" placeholder="CategoryId">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>IdentificationApprovalStatus</mat-label>
-          <input type="text" matInput  id="IdentificationApprovalStatus" name="IdentificationApprovalStatus"formControlName="IdentificationApprovalStatus" [(ngModel)]="local_data.IdentificationApprovalStatus"
-            placeholder="IdentificationApprovalStatus">
-        </mat-form-field>
+       
+        <mat-form-field appearance="fill">
+            <mat-label>ApprovalStatus</mat-label>
+            <mat-select [(value)]="local_data.ApprovalStatus">
+                <mat-option *ngFor="let csApprovalStatus of csApprovalStatus" [(value)]="csApprovalStatus.CSApprovalStatusName"  >
+                    {{csApprovalStatus.CSApprovalStatusName}}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+     
+        <mat-form-field appearance="fill">
+            <mat-label>CategoryId</mat-label>
+            <mat-select [(value)]="local_data.CategoryId"  >
+                <mat-option *ngFor="let category of category" [(value)]="category.CategoryId"  >
+                    {{category.Name}}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+     
+          <mat-form-field appearance="fill">
+              <mat-label>IdentificationApprovalStatus</mat-label>
+              <mat-select [(value)]="local_data.IdentificationApprovalStatus"  >
+                  <mat-option *ngFor="let CSIdentificationApprovalStatus of CSIdentificationApprovalStatus" [(value)]="CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName" >
+                      {{CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName}}
+                    </mat-option>
+              </mat-select>
+            </mat-form-field>
+       
         <mat-form-field>
           <mat-label>EmergencyPlan</mat-label>
           <input type="text" matInput  id="EmergencyPlan" name="EmergencyPlan"formControlName="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" placeholder="Enter EmergencyPlan">
@@ -82,8 +117,8 @@
           <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
-    <!--step 2 -->
-    <mat-step [stepControl]="csForm.get('form2')" formGroupName="form2">
+    <!--step 2 [stepControl]="csForm.get('form2')" formGroupName="form2" -->
+    <mat-step >
         <ng-template matStepLabel>Update SSEP</ng-template>
         <mat-form-field>
           <mat-label>SSEPDetailedDescription</mat-label>
@@ -146,7 +181,8 @@
           <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
-    <mat-step [stepControl]="csForm.get('form3')" formGroupName="form3">
+    <!--step 3 [stepControl]="csForm.get('form3')" formGroupName="form3"-->
+    <mat-step >
         <ng-template matStepLabel>Additional Param</ng-template>
         <mat-form-field>
           <mat-label>Additional_Param_1</mat-label>
@@ -257,110 +293,110 @@
           <mat-label>AdditionalParam25</mat-label>
           <input type="text" matInput id="AdditionalParam25" name="AdditionalParam25" formControlName="AdditionalParam25" [(ngModel)]="local_data.AdditionalParam25" placeholder="Enter AdditionalParam25">
         </mat-form-field>
-        <!-- <mat-form-field>
+        <mat-form-field>
           <mat-label>AdditionalParam26</mat-label>
-          <input type="text" matInput id="AdditionalParam26" name="AdditionalParam26" [(ngModel)]="local_data.AdditionalParam26" placeholder="Enter AdditionalParam26">
+          <input type="text" matInput id="AdditionalParam26" name="AdditionalParam26" formControlName="AdditionalParam26" [(ngModel)]="local_data.AdditionalParam26" placeholder="Enter AdditionalParam26">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam27</mat-label>
-          <input type="text" matInput id="AdditionalParam27" name="AdditionalParam27" [(ngModel)]="local_data.AdditionalParam27" placeholder="Enter AdditionalParam27">
+          <input type="text" matInput id="AdditionalParam27" name="AdditionalParam27"formControlName="AdditionalParam27" [(ngModel)]="local_data.AdditionalParam27" placeholder="Enter AdditionalParam27">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam28</mat-label>
-          <input type="text" matInput id="AdditionalParam28" name="AdditionalParam28" [(ngModel)]="local_data.AdditionalParam28" placeholder="Enter AdditionalParam28">
+          <input type="text" matInput id="AdditionalParam28" name="AdditionalParam28" formControlName="AdditionalParam28" [(ngModel)]="local_data.AdditionalParam28" placeholder="Enter AdditionalParam28">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam29</mat-label>
-          <input type="text" matInput id="AdditionalParam29" name="AdditionalParam29" [(ngModel)]="local_data.AdditionalParam29" placeholder="Enter AdditionalParam29">
+          <input type="text" matInput id="AdditionalParam29" name="AdditionalParam29" formControlName="AdditionalParam29" [(ngModel)]="local_data.AdditionalParam29" placeholder="Enter AdditionalParam29">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam30</mat-label>
-          <input type="text" matInput id="AdditionalParam30" name="AdditionalParam30" [(ngModel)]="local_data.AdditionalParam30" placeholder="Enter AdditionalParam30">
+          <input type="text" matInput id="AdditionalParam30" name="AdditionalParam30" formControlName="AdditionalParam30" [(ngModel)]="local_data.AdditionalParam30" placeholder="Enter AdditionalParam30">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>AdditionalParam31</mat-label>
-          <input type="text" matInput id="AdditionalParam31" name="AdditionalParam31" [(ngModel)]="local_data.AdditionalParam31" placeholder="Enter AdditionalParam31">
+          <input type="text" matInput id="AdditionalParam31" name="AdditionalParam31" formControlName="AdditionalParam31" [(ngModel)]="local_data.AdditionalParam31" placeholder="Enter AdditionalParam31">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam32</mat-label>
-          <input type="text" matInput id="AdditionalParam32" name="AdditionalParam32" [(ngModel)]="local_data.AdditionalParam32" placeholder="Enter AdditionalParam32">
+          <input type="text" matInput id="AdditionalParam32" name="AdditionalParam32" formControlName="AdditionalParam32" [(ngModel)]="local_data.AdditionalParam32" placeholder="Enter AdditionalParam32">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam33</mat-label>
-          <input type="text" matInput id="AdditionalParam33" name="AdditionalParam33" [(ngModel)]="local_data.AdditionalParam33" placeholder="Enter AdditionalParam33">
+          <input type="text" matInput id="AdditionalParam33" name="AdditionalParam33" formControlName="AdditionalParam33" [(ngModel)]="local_data.AdditionalParam33" placeholder="Enter AdditionalParam33">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam34</mat-label>
-          <input type="text" matInput id="AdditionalParam34" name="AdditionalParam34" [(ngModel)]="local_data.AdditionalParam34" placeholder="Enter AdditionalParam34">
+          <input type="text" matInput id="AdditionalParam34" name="AdditionalParam34" formControlName="AdditionalParam34" [(ngModel)]="local_data.AdditionalParam34" placeholder="Enter AdditionalParam34">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam35</mat-label>
-          <input type="text" matInput id="AdditionalParam35" name="AdditionalParam35" [(ngModel)]="local_data.AdditionalParam35" placeholder="Enter AdditionalParam35">
+          <input type="text" matInput id="AdditionalParam35" name="AdditionalParam35" formControlName="AdditionalParam35" [(ngModel)]="local_data.AdditionalParam35" placeholder="Enter AdditionalParam35">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>AdditionalPara36</mat-label>
-          <input type="text" matInput id="AdditionalParam36" name="AdditionalParam36" [(ngModel)]="local_data.AdditionalParam36" placeholder="Enter AdditionalParam36">
+          <input type="text" matInput id="AdditionalParam36" name="AdditionalParam36" formControlName="AdditionalParam36" [(ngModel)]="local_data.AdditionalParam36" placeholder="Enter AdditionalParam36">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam37</mat-label>
-          <input type="text" matInput id="AdditionalParam37" name="AdditionalParam37" [(ngModel)]="local_data.AdditionalParam37" placeholder="Enter AdditionalParam37">
+          <input type="text" matInput id="AdditionalParam37" name="AdditionalParam37" formControlName="AdditionalParam37" [(ngModel)]="local_data.AdditionalParam37" placeholder="Enter AdditionalParam37">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam38</mat-label>
-          <input type="text" matInput id="AdditionalParam38" name="AdditionalParam38" [(ngModel)]="local_data.AdditionalParam38" placeholder="Enter AdditionalParam38">
+          <input type="text" matInput id="AdditionalParam38" name="AdditionalParam38" formControlName="AdditionalParam38" [(ngModel)]="local_data.AdditionalParam38" placeholder="Enter AdditionalParam38">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam39</mat-label>
-          <input type="text" matInput id="AdditionalParam39" name="AdditionalParam39" [(ngModel)]="local_data.AdditionalParam39" placeholder="Enter AdditionalParam39">
+          <input type="text" matInput id="AdditionalParam39" name="AdditionalParam39" formControlName="AdditionalParam39" [(ngModel)]="local_data.AdditionalParam39" placeholder="Enter AdditionalParam39">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam40</mat-label>
-          <input type="text" matInput id="AdditionalParam40" name="AdditionalParam40" [(ngModel)]="local_data.AdditionalParam40" placeholder="Enter AdditionalParam40">
+          <input type="text" matInput id="AdditionalParam40" name="AdditionalParam40" formControlName="AdditionalParam40" [(ngModel)]="local_data.AdditionalParam40" placeholder="Enter AdditionalParam40">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>AdditionalParam41</mat-label>
-          <input type="text" matInput id="AdditionalParam41" name="AdditionalParam41" [(ngModel)]="local_data.AdditionalParam41" placeholder="Enter AdditionalParam41">
+          <input type="text" matInput id="AdditionalParam41" name="AdditionalParam41" formControlName="AdditionalParam41" [(ngModel)]="local_data.AdditionalParam41" placeholder="Enter AdditionalParam41">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam42</mat-label>
-          <input type="text" matInput id="AdditionalParam42" name="AdditionalParam42" [(ngModel)]="local_data.AdditionalParam42" placeholder="Enter AdditionalParam42">
+          <input type="text" matInput id="AdditionalParam42" name="AdditionalParam42" formControlName="AdditionalParam42" [(ngModel)]="local_data.AdditionalParam42" placeholder="Enter AdditionalParam42">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam43</mat-label>
-          <input type="text" matInput id="AdditionalParam43" name="AdditionalParam43" [(ngModel)]="local_data.AdditionalParam43" placeholder="Enter AdditionalParam43">
+          <input type="text" matInput id="AdditionalParam43" name="AdditionalParam43" formControlName="AdditionalParam43" [(ngModel)]="local_data.AdditionalParam43" placeholder="Enter AdditionalParam43">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam44</mat-label>
-          <input type="text" matInput id="AdditionalParam44" name="AdditionalParam44" [(ngModel)]="local_data.AdditionalParam44" placeholder="Enter AdditionalParam44">
+          <input type="text" matInput id="AdditionalParam44" name="AdditionalParam44" formControlName="AdditionalParam44" [(ngModel)]="local_data.AdditionalParam44" placeholder="Enter AdditionalParam44">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam45</mat-label>
-          <input type="text" matInput id="AdditionalParam45" name="AdditionalParam45" [(ngModel)]="local_data.AdditionalParam45" placeholder="Enter AdditionalParam45">
+          <input type="text" matInput id="AdditionalParam45" name="AdditionalParam45" formControlName="AdditionalParam45" [(ngModel)]="local_data.AdditionalParam45" placeholder="Enter AdditionalParam45">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>AdditionalParam46</mat-label>
-          <input type="text" matInput id="AdditionalParam46" name="AdditionalParam46" [(ngModel)]="local_data.AdditionalParam46" placeholder="Enter AdditionalParam46">
+          <input type="text" matInput id="AdditionalParam46" name="AdditionalParam46" formControlName="AdditionalParam46" [(ngModel)]="local_data.AdditionalParam46" placeholder="Enter AdditionalParam46">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam47</mat-label>
-          <input type="text" matInput id="AdditionalParam47" name="AdditionalParam47" [(ngModel)]="local_data.AdditionalParam47" placeholder="Enter AdditionalParam47">
+          <input type="text" matInput id="AdditionalParam47" name="AdditionalParam47" formControlName="AdditionalParam47"[(ngModel)]="local_data.AdditionalParam47" placeholder="Enter AdditionalParam47">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam48</mat-label>
-          <input type="text" matInput id="AdditionalParam48" name="AdditionalParam48" [(ngModel)]="local_data.AdditionalParam48" placeholder="Enter AdditionalParam48">
+          <input type="text" matInput id="AdditionalParam48" name="AdditionalParam48" formControlName="AdditionalParam48" [(ngModel)]="local_data.AdditionalParam48" placeholder="Enter AdditionalParam48">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam49</mat-label>
-          <input type="text" matInput id="AdditionalParam49" name="AdditionalParam49" [(ngModel)]="local_data.AdditionalParam49" placeholder="Enter AdditionalParam49">
+          <input type="text" matInput id="AdditionalParam49" name="AdditionalParam49" formControlName="AdditionalParam49" [(ngModel)]="local_data.AdditionalParam49" placeholder="Enter AdditionalParam49">
         </mat-form-field>
         <mat-form-field>
           <mat-label>AdditionalParam50</mat-label>
-          <input type="text" matInput id="AdditionalParam50" name="AdditionalParam50" [(ngModel)]="local_data.AdditionalParam50" placeholder="Enter AdditionalParam50">
-        </mat-form-field> -->
+          <input type="text" matInput id="AdditionalParam50" name="AdditionalParam50" formControlName="AdditionalParam50" [(ngModel)]="local_data.AdditionalParam50" placeholder="Enter AdditionalParam50">
+        </mat-form-field>
 
 
         <div>
@@ -368,7 +404,8 @@
           <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
-    <mat-step [stepControl]="csForm.get('form4')" formGroupName="form4">
+    <!--step 4[stepControl]="csForm.get('form4')" formGroupName="form4"-->
+    <mat-step >
       <ng-template matStepLabel>Done</ng-template>
 
       <mat-form-field>

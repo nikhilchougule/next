@@ -43,6 +43,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatTreeModule } from '@angular/material/tree';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
     exports:[
@@ -89,7 +90,8 @@ import { CdkTreeModule } from '@angular/cdk/tree';
         PlatformModule,
         PortalModule,
         MatTreeModule,
-        CdkTreeModule
+        CdkTreeModule,
+        NgxMatSelectSearchModule
     ]
 })
 

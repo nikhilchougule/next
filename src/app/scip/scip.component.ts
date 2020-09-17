@@ -19,6 +19,45 @@ export class ScipComponent implements OnInit {
   isLoadingResults = true;
   update: boolean = false;
   dataLength: number = 0;
+  obj1 = {
+    ControlOrRequirementId: null, 
+    // ComplexityCategoryId: 3,
+AV1: null,
+AV1_Degree: null,
+AV1_Justification: "",
+AV1_Value: null,
+AV2: null,
+AV2_Degree: null,
+AV2_Justification: "",
+AV2_Value: null,
+AV3: null,
+AV3_Degree: null,
+AV3_Justification: "",
+AV3_Value: null,
+AV4: null,
+AV4_Degree: null,
+AV4_Justification: "",
+AV4_Value: null,
+AV5: null,
+AV5_Degree: null,
+AV5_Justification: "",
+AV5_Value: null,
+ActiveFlag: null,
+AlternateControlExample: "",
+Analysis: "",
+AppliesTo: "",
+AssessmentStatus: "",
+CommanControlExample: "",
+ControlApplicability: null,
+CorrectiveAction: "",
+Decision: "",
+DecisionAnswerOptions: "",
+Focus: "",
+ImplementControl: null,
+Observation: "",
+Purpose: "",
+UseAlternate: null
+}
   constructor(private scip:ScipService,public dialog: MatDialog,private route: ActivatedRoute) { }
   @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
   @ViewChild(MatSort) sort: MatSort;
@@ -87,7 +126,7 @@ export class ScipsDialogContent {
   scipsForm: FormGroup;
   action: string;
   local_data: any;
-  
+  obj :IScips
   constructor(
       public dialogRef: MatDialogRef<ScipsDialogContent>,
       // @Optional() is used to prevent error if no data is passed
@@ -143,13 +182,16 @@ export class ScipsDialogContent {
   }
 
   doAction() {
-      console.log(this.scipsForm.value)
-      if(this.local_data.action == 'Add'){
-        this.dialogRef.close({ event: this.action, data:this.scipsForm.value });
-      }else{
+    //   console.log(this.scipsForm.value)
+    //   if(this.local_data.action == 'Add'){
+    //       this.obj = this.scipsForm.value;
+    //     this.dialogRef.close({ event: this.action, data:this.obj });
+    //   }else{
         delete this.local_data.action;
-        this.dialogRef.close({ event: this.action, data:this.local_data });
-      }
+        this.obj = this.local_data;
+        
+        this.dialogRef.close({ event: this.action, data:this.obj });
+    //   }
       
   }
 

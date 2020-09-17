@@ -32,7 +32,7 @@ export class CdaService {
     return this.http.delete(`${environment.apiUrl}/criticaldigitalassets/${data.CriticalDigitalAssetId}`,HTTP_OPTIONS);
   }
   addCriticalDigitalAssetsRecord(data:ICDA) {
-    return this.http.put(`${environment.apiUrl}/criticaldigitalassets`, data)
+    return this.http.post(`${environment.apiUrl}/criticaldigitalassets`, data)
   }
 
 }

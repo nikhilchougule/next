@@ -19,7 +19,7 @@ export class ScipService {
     return this.http.delete(`${environment.apiUrl}/SCIPS/${data.ComplexityCategoryId}`);
   }
   addScipRecord(data) {
-    return this.http.put(`${environment.apiUrl}/SCIPS`, data)
+    return this.http.post(`${environment.apiUrl}/SCIPS`, data)
   }
 
 }

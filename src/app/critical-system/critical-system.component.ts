@@ -179,21 +179,35 @@ export class CriticalSystemComponent implements OnInit {
 })
 // tslint:disable-next-line: component-class-suffix
 export class CSDialogContent {
+    CSIdentificationApprovalStatus: any;
+    csApprovalStatus: any;
+    category: any;
     csForm: FormGroup;
     action: string;
     local_data: any;
-    
+    obj:ICriticalSystem
+    location:any;
     constructor(
         public dialogRef: MatDialogRef<CSDialogContent>,
         // @Optional() is used to prevent error if no data is passed
-        @Optional() @Inject(MAT_DIALOG_DATA) public data: ICriticalSystem) {
+        @Optional() @Inject(MAT_DIALOG_DATA) public data: ICriticalSystem,private csService:CriticalSystemService) {
         //  console.log(data);
         this.local_data = { ...data };
-        console.log(this.local_data);
         this.action = this.local_data.action;
-        console.log(this.action)
+        this.csService.getLocations().subscribe((res)=>{
+            this.location = res;
+        })
+        this.csService.getCategory().subscribe((res)=>{
+            this.category = res;
+        })
+        this.csService.getCsApprovalStatus().subscribe((res)=>{
+            this.csApprovalStatus = res;
+        })
+        this.csService.getCSIdentificationApprovalStatus().subscribe((res)=>{
+            this.CSIdentificationApprovalStatus = res;
+        })
         this.csForm = new FormGroup({
-            'form1': new FormGroup({
+            // 'form1': new FormGroup({
                 'LocationId':new FormControl(null),
                 'Name':new FormControl(null),
                 'SystemDescription':new FormControl(null),
@@ -208,9 +222,9 @@ export class CSDialogContent {
                 'Security':new FormControl(null),
                 'SafetyOrImportantToSafety':new FormControl(null),
 
-            }),
+            // }),
 
-        'form2': new FormGroup({
+        // 'form2': new FormGroup({
                 'SSEPDetailedDescription':new FormControl(null),
                 'SSEPJustification':new FormControl(null),
                 'SSEPDecisionComment':new FormControl(null),
@@ -223,8 +237,8 @@ export class CSDialogContent {
                 'SSEPApprovedDate':new FormControl(null),
                 'SSEPApprovedBy':new FormControl(null),
                 'SSEPFunction':new FormControl(null),
-              }),
-        'form3': new FormGroup({
+            //   }),
+        // 'form3': new FormGroup({
                 'Additional_Param_1':new FormControl(null),
                 'Additional_Param_2':new FormControl(null),
                 'Additional_Param_3':new FormControl(null),
@@ -246,8 +260,34 @@ export class CSDialogContent {
                 'AdditionalParam23':new FormControl(null),
                 'AdditionalParam24':new FormControl(null),
                 'AdditionalParam25':new FormControl(null),
-            }),
-                'form4': new FormGroup({
+                'AdditionalParam26':new FormControl(null),
+                'AdditionalParam27':new FormControl(null),
+                'AdditionalParam28':new FormControl(null),
+                'AdditionalParam29':new FormControl(null),
+                'AdditionalParam30':new FormControl(null),
+                'AdditionalParam31':new FormControl(null),
+                'AdditionalParam32':new FormControl(null),
+                'AdditionalParam33':new FormControl(null),
+                'AdditionalParam34':new FormControl(null),
+                'AdditionalParam35':new FormControl(null),
+                'AdditionalParam36':new FormControl(null),
+                'AdditionalParam37':new FormControl(null),
+                'AdditionalParam38':new FormControl(null),
+                'AdditionalParam39':new FormControl(null),
+                'AdditionalParam40':new FormControl(null),
+                'AdditionalParam41':new FormControl(null),
+                'AdditionalParam42':new FormControl(null),
+                'AdditionalParam43':new FormControl(null),
+                'AdditionalParam44':new FormControl(null),
+                'AdditionalParam45':new FormControl(null),
+                'AdditionalParam46':new FormControl(null),
+                'AdditionalParam47':new FormControl(null),
+                'AdditionalParam48':new FormControl(null),
+                'AdditionalParam49':new FormControl(null),
+                'AdditionalParam50':new FormControl(null),
+
+            // }),
+                // 'form4': new FormGroup({
                   'Structure':new FormControl(null),
                   'CreatedBy':new FormControl(null),
                   'CreatedDate' :new FormControl(null),
@@ -260,16 +300,25 @@ export class CSDialogContent {
                   'RiskSignificant':new FormControl(null),
                   'SystemEngineer':new FormControl(null),
                   'SystemFunction':new FormControl(null)
-                })
+                // })
            
            
         })
     }
-
+    filterMyOptions(event){
+        console.log(event);
+        this.local_data.LocationId = event
+    }
     doAction() {
-        console.log(this.csForm.value)
+    //     console.log(this.csForm.value)
+    //    if(this.action == 'Add'){
+    //     this.dialogRef.close({ event: this.action, data: this.csForm.value });
+    //    }else{
         delete this.local_data.action;
-        this.dialogRef.close({ event: this.action, data: this.local_data });
+        this.obj = this.local_data
+        this.dialogRef.close({ event: this.action, data: this.obj });
+    //    }
+       
     }
 
     closeDialog() {
