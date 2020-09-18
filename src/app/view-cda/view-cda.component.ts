@@ -7,6 +7,8 @@ import { ICDA } from '../_models/cda.interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
+import { DateAdapter } from '@angular/material/core';
+
 
 export interface DialogData {
     action: string;
@@ -412,8 +414,9 @@ export class CdaDialogContent {
     constructor(
         public dialogRef: MatDialogRef<CdaDialogContent>,
         // @Optional() is used to prevent error if no data is passed
-        @Optional() @Inject(MAT_DIALOG_DATA) public data: ICDA,private _formBuilder: FormBuilder) {
+        @Optional() @Inject(MAT_DIALOG_DATA) public data: ICDA,private _formBuilder: FormBuilder,private dateAdapter: DateAdapter<any>,) {
         //  console.log(data);
+        // this.dateAdapter.setLocale('en-US');
         this.local_data = { ...data };
         this.action = this.local_data.action;
         this.firstFormGroup = this._formBuilder.group({

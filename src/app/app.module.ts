@@ -14,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MomentDateModule, MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -33,6 +33,38 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelSpeed: 2,
   wheelPropagation: true
 };
+import { Inject, Injectable, Optional } from '@angular/core';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+
+@Injectable()
+export class MomentUtcDateAdapter extends MomentDateAdapter {
+
+  constructor(@Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string) {
+    super(dateLocale);
+  }
+
+  createDate(year: number, month: number, date: number): Moment {
+    // Moment.js will create an invalid date if any of the components are out of bounds, but we
+    // explicitly check each case so we can throw more descriptive errors.
+    if (month < 0 || month > 11) {
+      throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
+    }
+
+    if (date < 1) {
+      throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
+    }
+
+    let result = moment.utc({ year, month, date }).locale(this.locale);
+
+    // If the result isn't valid, the date must have been out of bounds for this month.
+    if (!result.isValid()) {
+      throw Error(`Invalid date "${date}" for month with index "${month}".`);
+    }
+
+    return result;
+  }
+}
 export const MY_FORMATS = {
   parse: {
       dateInput: 'LL'
@@ -88,8 +120,11 @@ export const MY_FORMATS = {
 
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: DateAdapter, useClass: MomentUtcDateAdapter },
+    
+
     MenuItems
 
   ],

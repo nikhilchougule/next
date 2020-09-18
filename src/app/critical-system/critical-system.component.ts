@@ -309,6 +309,9 @@ export class CSDialogContent {
         console.log(event);
         this.local_data.LocationId = event
     }
+    dateChanged(event){
+        console.log(event)
+    }
     doAction() {
     //     console.log(this.csForm.value)
     //    if(this.action == 'Add'){

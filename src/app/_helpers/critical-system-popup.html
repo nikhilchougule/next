@@ -26,7 +26,7 @@
             </mat-select>
           </mat-form-field> -->
          
-          <mat-form-field appearance="fill">
+          <mat-form-field>
               <mat-label>LocationId</mat-label>
               <mat-select [(value)]="local_data.LocationId"  (change)="filterMyOptions($event)" >
                   <mat-option *ngFor="let location of location" [(value)]="location.LocationId"  >
@@ -43,13 +43,13 @@
           <input type="text" matInput  id="SystemDescription" name="SystemDescription"formControlName="SystemDescription"  [(ngModel)]="local_data.SystemDescription"
             placeholder="Enter SystemDescription">
         </mat-form-field>
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>CriticalSystemId</mat-label>
           <input type="number" matInput  id="CriticalSystemId" name="CriticalSystemId" formControlName="CriticalSystemId"  [(ngModel)]="local_data.CriticalSystemId"
             placeholder="Enter CriticalSystemId">
-        </mat-form-field>
+        </mat-form-field> -->
        
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>ApprovalStatus</mat-label>
             <mat-select [(value)]="local_data.ApprovalStatus">
                 <mat-option *ngFor="let csApprovalStatus of csApprovalStatus" [(value)]="csApprovalStatus.CSApprovalStatusName"  >
@@ -58,7 +58,7 @@
             </mat-select>
           </mat-form-field>
      
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>CategoryId</mat-label>
             <mat-select [(value)]="local_data.CategoryId"  >
                 <mat-option *ngFor="let category of category" [(value)]="category.CategoryId"  >
@@ -67,7 +67,7 @@
             </mat-select>
           </mat-form-field>
      
-          <mat-form-field appearance="fill">
+          <mat-form-field>
               <mat-label>IdentificationApprovalStatus</mat-label>
               <mat-select [(value)]="local_data.IdentificationApprovalStatus"  >
                   <mat-option *ngFor="let CSIdentificationApprovalStatus of CSIdentificationApprovalStatus" [(value)]="CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName" >
@@ -75,20 +75,49 @@
                     </mat-option>
               </mat-select>
             </mat-form-field>
-       
-        <mat-form-field>
-          <mat-label>EmergencyPlan</mat-label>
-          <input type="text" matInput  id="EmergencyPlan" name="EmergencyPlan"formControlName="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" placeholder="Enter EmergencyPlan">
-        </mat-form-field>
-        <mat-form-field>
+          <div>
+              <mat-label>EmergencyPlan</mat-label>
+              <mat-radio-group class="example-radio-group" formControlName="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" name="EmergencyPlan">
+                <mat-radio-button class="example-radio-button" [value]="true">
+                  true
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="false">
+                  false
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div>
+              <mat-label>SafetyRelated</mat-label>
+              <mat-radio-group class="example-radio-group" formControlName="SafetyRelated" [(ngModel)]="local_data.SafetyRelated" name="SafetyRelated">
+                <mat-radio-button class="example-radio-button" [value]="true">
+                  true
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="false">
+                  false
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div>
+              <mat-label>ImportantToSafety</mat-label>
+              <mat-radio-group class="example-radio-group" formControlName="ImportantToSafety" [(ngModel)]="local_data.ImportantToSafety" name="ImportantToSafety">
+                <mat-radio-button class="example-radio-button" [value]="true">
+                  true
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="false">
+                  false
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            
+        <!-- <mat-form-field>
           <mat-label>SafetyRelated</mat-label>
           <input type="text" matInput  id="SafetyRelated" name="SafetyRelated" formControlName="SafetyRelated" [(ngModel)]="local_data.SafetyRelated" placeholder="Enter SafetyRelated">
-        </mat-form-field>
-        <mat-form-field>
+        </mat-form-field> -->
+        <!-- <mat-form-field>
           <mat-label>ImportantToSafety</mat-label>
           <input type="text" matInput  id="ImportantToSafety" name="ImportantToSafety" formControlName="ImportantToSafety" [(ngModel)]="local_data.ImportantToSafety"
             placeholder="Enter ImportantToSafety">
-        </mat-form-field>
+        </mat-form-field> -->
         <mat-form-field>
           <mat-label>ExtDescription</mat-label>
           <input type="text" matInput  id="ExtDescription" name="ExtDescription" formControlName="ExtDescription" [(ngModel)]="local_data.ExtDescription" placeholder="Enter ExtDescription">
@@ -106,13 +135,24 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
+        <div>
+          <mat-label>SafetyOrImportantToSafety</mat-label>
+          <mat-radio-group class="example-radio-group" formControlName="SafetyOrImportantToSafety" [(ngModel)]="local_data.SafetyOrImportantToSafety" name="SafetyOrImportantToSafety">
+            <mat-radio-button class="example-radio-button" [value]="true">
+              true
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" [value]="false">
+              false
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
         <!-- <input type="text" matInput  id="Security" name="Security" [(ngModel)]="local_data.Security" placeholder="Enter Security"> -->
         <!-- </mat-form-field> -->
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>SafetyOrImportantToSafety</mat-label>
           <input type="text" matInput  id="SafetyOrImportantToSafety" name="ModelNumber" formControlName="SafetyOrImportantToSafety" [(ngModel)]="local_data.SafetyOrImportantToSafety"
             placeholder="Enter SafetyOrImportantToSafety">
-        </mat-form-field>
+        </mat-form-field> -->
         <div>
           <button mat-button matStepperNext>Next</button>
         </div>
@@ -135,6 +175,15 @@
           <input type="text" matInput  id="SSEPDecisionComment" name="SSEPDecisionComment" formControlName="SSEPDecisionComment" [(ngModel)]="local_data.SSEPDecisionComment"
             placeholder="Enter SSEPDecisionComment">
         </mat-form-field>
+        <!-- <mat-form-field>
+            <mat-label>SSEPDecisionDate</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date"
+            [(ngModel)]="local_data.SSEPDecisionDate"
+            (ngModelChange)='dateChanged($event)'
+            >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field> -->
         <mat-form-field>
           <mat-label>SSEPDecisionDate</mat-label>
           <input type="date" matInput  id="SSEPDecisionDate" name="SSEPDecisionDate" formControlName="SSEPDecisionDate" [(ngModel)]="local_data.SSEPDecisionDate"

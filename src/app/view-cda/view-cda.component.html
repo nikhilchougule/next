@@ -190,18 +190,18 @@
 
               <ng-container matColumnDef="DateInstalled">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> DateInstalled </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.DateInstalled}} </td>
+                <td mat-cell *matCellDef="let cda"> {{cda.DateInstalled | date:'yyyy-MM-dd'}} </td>
               </ng-container>
 
 
               <ng-container matColumnDef="Reconciled">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> Reconciled </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Reconciled}} </td>
+                <td mat-cell *matCellDef="let cda"> {{cda.Reconciled | date:'yyyy-MM-dd'}} </td>
               </ng-container>
          
               <ng-container matColumnDef="ReconciledDate">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> ReconciledDate </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.ReconciledDate}} </td>
+                <td mat-cell *matCellDef="let cda"> {{cda.ReconciledDate | date:'yyyy-MM-dd'}} </td>
               </ng-container>
               
               <ng-container matColumnDef="ReconcilerName">
