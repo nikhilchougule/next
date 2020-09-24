@@ -182,7 +182,6 @@ export class CSDialogContent {
     CSIdentificationApprovalStatus: any;
     csApprovalStatus: any;
     category: any;
-    csForm: FormGroup;
     action: string;
     local_data: any;
     obj:ICriticalSystem
@@ -206,104 +205,7 @@ export class CSDialogContent {
         this.csService.getCSIdentificationApprovalStatus().subscribe((res)=>{
             this.CSIdentificationApprovalStatus = res;
         })
-        this.csForm = new FormGroup({
-            // 'form1': new FormGroup({
-                'LocationId':new FormControl(null),
-                'Name':new FormControl(null),
-                'SystemDescription':new FormControl(null),
-                'CriticalSystemId':new FormControl(null),
-                'ApprovalStatus':new FormControl(null),
-                'CategoryId':new FormControl(null),
-                'IdentificationApprovalStatus':new FormControl(null),
-                'EmergencyPlan':new FormControl(null),
-                'SafetyRelated':new FormControl(null),
-                'ImportantToSafety':new FormControl(null),
-                'ExtDescription':new FormControl(null),
-                'Security':new FormControl(null),
-                'SafetyOrImportantToSafety':new FormControl(null),
-
-            // }),
-
-        // 'form2': new FormGroup({
-                'SSEPDetailedDescription':new FormControl(null),
-                'SSEPJustification':new FormControl(null),
-                'SSEPDecisionComment':new FormControl(null),
-                'SSEPDecisionDate':new FormControl(null),
-                'SSEPDecisionBy':new FormControl(null),
-                'SSEPReviewerComment':new FormControl(null),
-                'SSEPReviewDate':new FormControl(null),
-                'SSEPReviewedBy':new FormControl(null),
-                'SSEPApproverComment':new FormControl(null),
-                'SSEPApprovedDate':new FormControl(null),
-                'SSEPApprovedBy':new FormControl(null),
-                'SSEPFunction':new FormControl(null),
-            //   }),
-        // 'form3': new FormGroup({
-                'Additional_Param_1':new FormControl(null),
-                'Additional_Param_2':new FormControl(null),
-                'Additional_Param_3':new FormControl(null),
-                'Additional_Param_4':new FormControl(null),
-                'Additional_Param_5':new FormControl(null),
-                'Additional_Param_6':new FormControl(null),
-                'AdditionalParam11':new FormControl(null),
-                'AdditionalParam12':new FormControl(null),
-                'AdditionalParam13':new FormControl(null),
-                'AdditionalParam14':new FormControl(null),
-                'AdditionalParam15':new FormControl(null),
-                'AdditionalParam16':new FormControl(null),
-                'AdditionalParam17':new FormControl(null),
-                'AdditionalParam18':new FormControl(null),
-                'AdditionalParam19':new FormControl(null),
-                'AdditionalParam20':new FormControl(null),
-                'AdditionalParam21':new FormControl(null),
-                'AdditionalParam22':new FormControl(null),
-                'AdditionalParam23':new FormControl(null),
-                'AdditionalParam24':new FormControl(null),
-                'AdditionalParam25':new FormControl(null),
-                'AdditionalParam26':new FormControl(null),
-                'AdditionalParam27':new FormControl(null),
-                'AdditionalParam28':new FormControl(null),
-                'AdditionalParam29':new FormControl(null),
-                'AdditionalParam30':new FormControl(null),
-                'AdditionalParam31':new FormControl(null),
-                'AdditionalParam32':new FormControl(null),
-                'AdditionalParam33':new FormControl(null),
-                'AdditionalParam34':new FormControl(null),
-                'AdditionalParam35':new FormControl(null),
-                'AdditionalParam36':new FormControl(null),
-                'AdditionalParam37':new FormControl(null),
-                'AdditionalParam38':new FormControl(null),
-                'AdditionalParam39':new FormControl(null),
-                'AdditionalParam40':new FormControl(null),
-                'AdditionalParam41':new FormControl(null),
-                'AdditionalParam42':new FormControl(null),
-                'AdditionalParam43':new FormControl(null),
-                'AdditionalParam44':new FormControl(null),
-                'AdditionalParam45':new FormControl(null),
-                'AdditionalParam46':new FormControl(null),
-                'AdditionalParam47':new FormControl(null),
-                'AdditionalParam48':new FormControl(null),
-                'AdditionalParam49':new FormControl(null),
-                'AdditionalParam50':new FormControl(null),
-
-            // }),
-                // 'form4': new FormGroup({
-                  'Structure':new FormControl(null),
-                  'CreatedBy':new FormControl(null),
-                  'CreatedDate' :new FormControl(null),
-                  'InstallationDate':new FormControl(null),
-                  'MaintenanceRep':new FormControl(null),
-                  'ModifiedBy':new FormControl(null),
-                  'ModifiedDate':new FormControl(null),
-                  'Notes':new FormControl(null),
-                  'OperationsRep':new FormControl(null),
-                  'RiskSignificant':new FormControl(null),
-                  'SystemEngineer':new FormControl(null),
-                  'SystemFunction':new FormControl(null)
-                // })
-           
-           
-        })
+        
     }
     filterMyOptions(event){
         console.log(event);

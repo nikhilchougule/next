@@ -7,6 +7,6 @@ import {ScipService } from '../_services/scip.service'
 export class scipsResolver implements Resolve<any> {
     constructor(private scipsService: ScipService) {}
     resolve(){
-        return this.scipsService.getScipData;
+        return this.scipsService.getScipData();
     }
 }

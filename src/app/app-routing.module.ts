@@ -20,6 +20,12 @@ const routes: Routes = [
         component: CriticalSystemComponent,
         resolve:{
           items:csResolver
+        },
+        data: {
+          title: 'criticalSystem',
+          urls: [
+            { title: 'criticalSystem' }
+          ]
         }
 
       },
@@ -28,17 +34,35 @@ const routes: Routes = [
         component: ViewCdaComponent,
         resolve:{
           items:cdaResolver
+        },
+        data: {
+          title: 'criticalDigitalAsset',
+          urls: [
+            { title: 'criticalDigitalAsset' }
+          ]
         }
       },
       {
         path:'security-control-tree',
-        component:SecurityControlTreeComponent
+        component:SecurityControlTreeComponent,
+        data: {
+          title: 'securityControlTree',
+          urls: [
+            { title: 'securityControlTree' }
+          ]
+        }
       },
       {
         path:'scip',
         component:ScipComponent,
         resolve:{
           items:scipsResolver
+        },
+        data: {
+          title: 'Scip',
+          urls: [
+            { title: 'Scip' }
+          ]
         }
       }
     ]

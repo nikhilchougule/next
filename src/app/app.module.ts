@@ -36,7 +36,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-
+import { LoginComponent } from './login/login.component';
+import { MsalModule ,MsalInterceptor  } from '@azure/msal-angular';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AppBreadcrumbComponent } from './ui-component/breadcrumb/breadcrumb.component';
 @Injectable()
 export class MomentUtcDateAdapter extends MomentDateAdapter {
 
@@ -44,6 +47,7 @@ export class MomentUtcDateAdapter extends MomentDateAdapter {
     super(dateLocale);
   }
 
+  //send valid date to backend
   createDate(year: number, month: number, date: number): Moment {
     // Moment.js will create an invalid date if any of the components are out of bounds, but we
     // explicitly check each case so we can throw more descriptive errors.
@@ -65,6 +69,7 @@ export class MomentUtcDateAdapter extends MomentDateAdapter {
     return result;
   }
 }
+//----------------- custom date format
 export const MY_FORMATS = {
   parse: {
       dateInput: 'LL'
@@ -76,6 +81,8 @@ export const MY_FORMATS = {
       monthYearA11yLabel: 'YYYY'
   }
 };
+const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +93,7 @@ export const MY_FORMATS = {
     HeaderComponent,
     SpinnerComponent,
     SecurityControlTreeComponent,
+    AppBreadcrumbComponent,
 // ---------- directives ---------------------
     AccordionAnchorDirective,
     AccordionLinkDirective,
@@ -97,7 +105,8 @@ export const MY_FORMATS = {
     ScipComponent,
     ScipsDialogContent,
 //--------pipes--------------------------
-     WrapTextPipe    
+     WrapTextPipe,
+LoginComponent    
   ],
   imports: [
     BrowserModule,
@@ -110,20 +119,49 @@ export const MY_FORMATS = {
     HttpClientModule,
     MatDialogModule,
     PerfectScrollbarModule,
-    
+    //----------active directory 
+    MsalModule.forRoot({
+      auth: {
+        clientId: '25d54303-7773-45fa-af2e-9f5ffafc1aa8', // This is your client ID
+        authority:  "https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a", // This is your tenant ID
+        redirectUri: 'http://localhost:4200/'// This is your redirect URI
+      },
+      cache: {
+        cacheLocation: 'localStorage',
+        storeAuthStateInCookie: isIE, // Set to true for Internet Explorer 11
+      },
+    }, {
+      popUp: !isIE,
+      consentScopes: [
+        'user.read',
+        'openid',
+        'profile',
+      ],
+      unprotectedResources: [],
+      protectedResourceMap: [
+        ['https://graph.microsoft.com/v1.0/me', ['user.read']]
+      ],
+      extraQueryParameters: {}
+    })
   ],
+
+  
   exports:[
     MainMaterialModule,
-   
   ],
   entryComponents:[CdaDialogContent,CSDialogContent,DialogSelectedElement,ScipsDialogContent],
 
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    // ---------- mat date format
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: DateAdapter, useClass: MomentUtcDateAdapter },
-    
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+  },
 
     MenuItems
 
@@ -131,3 +169,4 @@ export const MY_FORMATS = {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 
