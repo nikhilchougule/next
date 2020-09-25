@@ -26,9 +26,7 @@ export class AppBreadcrumbComponent implements OnInit {
         map(route => {
           while (route.firstChild) {
             route = route.firstChild;
-            console.log(route)
           }
-          console.log(route)
           return route;
         })
       )
@@ -37,7 +35,6 @@ export class AppBreadcrumbComponent implements OnInit {
       .subscribe(event => {
         this.titleService.setTitle(event['title']);
         this.pageInfo = event;
-        console.log(this.pageInfo)
       });
   }
   ngOnInit() { }
