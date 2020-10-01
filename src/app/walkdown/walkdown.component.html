@@ -1,11 +1,13 @@
+
 <div fxLayout="row wrap">
+    
         <!-- Card column -->
         <div fxFlex.gt-sm="100%" fxFlex="100">
             <mat-card>
                 <mat-card-content>
                     <mat-card-title>WalkDown</mat-card-title>
     
-                    <mat-horizontal-stepper [linear]="true" #stepper>
+                    <mat-horizontal-stepper [linear]="true" id="stepper">
                         <!--First form  CDA name -->
                         <mat-step [stepControl]="cdaForm">
                             <form [formGroup]="cdaForm">
@@ -85,7 +87,7 @@
                             </form>
                         </mat-step>
                         <!--Second form when cda not found open when cds is not exist and user click ok review-->
-                        <mat-step [stepControl]="addForm" *ngIf="!isExist && isReviewStepShow">
+                        <mat-step [stepControl]="addForm" *ngIf="!isExist && isReviewStepShow" >
                             <form [formGroup]="addForm">
                                 <ng-template matStepLabel>CDA Details</ng-template>
                                 <mat-form-field>
@@ -150,7 +152,7 @@
                             </form>
                         </mat-step>
                         <!--required step in both conditons -->
-                        <mat-step [stepControl]="walkDownForm">
+                        <mat-step [stepControl]="walkDownForm" [completed]="isCompleted">
                             <form [formGroup]="walkDownForm">
                                 <ng-template matStepLabel>Questions</ng-template>
                                 <mat-form-field>
@@ -220,9 +222,11 @@
                             <div class="mat-button-group">
                                 <button mat-raised-button class="btnMargin" matStepperPrevious>Back</button>
                                 <button mat-raised-button class="btnMargin" (click)="stepper.reset(); isReviewStepShow = false">Reset</button>
-                                <button mat-raised-button class="btnMargin" color="primary" (click)="save()">Save</button>
+                                <button mat-raised-button class="btnMargin" color="primary" (click)="save(stepper)">Save</button>
                                 <button mat-raised-button class="btnMargin" color="primary" (click)="AssignTo()">AssignTo</button>
-    
+                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext [disabled]="!isInterConnections">Next</button>
+
+                                
                             </div>
                         </mat-step>
                         <!--interconnection step open on save of walkdown questions if user want interconnections-->
@@ -275,8 +279,9 @@
                             <div class="mat-button-group">
                                 <!-- <button mat-raised-button class="btnMargin" matStepperPrevious>Back</button> -->
                                 <button mat-raised-button class="btnMargin" (click)="stepper.reset(); isReviewStepShow = false; isInterConnections = false">Reset</button>
-                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext (click)="saveInterConnection()">Save</button>
-    
+                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext (click)="saveInterConnection(stepper)">Save</button>
+                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext [disabled]="!isLTConnections">Next</button>
+
                             </div>
                         </mat-step>
                         <!--LT Questions form open on interconnection save button when user want to LT Questions -->
@@ -367,7 +372,7 @@
                             <div class="mat-button-group">
                                 <!-- <button mat-raised-button class="btnMargin" matStepperPrevious>Back</button> -->
                                 <button mat-raised-button class="btnMargin" (click)="stepper.reset();isReviewStepShow = false; isInterConnections = false;isLTConnections = false;isLTConnections = false;">Reset</button>
-                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext (click)="saveInterConnection()">Save</button>
+                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext (click)="LTQuestions()">Save</button>
     
                             </div>
                         </mat-step>

@@ -13,6 +13,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AssessmentsComponent } from './assessments/assessments.component';
 import { WalkdownComponent } from './walkdown/walkdown.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AssessmentResultComponent } from './assessments/assessment-result/assessment-result.component';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
-},
+ },
+ 
   {
     path: '',
     component: HomeComponent,
@@ -111,7 +113,17 @@ const routes: Routes = [
             { title: 'Assessment' }
           ]
         }
-      }
+      },
+      {
+        path:'AssessmentResult',
+        component:AssessmentResultComponent,
+        data: {
+          title: 'AssessmentResult',
+          urls: [
+            { title: 'AssessmentResult' }
+          ]
+        }
+     },
     ]
   },
   

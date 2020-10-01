@@ -56,6 +56,7 @@ import { ChartistModule } from 'ng-chartist';
 import { ChartsModule } from 'ng2-charts';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AssessmentResultComponent } from './assessments/assessment-result/assessment-result.component';
 
 @Injectable()
 export class MomentUtcDateAdapter extends MomentDateAdapter {
@@ -129,7 +130,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
 LoginComponent,
 AssessmentsComponent,
 WalkdownComponent,
-DashboardComponent    
+DashboardComponent,
+AssessmentResultComponent    
   ],
   imports: [
     BrowserModule,

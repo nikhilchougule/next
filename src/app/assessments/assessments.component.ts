@@ -5,6 +5,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatStepper } from '@angular/material/stepper';
 import { validate } from 'json-schema';
+import { Router } from '@angular/router';
 
 export interface Groups {
   name: string;
@@ -65,6 +66,11 @@ const Assessment: Assessment[] = [
   styleUrls: ['./assessments.component.scss']
 })
 export class AssessmentsComponent implements OnInit {
+  selectedDADetailRowIndex = -1;
+  selectedDARowIndex = -1;
+  selectedRowControlListIndex = -1;
+  selectedControlListDetailRowIndex = -1;
+  selectedAssessmentRowIndex = -1;
   user: { postions: number; userName: string; }[];
   selectedRowIndex = -1;
   isLinear = false;
@@ -74,7 +80,7 @@ export class AssessmentsComponent implements OnInit {
   isEditable = false;
   panelOpenState = false;
 
-  constructor(private _formBuilder: FormBuilder,public dialog: MatDialog) { }
+  constructor(private _formBuilder: FormBuilder,public dialog: MatDialog,private route:Router) { }
   displayedColumns: string[] = ['select', 'position', 'name', 'Purpose', 'Description'];
   dataSource = new MatTableDataSource<Groups>(ELEMENT_DATA);
   DAListColumns: string[] = ['position','Actions', 'DAList', 'Description', 'Purpose'];
@@ -123,21 +129,30 @@ export class AssessmentsComponent implements OnInit {
   }
   getDAList(row){
     console.log(row)
-    this.selectedRowIndex = row.position;
+    this.selectedDARowIndex = row.position;
 
+  }
+  getDAListDetail(row){
+    this.selectedDADetailRowIndex = row.position
   }
   getRecord(stepper: MatStepper,row){
     // stepper.next();
     console.log(row)
     this.selectedRowIndex = row.position;
+}
 
+getControlList(row){
+  this.selectedRowControlListIndex = row.position
+}
+getControlListDetail(row){
+  this.selectedControlListDetailRowIndex = row.position
 }
 getAssessment(row){
-  this.selectedRowIndex = row.position;
+  this.selectedAssessmentRowIndex = row.position;
 
 }
 conductAssessment(){
-
+  this.route.navigateByUrl('/AssessmentResult')
 }
 AssignTo(){
   this.user = [{postions:1,userName:'user1'},{postions:2,userName:'user2'},{postions:3,userName:'user3'}]

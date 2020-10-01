@@ -179,25 +179,25 @@ const MENUITEMS = [
     // },
     {
         state: 'dashboard',
-        name: 'dashboard',
+        name: 'Dashboard',
         type: 'link',
         icon: 'av_timer'
     },
     {
         state: 'critical-digital-asset',
-        name: 'criticalDigitalAsset',
+        name: 'DA',
         type: 'link',
         icon: 'border_all'
     },
     {
         state: 'critical-system',
-        name: 'criticalSystem',
+        name: 'CS',
         type: 'link',
         icon: 'border_all'
     },
     {
         state: 'security-control-tree',
-        name: 'securityControlTree',
+        name: 'Security Controls',
         type: 'link',
         icon: 'brightness_7'
     },
@@ -209,13 +209,13 @@ const MENUITEMS = [
     },
     {
         state: 'WalkDown',
-        name: 'WalkDown',
+        name: 'Start Walkdown',
         type: 'link',
         icon: 'content_copy'
     },
     {
         state: 'Assessment',
-        name: 'Assessment',
+        name: 'Start Assessment',
         type: 'link',
         icon: 'insert_chart'
     },

@@ -2,6 +2,7 @@ import { Component, OnInit, Optional, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import { MatStepper, MatHorizontalStepper } from '@angular/material/stepper';
 @Component({
   selector: 'app-walkdown',
   templateUrl: './walkdown.component.html',
@@ -9,6 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class WalkdownComponent implements OnInit {
 
+  isCompleted = false;
+  @ViewChild(MatHorizontalStepper) stepper: MatHorizontalStepper;
   user = [];
   ltQuestionsForm: FormGroup;
   isLTConnections: any;
@@ -144,29 +147,34 @@ export class WalkdownComponent implements OnInit {
     });
   }
   
-  save(){
-   
+  save(stepper:MatStepper){
+    
     const dialogRef = this.dialog.open(ReviewDialogContent, {
       data: {message:'Do You Want to InterConnections'}
     });
-
+    // stepper.next()
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.isInterConnections = result;
-
+      this.isCompleted = result;
+      
+      stepper.next()
+ 
     });
   }
-  saveInterConnection(){
-    
+  saveInterConnection(stepper:MatStepper){
     const dialogRef = this.dialog.open(ReviewDialogContent, {
       data: {message:'Do You Want to LT Questions'}
     });
-
+    // this.stepper = stepper
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.isLTConnections = result;
-
+      this.stepper.next();
     });
+  }
+  LTQuestions(){
+
   }
   AssignTo(){
     this.user = [{postions:1,userName:'user1'},{postions:2,userName:'user2'},{postions:3,userName:'user3'}]
@@ -176,7 +184,6 @@ export class WalkdownComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.isLTConnections = result;
 
     });
@@ -236,8 +243,7 @@ export class UserListDialogContent {
       public dialogRef: MatDialogRef<UserListDialogContent>,
       // @Optional() is used to prevent error if no data is passed
       @Optional() @Inject(MAT_DIALOG_DATA) public data: UsersDialogData) {
-       console.log(data);
-       console.log(data);
+       
       this.datas = data
       this.dataSource = new MatTableDataSource<UsersDialogData>(this.datas);
        console.log(this.dataSource);
@@ -246,7 +252,6 @@ export class UserListDialogContent {
       this.dialogRef.close(true);  
   }
   getSelectedUser(row){
-    console.log(row)
     this.selectedRowIndex = row.postions
   }
   closeDialog() {
