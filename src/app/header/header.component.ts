@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers';
+import { Logout } from '../auth/auth.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +12,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 })
 export class HeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
-  
+  constructor(private store:Store<AppState>,private router: Router,
+  ){}
   // This is for Notifications
   notifications: Object[] = [
     {
@@ -72,4 +77,8 @@ export class HeaderComponent {
       time: '9:00 AM'
     }
   ];
+  logOut(){
+    this.store.dispatch(new Logout())
+    this.router.navigateByUrl('/login')
+  }
 }

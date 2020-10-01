@@ -7,6 +7,11 @@ import { ICriticalSystem } from '../_models/criticalSyst.interface'
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControlName, FormControl } from '@angular/forms';
+import { AppState } from '../reducers';
+import { Store, select } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { isLoggedIn, isLoggedOut } from '../auth/auth.selector';
 @Component({
     selector: 'app-critical-system',
     templateUrl: './critical-system.component.html',
@@ -19,6 +24,8 @@ export class CriticalSystemComponent implements OnInit {
     update: boolean = false;
     dataLength: number = 0;
     data: ICriticalSystem[];
+    isLoggedIn$: Observable<boolean>;
+    isLoggedOut$: Observable<boolean>;
     obj = {
         Name: null, 
         SystemDescription: null,
@@ -103,7 +110,7 @@ export class CriticalSystemComponent implements OnInit {
            SystemEngineer: null,
            SystemFunction: null,
    }
-    constructor(private criticalSys: CriticalSystemService,public dialog: MatDialog,private route:ActivatedRoute) {
+    constructor(private criticalSys: CriticalSystemService,public dialog: MatDialog,private route:ActivatedRoute,private store: Store<AppState>) {
     }
     @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
     @ViewChild(MatSort) sort: MatSort;
@@ -115,7 +122,14 @@ export class CriticalSystemComponent implements OnInit {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
     ngOnInit(): void {
-        
+       this.isLoggedIn$ = this.store
+        .pipe(
+            select(isLoggedIn)
+          )
+       this.isLoggedOut$ = this.store
+       .pipe(
+           select(isLoggedOut)
+         ) 
         this.route.data.subscribe(res =>{
             // this.cda.getCriticalDigitalAssetsData().subscribe((res: ICDA[]) => {
                 this.data = res.items;

@@ -1,0 +1,26 @@
+.mat-button-group .btnMargin{
+    margin: 0px 5px !important;
+}
+table.mat-table {
+    width:100% !important;
+    margin-bottom: 25px;
+}
+mat-expansion-panel.expansion-margin{
+    margin-top: 30px;
+    background-color: #08ad9d;
+}
+mat-panel-title.expansion-title{
+    text-align: center;
+    color: white;
+
+}
+.activeRow{
+    background-color: #f7f7f7;
+}
+.table-row:focus {
+    background: tomato;
+    outline: none;
+  }
+  .table-row:focus mat-cell {
+    color: white; 
+  }

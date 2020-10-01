@@ -8,12 +8,36 @@ import { csResolver } from './_resolver/criticalSyst-resolver-service';
 import { SecurityControlTreeComponent } from './security-control-tree/security-control-tree.component';
 import { ScipComponent } from 'src/app/scip/scip.component';
 import { scipsResolver } from './_resolver/scips-resolver';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AssessmentsComponent } from './assessments/assessments.component';
+import { WalkdownComponent } from './walkdown/walkdown.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
+  {
+    path:'login',
+    component:LoginComponent,
+  },
+  {
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+},
   {
     path: '',
     component: HomeComponent,
     children: [
+      {
+        path:'dashboard',
+        component:DashboardComponent,
+        data: {
+          title: 'dashboard',
+          urls: [
+            { title: 'dashboard' }
+          ]
+        }
+      },
       {
 
         path: 'critical-system',
@@ -26,7 +50,8 @@ const routes: Routes = [
           urls: [
             { title: 'criticalSystem' }
           ]
-        }
+        },
+        canActivate:[AuthGuard]
 
       },
       {
@@ -64,9 +89,33 @@ const routes: Routes = [
             { title: 'Scip' }
           ]
         }
+      },
+      {
+        path:'WalkDown',
+        component:WalkdownComponent,
+      
+        data: {
+          title: 'WalkDown',
+          urls: [
+            { title: 'WalkDown' }
+          ]
+        }
+      },
+      {
+        path:'Assessment',
+        component:AssessmentsComponent,
+      
+        data: {
+          title: 'Assessment',
+          urls: [
+            { title: 'Assessment' }
+          ]
+        }
       }
     ]
-  }
+  },
+  
+  
   // {
   //   path:'',
   //   component:HomeComponent

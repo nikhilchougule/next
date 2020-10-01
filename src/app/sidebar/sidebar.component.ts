@@ -6,6 +6,10 @@ import {
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../_helpers/menu-items';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers';
+import { Router } from '@angular/router';
+import { Logout } from '../auth/auth.actions';
 
 @Component({
   selector: 'app-sidebar',
@@ -40,8 +44,9 @@ export class SidebarComponent implements OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
-
+    public menuItems: MenuItems,
+    private store:Store<AppState>,
+    private router: Router,
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -52,5 +57,9 @@ export class SidebarComponent implements OnDestroy {
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+  logOut(){
+    this.store.dispatch(new Logout())
+    this.router.navigateByUrl('/login')
   }
 }

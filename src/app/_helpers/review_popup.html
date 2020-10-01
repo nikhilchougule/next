@@ -1,0 +1,9 @@
+<div mat-dialog-content>
+  <p>
+      {{data.message}}
+  </p> 
+</div>
+<div mat-dialog-actions>
+     <button mat-button (click)="doAction()" mat-flat-button color="warn">OK</button>
+    <button mat-button (click)="closeDialog()">No Thanks</button>
+</div>

@@ -168,6 +168,21 @@ const MENUITEMS = [
     //         { state: 'materialtable', name: 'Material Table', type: 'link' }
     //     ]
     // },
+    //  {
+    //     state: 'Home',
+    //     name: 'Home',
+    //     type: 'sub',
+    //     icon: 'border_all',
+    //     children: [
+
+    //     ]
+    // },
+    {
+        state: 'dashboard',
+        name: 'dashboard',
+        type: 'link',
+        icon: 'av_timer'
+    },
     {
         state: 'critical-digital-asset',
         name: 'criticalDigitalAsset',
@@ -192,7 +207,20 @@ const MENUITEMS = [
         type: 'link',
         icon: 'border_all'
     },
-    // {
+    {
+        state: 'WalkDown',
+        name: 'WalkDown',
+        type: 'link',
+        icon: 'content_copy'
+    },
+    {
+        state: 'Assessment',
+        name: 'Assessment',
+        type: 'link',
+        icon: 'insert_chart'
+    },
+   
+  // {
     //     state: '',
     //     name: 'Extra Component',
     //     type: 'saperator',

@@ -36,10 +36,27 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/login/login.component';
 import { MsalModule ,MsalInterceptor  } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppBreadcrumbComponent } from './ui-component/breadcrumb/breadcrumb.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { AuthGuard } from './auth/auth.guard';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/auth.effects';
+import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
+import { CustomSerializer } from './shared/utils';
+import { AssessmentsComponent, UserAssessmentListDialogContent } from './assessments/assessments.component';
+import { WalkdownComponent , ReviewDialogContent,UserListDialogContent} from './walkdown/walkdown.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartistModule } from 'ng-chartist';
+import { ChartsModule } from 'ng2-charts';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 @Injectable()
 export class MomentUtcDateAdapter extends MomentDateAdapter {
 
@@ -104,9 +121,15 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     DialogSelectedElement,
     ScipComponent,
     ScipsDialogContent,
+    ReviewDialogContent,
+    UserListDialogContent,
+    UserAssessmentListDialogContent,
 //--------pipes--------------------------
      WrapTextPipe,
-LoginComponent    
+LoginComponent,
+AssessmentsComponent,
+WalkdownComponent,
+DashboardComponent    
   ],
   imports: [
     BrowserModule,
@@ -115,6 +138,7 @@ LoginComponent
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FlexLayoutModule ,
     MainMaterialModule,
     HttpClientModule,
     MatDialogModule,
@@ -142,14 +166,24 @@ LoginComponent
         ['https://graph.microsoft.com/v1.0/me', ['user.read']]
       ],
       extraQueryParameters: {}
-    })
+    }),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AuthEffects]),
+    StoreRouterConnectingModule.forRoot({stateKey:'router'}),
+
+    // FlexLayoutModule,
+        ChartistModule,
+        ChartsModule,
+        NgApexchartsModule,
   ],
 
   
   exports:[
     MainMaterialModule,
+    // FlexLayoutModule 
   ],
-  entryComponents:[CdaDialogContent,CSDialogContent,DialogSelectedElement,ScipsDialogContent],
+  entryComponents:[CdaDialogContent,CSDialogContent,DialogSelectedElement,ScipsDialogContent,ReviewDialogContent,UserListDialogContent,UserAssessmentListDialogContent],
 
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
@@ -162,8 +196,12 @@ LoginComponent
       useClass: MsalInterceptor,
       multi: true
   },
+  {
+    provide:RouterStateSerializer,useClass:CustomSerializer
+  },
 
-    MenuItems
+  AuthGuard,
+  MenuItems
 
   ],
   bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
 
 export const themeColor = {
     //for change color set color property to true other false
-    green : true,
+    green :true,
     blue : false,
     danger:false,
 

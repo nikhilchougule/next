@@ -1,0 +1,382 @@
+<div fxLayout="row wrap">
+        <!-- Card column -->
+        <div fxFlex.gt-sm="100%" fxFlex="100">
+            <mat-card>
+                <mat-card-content>
+                    <mat-card-title>WalkDown</mat-card-title>
+    
+                    <mat-horizontal-stepper [linear]="true" #stepper>
+                        <!--First form  CDA name -->
+                        <mat-step [stepControl]="cdaForm">
+                            <form [formGroup]="cdaForm">
+                                <ng-template matStepLabel>Fill Out CDA Name</ng-template>
+                                <mat-form-field>
+                                    <input matInput placeholder="Enter CDA Name" formControlName="cdaName" required>
+                                </mat-form-field>
+                                <div>
+                                    <button mat-raised-button color="primary" matStepperNext (click)="checkCdaExist()">Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <!--Second for update and review cda open only cda exist and user click ok on review form-->
+                        <mat-step [stepControl]="reviewForm" *ngIf="isExist && isReviewStepShow">
+                            <form [formGroup]="reviewForm">
+                                <ng-template matStepLabel>CDA Details</ng-template>
+                                <mat-form-field>
+                                    <mat-label>Name</mat-label>
+                                    <input type="text" matInput id="name" name="name" formControlName="Name" [(ngModel)]="local_data.Name" placeholder="Enter Name"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Location</mat-label>
+                                    <input type="text" matInput id="Location" name="Location" formControlName="Location" [(ngModel)]="local_data.Location" placeholder="Enter Location">
+                                </mat-form-field>
+                                <div class="radioMain">
+                                    <mat-label>IsDigital</mat-label>
+                                    <mat-radio-group class="example-radio-group" formControlName="IsDigital" [(ngModel)]="local_data.IsDigital" name="IsDigital">
+                                        <mat-radio-button class="example-radio-button" [value]="true">
+                                            true
+                                        </mat-radio-button>
+                                        <mat-radio-button class="example-radio-button" [value]="false">
+                                            false
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <mat-form-field>
+                                    <mat-label>ManualComponent</mat-label>
+                                    <input type="text" matInput id="ManualComponent" name="ManualComponent" formControlName="ManualComponent" [(ngModel)]="local_data.ManualComponent"
+                                        placeholder="Enter ManualComponent">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>ECode</mat-label>
+                                    <input type="text" matInput id="ECode" name="ECode" formControlName="ECode" [(ngModel)]="local_data.ECode" placeholder="Enter ECode"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>SerialNumber</mat-label>
+                                    <input type="text" matInput id="SerialNumber" name="SerialNumber" formControlName="SerialNumber" [(ngModel)]="local_data.SerialNumber"
+                                        placeholder="SerialNumber" required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>EquipmentType</mat-label>
+                                    <input type="text" matInput id="EquipmentType" name="EquipmentType" formControlName="EquipmentType" [(ngModel)]="local_data.EquipmentType"
+                                        placeholder="EquipmentType" required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>CDADefensiveSecurityLevelsLookupId</mat-label>
+                                    <input type="number" matInput id="CDADefensiveSecurityLevelsLookupId" name="CDADefensiveSecurityLevelsLookupId" formControlName="CDADefensiveSecurityLevelsLookupId"
+                                        [(ngModel)]="local_data.CDADefensiveSecurityLevelsLookupId" placeholder="Enter CDADefensiveSecurityLevelsLookupId">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Manufacturer</mat-label>
+                                    <input type="text" matInput id="Manufacturer" name="Manufacturer" formControlName="Manufacturer" [(ngModel)]="local_data.Manufacturer"
+                                        placeholder="Enter Manufacturer">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>ModelNumber</mat-label>
+                                    <input type="text" matInput id="ModelNumber" name="ModelNumber" formControlName="ModelNumber" [(ngModel)]="local_data.ModelNumber"
+                                        placeholder="Enter ModelNumber">
+                                </mat-form-field>
+                                <div class="mat-button-group">
+    
+                                    <button mat-raised-button class="btnMargin" (click)="stepper.reset(); isReviewStepShow = false">Back</button>
+                                    <button mat-raised-button class="btnMargin" color="primary" matStepperNext>Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <!--Second form when cda not found open when cds is not exist and user click ok review-->
+                        <mat-step [stepControl]="addForm" *ngIf="!isExist && isReviewStepShow">
+                            <form [formGroup]="addForm">
+                                <ng-template matStepLabel>CDA Details</ng-template>
+                                <mat-form-field>
+                                    <mat-label>Name</mat-label>
+                                    <input type="text" matInput id="name" name="name" formControlName="Name" [(ngModel)]="local_data.Name" placeholder="Enter Name"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Location</mat-label>
+                                    <input type="text" matInput id="Location" name="Location" formControlName="Location" [(ngModel)]="local_data.Location" placeholder="Enter Location">
+                                </mat-form-field>
+                                <div class="radioMain">
+                                    <mat-label>IsDigital</mat-label>
+                                    <mat-radio-group class="example-radio-group" formControlName="IsDigital" [(ngModel)]="local_data.IsDigital" name="IsDigital">
+                                        <mat-radio-button class="example-radio-button" [value]="true">
+                                            true
+                                        </mat-radio-button>
+                                        <mat-radio-button class="example-radio-button" [value]="false">
+                                            false
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <mat-form-field>
+                                    <mat-label>ManualComponent</mat-label>
+                                    <input type="text" matInput id="ManualComponent" name="ManualComponent" formControlName="ManualComponent" [(ngModel)]="local_data.ManualComponent"
+                                        placeholder="Enter ManualComponent">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>ECode</mat-label>
+                                    <input type="text" matInput id="ECode" name="ECode" formControlName="ECode" [(ngModel)]="local_data.ECode" placeholder="Enter ECode"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>SerialNumber</mat-label>
+                                    <input type="text" matInput id="SerialNumber" name="SerialNumber" formControlName="SerialNumber" [(ngModel)]="local_data.SerialNumber"
+                                        placeholder="SerialNumber" required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>EquipmentType</mat-label>
+                                    <input type="text" matInput id="EquipmentType" name="EquipmentType" formControlName="EquipmentType" [(ngModel)]="local_data.EquipmentType"
+                                        placeholder="EquipmentType" required>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>CDADefensiveSecurityLevelsLookupId</mat-label>
+                                    <input type="number" matInput id="CDADefensiveSecurityLevelsLookupId" name="CDADefensiveSecurityLevelsLookupId" formControlName="CDADefensiveSecurityLevelsLookupId"
+                                        [(ngModel)]="local_data.CDADefensiveSecurityLevelsLookupId" placeholder="Enter CDADefensiveSecurityLevelsLookupId">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Manufacturer</mat-label>
+                                    <input type="text" matInput id="Manufacturer" name="Manufacturer" formControlName="Manufacturer" [(ngModel)]="local_data.Manufacturer"
+                                        placeholder="Enter Manufacturer">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>ModelNumber</mat-label>
+                                    <input type="text" matInput id="ModelNumber" name="ModelNumber" formControlName="ModelNumber" [(ngModel)]="local_data.ModelNumber"
+                                        placeholder="Enter ModelNumber">
+                                </mat-form-field>
+                                <div class="mat-button-group">
+                                    <button mat-raised-button class="btnMargin" (click)="stepper.reset(); isReviewStepShow = false">Back</button>
+                                    <button mat-raised-button class="btnMargin" color="primary" matStepperNext>Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <!--required step in both conditons -->
+                        <mat-step [stepControl]="walkDownForm">
+                            <form [formGroup]="walkDownForm">
+                                <ng-template matStepLabel>Questions</ng-template>
+                                <mat-form-field>
+                                    <mat-label>Name</mat-label>
+                                    <input matInput placeholder="Enter Name" formControlName="Name">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Location Name</mat-label>
+                                    <input matInput placeholder="Enter Location Name" formControlName="Location_Name">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>System Code</mat-label>
+                                    <input matInput placeholder="Enter System Code" formControlName="System_Code">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>SECTION</mat-label>
+                                    <input matInput placeholder="Enter SECTION" formControlName="SECTION">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Question ID</mat-label>
+                                    <input matInput placeholder="Enter Question ID" formControlName="Question_ID">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>#</mat-label>
+                                    <input matInput placeholder="Enter #" formControlName="Hash">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Question Statement</mat-label>
+                                    <textarea matInput placeholder="Enter Question Statement" formControlName="Question_Statement"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Order#</mat-label>
+                                    <input matInput placeholder="Enter Order#" formControlName="Order">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Date</mat-label>
+                                    <input matInput [matDatepicker]="Date" name="Date" formControlName="Date">
+                                    <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
+                                    <mat-datepicker #Date name="Date" ngDefaultControl formControlName="Date"></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>TABLE TOP</mat-label>
+                                    <input matInput placeholder="Enter TABLE TOP" formControlName="TABLE_TOP">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>WALK DOWN</mat-label>
+                                    <input matInput placeholder="Enter WALK DOWN" formControlName="WALK_DOWN">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>COMMENTS CAPTURED DURING THE WALK DOWN</mat-label>
+                                    <textarea matInput placeholder="Enter COMMENTS CAPTURED DURING THE WALK DOWN" formControlName="COMMENTS_CAPTURED_DURING_THE_WALK_DOWN"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>REFERNCE ARTIFACTS</mat-label>
+                                    <textarea matInput placeholder="Enter REFERNCE ARTIFACTS" formControlName="REFERNCE_ARTIFACTS"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Guidance</mat-label>
+                                    <textarea matInput placeholder="Enter Guidance" formControlName="Guidance"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>OTHER DETAILS</mat-label>
+                                    <textarea matInput placeholder="Enter OTHER DETAILS" formControlName="OTHER_DETAILS"></textarea>
+                                </mat-form-field>
+    
+                            </form>
+                            <div class="mat-button-group">
+                                <button mat-raised-button class="btnMargin" matStepperPrevious>Back</button>
+                                <button mat-raised-button class="btnMargin" (click)="stepper.reset(); isReviewStepShow = false">Reset</button>
+                                <button mat-raised-button class="btnMargin" color="primary" (click)="save()">Save</button>
+                                <button mat-raised-button class="btnMargin" color="primary" (click)="AssignTo()">AssignTo</button>
+    
+                            </div>
+                        </mat-step>
+                        <!--interconnection step open on save of walkdown questions if user want interconnections-->
+                        <mat-step [stepControl]="interConnectionForm" *ngIf="isInterConnections">
+                            <form [formGroup]="interConnectionForm">
+                                <ng-template matStepLabel>InterConnection</ng-template>
+                                <mat-form-field>
+                                    <mat-label>Name</mat-label>
+                                    <input matInput placeholder="Enter Name" formControlName="Name">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Location Name</mat-label>
+                                    <input matInput placeholder="Enter Location Name" formControlName="Location_Name">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>System Code</mat-label>
+                                    <input matInput placeholder="Enter System Code" formControlName="System_Code">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Physical Port ID</mat-label>
+                                    <input matInput placeholder="Enter Physical Port ID" formControlName="Physical_Port_ID">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Analog Port?</mat-label>
+                                    <input matInput placeholder="Enter Analog Port?" formControlName="Analog_Port">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Blocked Digital Port</mat-label>
+                                    <input matInput placeholder="Enter Blocked_Digital_Port" formControlName="Blocked_Digital_Port">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Used Digital Port</mat-label>
+                                    <textarea matInput placeholder="Enter Used Digital Port" formControlName="Used_Digital_Port"></textarea>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Open Digital Port</mat-label>
+                                    <input matInput placeholder="Enter Open Digital Port" formControlName="Open_Digital_Port">
+                                </mat-form-field>
+                                <!-- <mat-form-field>
+                                        <mat-label>Date</mat-label>
+                                        <input matInput [matDatepicker]="Date" name="Date" formControlName="Date">
+                                        <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
+                                        <mat-datepicker #Date name="Date" ngDefaultControl formControlName="Date"></mat-datepicker>
+                                    </mat-form-field> -->
+                                <mat-form-field>
+                                    <mat-label>Digital Port Type</mat-label>
+                                    <input matInput placeholder="Enter Digital Port Type" formControlName="Digital_Port_Type">
+                                </mat-form-field>
+                            </form>
+                            <div class="mat-button-group">
+                                <!-- <button mat-raised-button class="btnMargin" matStepperPrevious>Back</button> -->
+                                <button mat-raised-button class="btnMargin" (click)="stepper.reset(); isReviewStepShow = false; isInterConnections = false">Reset</button>
+                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext (click)="saveInterConnection()">Save</button>
+    
+                            </div>
+                        </mat-step>
+                        <!--LT Questions form open on interconnection save button when user want to LT Questions -->
+                        <mat-step [stepControl]="interConnectionForm" *ngIf="isLTConnections">
+                            <form [formGroup]="ltQuestionsForm">
+                                <ng-template matStepLabel>LTQuestions</ng-template>
+                                <mat-form-field>
+                                    <mat-label>Additional Param1</mat-label>
+                                    <mat-select name="Additional_Param1" formControlName="Additional_Param1" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param2</mat-label>
+                                    <mat-select name="Additional_Param2" formControlName="Additional_Param2" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param3</mat-label>
+                                    <mat-select name="Additional_Param3" formControlName="Additional_Param3" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param4</mat-label>
+                                    <mat-select name="Additional_Param4" formControlName="Additional_Param4" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param5</mat-label>
+                                    <mat-select name="Additional_Param5" formControlName="Additional_Param5" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param6</mat-label>
+                                    <mat-select name="Additional_Param6" formControlName="Additional_Param6" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param7</mat-label>
+                                    <mat-select name="Additional_Param7" formControlName="Additional_Param7" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param8</mat-label>
+                                    <mat-select name="Additional_Param8" formControlName="Additional_Param8" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param9</mat-label>
+                                    <mat-select name="Additional_Param9" formControlName="Additional_Param9" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Additional Param10</mat-label>
+                                    <mat-select name="Additional_Param10" formControlName="Additional_Param10" ngDefaultControl>
+                                        <mat-option *ngFor="let dropDownData of dropDownData" value="dropDownData">
+                                            {{dropDownData}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </form>
+                            <div class="mat-button-group">
+                                <!-- <button mat-raised-button class="btnMargin" matStepperPrevious>Back</button> -->
+                                <button mat-raised-button class="btnMargin" (click)="stepper.reset();isReviewStepShow = false; isInterConnections = false;isLTConnections = false;isLTConnections = false;">Reset</button>
+                                <button mat-raised-button class="btnMargin" color="primary" matStepperNext (click)="saveInterConnection()">Save</button>
+    
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+    
+                </mat-card-content>
+    
+            </mat-card>
+        </div>
+    </div>
+    
+    <!-- ============================================================== -->
