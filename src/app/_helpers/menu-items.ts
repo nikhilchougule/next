@@ -219,6 +219,27 @@ const MENUITEMS = [
         type: 'link',
         icon: 'insert_chart'
     },
+    {
+        state: 'SetUpDAList',
+        name: 'SetUpDAList',
+        type: 'link',
+        icon: 'insert_chart'
+    },
+    
+    {
+        state: 'apps',
+        name: 'Apps',
+        type: 'sub',
+        icon: 'apps',
+        badge: [{ type: 'warning', value: 'new' }],
+        children: [
+            { state: 'calendar', name: 'Calendar', type: 'link' },
+            { state: 'messages', name: 'Mail', type: 'link' },
+            { state: 'taskboard', name: 'Taskboard', type: 'link' },
+            { state: 'ticketlist', name: 'Ticket List', type: 'link' },
+            { state: 'ticketdetails', name: 'Ticket Details', type: 'link' }
+        ]
+    },
    
   // {
     //     state: '',

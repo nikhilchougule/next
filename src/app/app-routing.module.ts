@@ -14,6 +14,7 @@ import { AssessmentsComponent } from './assessments/assessments.component';
 import { WalkdownComponent } from './walkdown/walkdown.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AssessmentResultComponent } from './assessments/assessment-result/assessment-result.component';
+import { ControlCdaListComponent } from './control-cda-list/control-cda-list.component';
 
 const routes: Routes = [
   {
@@ -124,6 +125,21 @@ const routes: Routes = [
           ]
         }
      },
+     {
+      
+        path:'SetUpDAList',
+        component:ControlCdaListComponent,
+        data: {
+          title: 'SetUpDAList',
+          urls: [
+            { title: 'SetUpDAList' }
+          ]
+        }  
+     },
+     {
+       path:'apps',
+       loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)
+     }
     ]
   },
   

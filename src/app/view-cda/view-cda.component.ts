@@ -426,7 +426,7 @@ export class CdaDialogContent {
       }
     doAction() {
         delete this.local_data.action;
-        // this.obj = this.local_data
+        this.obj = this.local_data
         var obj1 = {
             AC_ProtectionLevel: null,
             AI_ProtectionLevel: null,

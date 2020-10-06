@@ -57,6 +57,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AssessmentResultComponent } from './assessments/assessment-result/assessment-result.component';
+import { ControlCdaListComponent } from './control-cda-list/control-cda-list.component';
 
 @Injectable()
 export class MomentUtcDateAdapter extends MomentDateAdapter {
@@ -131,7 +132,8 @@ LoginComponent,
 AssessmentsComponent,
 WalkdownComponent,
 DashboardComponent,
-AssessmentResultComponent    
+AssessmentResultComponent,
+ControlCdaListComponent    
   ],
   imports: [
     BrowserModule,
@@ -183,7 +185,7 @@ AssessmentResultComponent
   
   exports:[
     MainMaterialModule,
-    // FlexLayoutModule 
+    FlexLayoutModule 
   ],
   entryComponents:[CdaDialogContent,CSDialogContent,DialogSelectedElement,ScipsDialogContent,ReviewDialogContent,UserListDialogContent,UserAssessmentListDialogContent],
 

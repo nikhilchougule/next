@@ -2,7 +2,7 @@ import { Component, OnInit, Optional, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
-import { MatStepper, MatHorizontalStepper } from '@angular/material/stepper';
+import { MatStepper } from '@angular/material/stepper';
 @Component({
   selector: 'app-walkdown',
   templateUrl: './walkdown.component.html',
@@ -11,7 +11,6 @@ import { MatStepper, MatHorizontalStepper } from '@angular/material/stepper';
 export class WalkdownComponent implements OnInit {
 
   isCompleted = false;
-  @ViewChild(MatHorizontalStepper) stepper: MatHorizontalStepper;
   user = [];
   ltQuestionsForm: FormGroup;
   isLTConnections: any;
@@ -148,17 +147,19 @@ export class WalkdownComponent implements OnInit {
   }
   
   save(stepper:MatStepper){
-    
+       
     const dialogRef = this.dialog.open(ReviewDialogContent, {
       data: {message:'Do You Want to InterConnections'}
     });
-    // stepper.next()
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.isInterConnections = result;
       this.isCompleted = result;
-      
-      stepper.next()
+      if(this.isInterConnections){
+        setTimeout(() => {           // or do some API calls/ Async events
+          stepper.next();
+         }, 1);
+      }
  
     });
   }
@@ -166,11 +167,14 @@ export class WalkdownComponent implements OnInit {
     const dialogRef = this.dialog.open(ReviewDialogContent, {
       data: {message:'Do You Want to LT Questions'}
     });
-    // this.stepper = stepper
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.isLTConnections = result;
-      this.stepper.next();
+      if(this.isLTConnections){
+        setTimeout(() => {           // or do some API calls/ Async events
+          stepper.next();
+         }, 1);
+      }
     });
   }
   LTQuestions(){
