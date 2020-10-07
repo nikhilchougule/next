@@ -331,11 +331,8 @@ export class ViewCdaComponent implements OnInit {
     // @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;    
     searchText: any;
-    displayedColumns: string[] =
-        [ 'Action','Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'CDADefensiveSecurityLevelsLookupId', 'Manufacturer', 'ModelNumber',
-            'CDAOwner', 'CDAProcessSoftware1OrRevision', 'CDAProcessSoftware2OrRevision', 'PlannedReplacementModificationDate', 'HasthisComponentbeenEvaluated',
-            'EmergencyPlan', 'Description', 'Room', 'Builiding', 'Elevation', 'ColumnLine', 'Azimuth', 'Area', 'PlantUnit', 'CDATypeId', 'Cyber_Security', 'Justification', 'RevisionNumber',
-            'RevisionStatus', 'DateInstalled', 'Reconciled', 'ReconciledDate', 'ReconcilerName', 'CDAOrComponentType', 'CDADisplayOrderId'];
+    showAllFields:boolean = false;
+    displayedColumns: string[] ;
 
 
     @ViewChild(MatPaginator, { static: true, }) paginator: MatPaginator = Object.create(null);
@@ -367,7 +364,24 @@ export class ViewCdaComponent implements OnInit {
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+    getCDADisplayedColumns(){
+        if(this.showAllFields){
+           return this.displayedColumns =
+            [ 'Action','Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'CDADefensiveSecurityLevelsLookupId', 'Manufacturer', 'ModelNumber',
+                'CDAOwner', 'CDAProcessSoftware1OrRevision', 'CDAProcessSoftware2OrRevision', 'PlannedReplacementModificationDate', 'HasthisComponentbeenEvaluated',
+                'EmergencyPlan', 'Description', 'Room', 'Builiding', 'Elevation', 'ColumnLine', 'Azimuth', 'Area', 'PlantUnit', 'CDATypeId', 'Cyber_Security', 'Justification', 'RevisionNumber',
+                'RevisionStatus', 'DateInstalled', 'Reconciled', 'ReconciledDate', 'ReconcilerName', 'CDAOrComponentType', 'CDADisplayOrderId'];
     
+        }else{
+            return this.displayedColumns =
+            [ 'Action','Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType'];
+    
+        }
+    }
+    viewDAFields(){
+        this.showAllFields = !this.showAllFields;
+        this.getCDADisplayedColumns(); 
+    }
     openDialog(action: string, element: any) {
         element.action = action;
         const dialogRef = this.dialog.open(CdaDialogContent, {

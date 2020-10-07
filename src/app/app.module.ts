@@ -58,6 +58,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AssessmentResultComponent } from './assessments/assessment-result/assessment-result.component';
 import { ControlCdaListComponent } from './control-cda-list/control-cda-list.component';
+import { CriticalSystemPipe } from './critical-system.pipe';
 
 @Injectable()
 export class MomentUtcDateAdapter extends MomentDateAdapter {
@@ -133,7 +134,8 @@ AssessmentsComponent,
 WalkdownComponent,
 DashboardComponent,
 AssessmentResultComponent,
-ControlCdaListComponent    
+ControlCdaListComponent,
+CriticalSystemPipe    
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,9 @@ import { isLoggedIn, isLoggedOut } from '../auth/auth.selector';
     styleUrls: ['./critical-system.component.css']
 })
 export class CriticalSystemComponent implements OnInit {
+    allLocations;
+    showSSEP:boolean = false
+    displayedColumns: string[] 
     csForm: FormGroup;
     dataSource: MatTableDataSource<ICriticalSystem>;
     isLoadingResults = true;
@@ -114,14 +117,11 @@ export class CriticalSystemComponent implements OnInit {
     }
     @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
     @ViewChild(MatSort) sort: MatSort;
-
-    displayedColumns: string[] = ['Action','LocationId', 'Name', 'SystemDescription', 'CriticalSystemId', 'ApprovalStatus', 'CategoryId',
-        'IdentificationApprovalStatus', 'Structure', 'SSEPDetailedDescription', 'Security', 'SafetyOrImportantToSafety',
-        'EmergencyPlan', 'SafetyRelated', 'ImportantToSafety', 'ExtDescription', 'SSEPJustification', 'SSEPDecisionComment', 'SSEPDecisionDate',
-        'SSEPDecisionBy', 'SSEPReviewerComment', 'SSEPReviewDate', 'SSEPReviewedBy', 'SSEPApproverComment', 'SSEPApprovedDate', 'SSEPApprovedBy'];
+    
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
     ngOnInit(): void {
+        this.getLocationName(1)
        this.isLoggedIn$ = this.store
         .pipe(
             select(isLoggedIn)
@@ -154,6 +154,32 @@ export class CriticalSystemComponent implements OnInit {
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+    getDisplayedColumns(){
+        if(this.showSSEP){
+            return this.displayedColumns = ['Action','LocationId', 'Name', 'SystemDescription', 'CriticalSystemId', 'ApprovalStatus', 'CategoryId',
+            'IdentificationApprovalStatus', 'Structure', 'SSEPDetailedDescription', 'Security', 'SafetyOrImportantToSafety',
+            'EmergencyPlan', 'SafetyRelated', 'ImportantToSafety', 'ExtDescription', 'SSEPJustification', 'SSEPDecisionComment', 'SSEPDecisionDate',
+            'SSEPDecisionBy', 'SSEPReviewerComment', 'SSEPReviewDate', 'SSEPReviewedBy', 'SSEPApproverComment', 'SSEPApprovedDate', 'SSEPApprovedBy'];
+        }else{
+            return this.displayedColumns = ['Action','LocationId', 'Name', 'SystemDescription', 'CriticalSystemId', 'ApprovalStatus', 'CategoryId',
+            'IdentificationApprovalStatus', 'Structure'];
+           
+        }
+    }
+    viewSSEP(){
+        this.showSSEP =  !this.showSSEP;
+        this.getDisplayedColumns();
+    }
+    getLocationName(locationId){
+        this.criticalSys.getLocations().subscribe((res)=>{
+             this.allLocations = res;
+            let data = this.allLocations.filter(function( obj ) {
+                return obj.LocationId == locationId;
+            }); 
+            console.log(data) 
+            return data[0].LocationName
+        })
     }
     openDialog(action: string, element: any) {
         element.action = action;

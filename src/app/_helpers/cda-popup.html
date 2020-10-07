@@ -11,7 +11,7 @@
     <!--step 1 -->
     <mat-step [stepControl]="form1.control">
       <form #form1="ngForm">
-        <ng-template matStepLabel>Update Details Step 1</ng-template>
+        <ng-template matStepLabel>{{action}} Details Step 1</ng-template>
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input type="text" matInput  id="name" name="name" [(ngModel)]="local_data.Name" placeholder="Enter Name">
@@ -52,21 +52,8 @@
           <mat-label>EquipmentType</mat-label>
           <input type="text" matInput  id="EquipmentType" name="EquipmentType" [(ngModel)]="local_data.EquipmentType" placeholder="EquipmentType">
         </mat-form-field>
-        <mat-form-field>
-          <mat-label>CDADefensiveSecurityLevelsLookupId</mat-label>
-          <input type="number" matInput  id="CDADefensiveSecurityLevelsLookupId" name="CDADefensiveSecurityLevelsLookupId" [(ngModel)]="local_data.CDADefensiveSecurityLevelsLookupId"
-            placeholder="Enter CDADefensiveSecurityLevelsLookupId">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Manufacturer</mat-label>
-          <input type="text" matInput  id="Manufacturer" name="Manufacturer" [(ngModel)]="local_data.Manufacturer" placeholder="Enter Manufacturer">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>ModelNumber</mat-label>
-          <input type="text" matInput  id="ModelNumber" name="ModelNumber" [(ngModel)]="local_data.ModelNumber" placeholder="Enter ModelNumber">
-        </mat-form-field>
-
-        <mat-form-field>
+       
+        <!-- <mat-form-field>
           <mat-label>AC_ProtectionLevel</mat-label>
           <input type="text" matInput  id="AC_ProtectionLevel" name="AC_ProtectionLevel" [(ngModel)]="local_data.AC_ProtectionLevel" placeholder="Enter AC_ProtectionLevel">
         </mat-form-field>
@@ -120,7 +107,7 @@
         <mat-form-field>
           <mat-label>AV2_Value</mat-label>
           <input type="number" matInput  id="AV2_Value" name="AV2_Value" [(ngModel)]="local_data.AV2_Value" placeholder="Enter AV2_Value">
-        </mat-form-field>
+        </mat-form-field> -->
         <div>
           <button mat-button matStepperNext>Next</button>
         </div>
@@ -130,9 +117,22 @@
 <!--step 2 -->
 <mat-step [stepControl]="form2.control">
     <form #form2="ngForm">
-      <ng-template matStepLabel>Update Details Step 2</ng-template>
-  
-      <div class="radioMain">
+      <ng-template matStepLabel>{{action}} Details Step 2</ng-template>
+      <mat-form-field>
+          <mat-label>CDADefensiveSecurityLevelsLookupId</mat-label>
+          <input type="number" matInput  id="CDADefensiveSecurityLevelsLookupId" name="CDADefensiveSecurityLevelsLookupId" [(ngModel)]="local_data.CDADefensiveSecurityLevelsLookupId"
+            placeholder="Enter CDADefensiveSecurityLevelsLookupId">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Manufacturer</mat-label>
+          <input type="text" matInput  id="Manufacturer" name="Manufacturer" [(ngModel)]="local_data.Manufacturer" placeholder="Enter Manufacturer">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>ModelNumber</mat-label>
+          <input type="text" matInput  id="ModelNumber" name="ModelNumber" [(ngModel)]="local_data.ModelNumber" placeholder="Enter ModelNumber">
+        </mat-form-field>
+
+      <!-- <div class="radioMain">
         <mat-label>AV3</mat-label>
         <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.AV3" name="AV3">
           <mat-radio-button class="example-radio-button" [value]="true">
@@ -207,8 +207,8 @@
         <mat-label>AV_ProtectionLevel</mat-label>
         <input type="text" matInput  id="AV_ProtectionLevel" name="AV_ProtectionLevel" [(ngModel)]="local_data.AV_ProtectionLevel" placeholder="Enter AV_ProtectionLevel">
       </mat-form-field>
-  
-      <mat-form-field>
+   -->
+      <!-- <mat-form-field>
         <mat-label>AboveGround</mat-label>
         <input type="text" matInput  id="AboveGround" name="AboveGround" [(ngModel)]="local_data.AboveGround" placeholder="Enter AboveGround">
       </mat-form-field>
@@ -217,7 +217,7 @@
         <mat-label>AcccountTypesUsernamesGroups</mat-label>
         <input type="text" matInput  id="AcccountTypesUsernamesGroups" name="AcccountTypesUsernamesGroups" [(ngModel)]="local_data.AcccountTypesUsernamesGroups" placeholder="Enter AcccountTypesUsernamesGroups">
       </mat-form-field>   
-  
+   -->
       <mat-form-field>
         <mat-label>CDAOwner</mat-label>
         <input type="text" matInput  id="CDAOwner" name="CDAOwner" [(ngModel)]="local_data.CDAOwner" placeholder="Enter CDAOwner">
@@ -235,23 +235,19 @@
           placeholder="Enter CDAProcessSoftware2OrRevision">
       </mat-form-field>
   
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-label>CDAProcessSoftware3OrRevision</mat-label>
         <input type="text" matInput  id="CDAProcessSoftware3OrRevision" name="CDAProcessSoftware3OrRevision" [(ngModel)]="local_data.CDAProcessSoftware3OrRevision"
           placeholder="Enter CDAProcessSoftware3OrRevision">
       </mat-form-field>
-  
+   -->
       <mat-form-field>
         <mat-label>CDAComplexityCategory</mat-label>
         <input type="text" matInput  id="CDAComplexityCategory" name="CDAComplexityCategory" [(ngModel)]="local_data.CDAComplexityCategory" placeholder="Enter CDAComplexityCategory">
       </mat-form-field>
   
-      <mat-form-field>
-        <mat-label>CDAComponentDisplayOrderId</mat-label>
-        <input type="number" matInput  id="CDAComponentDisplayOrderId" name="CDAComponentDisplayOrderId" [(ngModel)]="local_data.CDAComponentDisplayOrderId" placeholder="Enter CDAComponentDisplayOrderId">
-      </mat-form-field>
-  
-      <mat-form-field>
+    
+      <!-- <mat-form-field>
         <mat-label>CDAConfigSettingsChangeableUsingLocalHMI</mat-label>
         <input type="text" matInput  id="CDAConfigSettingsChangeableUsingLocalHMI" name="CDAConfigSettingsChangeableUsingLocalHMI" [(ngModel)]="local_data.CDAConfigSettingsChangeableUsingLocalHMI" placeholder="Enter CDAConfigSettingsChangeableUsingLocalHMI">
       </mat-form-field>
@@ -260,8 +256,8 @@
         <mat-label>CDACurrentStatusId</mat-label>
         <input type="number" matInput  id="CDACurrentStatusId" name="CDACurrentStatusId" [(ngModel)]="local_data.CDACurrentStatusId" placeholder="Enter CDACurrentStatusId">
       </mat-form-field>
-  
-      <mat-form-field>
+   -->
+      <!-- <mat-form-field>
         <mat-label>CDADisplayOrderId</mat-label>
         <input type="number" matInput  id="CDADisplayOrderId" name="CDADisplayOrderId" [(ngModel)]="local_data.CDADisplayOrderId" placeholder="Enter CDADisplayOrderId">
       </mat-form-field>
@@ -295,56 +291,7 @@
         <mat-label>CDASecurityFunctionInteraction</mat-label>
         <input type="text" matInput  id="CDASecurityFunctionInteraction" name="CDASecurityFunctionInteraction" [(ngModel)]="local_data.CDASecurityFunctionInteraction" placeholder="Enter CDASecurityFunctionInteraction">
       </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>CDATag</mat-label>
-        <input type="text" matInput  id="CDATag" name="CDATag" [(ngModel)]="local_data.CDATag" placeholder="Enter CDATag">
-      </mat-form-field>
-  
-      <mat-form-field>
-          <mat-label>PlannedReplacementModificationDate</mat-label>
-          <input matInput [matDatepicker]="PlannedReplacementModificationDate" [value]="local_data.PlannedReplacementModificationDate" name = "PlannedReplacementModificationDate"
-           [(ngModel)]="local_data.PlannedReplacementModificationDate" >
-          <mat-datepicker-toggle matSuffix [for]="PlannedReplacementModificationDate" ></mat-datepicker-toggle>
-          <mat-datepicker #PlannedReplacementModificationDate name = "PlannedReplacementModificationDate" ngDefaultControl [(ngModel)]="local_data.PlannedReplacementModificationDate"></mat-datepicker>
-      </mat-form-field>
-  
-      <div class="radioMain">
-          <mat-label>HasthisComponentbeenEvaluated</mat-label>
-          <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.HasthisComponentbeenEvaluated" name="HasthisComponentbeenEvaluated">
-            <mat-radio-button class="example-radio-button" [value]="true">
-              true
-            </mat-radio-button>
-            <mat-radio-button class="example-radio-button" [value]="false">
-              false
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-  
-      <mat-form-field>
-        <mat-label>EmergencyPlan</mat-label>
-        <input type="text" matInput  id="EmergencyPlan" name="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" placeholder="Enter EmergencyPlan">
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <input type="text" matInput  id="Description" name="Description" [(ngModel)]="local_data.Description" placeholder="Enter Description">
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Room</mat-label>
-        <input type="text" matInput  id="Room" name="Room" [(ngModel)]="local_data.Room" placeholder="Enter Room">
-      </mat-form-field>
-      
-      <mat-form-field>
-        <mat-label>Builiding</mat-label>
-        <input type="text" matInput  id="Builiding" name="Builiding" [(ngModel)]="local_data.Builiding" placeholder="Enter Builiding">
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Elevation</mat-label>
-        <input type="text" matInput  id="Elevation" name="Elevation" [(ngModel)]="local_data.Elevation" placeholder="Enter Elevation">
-      </mat-form-field>
+    -->
       
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -360,62 +307,54 @@
     <!--  stepform step 3 -->
     <mat-step [stepControl]="form3.control">
       <form #form3="ngForm">
-        <ng-template matStepLabel>Update Details Step 3</ng-template>
+        <ng-template matStepLabel>{{action}} Details Step 3</ng-template>
         <mat-form-field>
-          <mat-label>ColumnLine</mat-label>
-          <input type="text" matInput  id="ColumnLine" name="ColumnLine" [(ngModel)]="local_data.ColumnLine" placeholder="Enter ColumnLine">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Azimuth</mat-label>
-          <input type="text" matInput  id="Azimuth" name="Azimuth" [(ngModel)]="local_data.Azimuth" placeholder="Enter Azimuth">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Area</mat-label>
-          <input type="text" matInput  id="Area" name="Area" [(ngModel)]="local_data.Area" placeholder="Enter Area">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>PlantUnit</mat-label>
-          <input type="text" matInput  id="PlantUnit" name="PlantUnit" [(ngModel)]="local_data.PlantUnit" placeholder="Enter PlantUnit">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>CDATypeId</mat-label>
-          <input type="number" matInput  id="CDATypeId" name="CDATypeId" [(ngModel)]="local_data.CDATypeId" placeholder="Enter CDATypeId">
-        </mat-form-field>
-        <div class="radioMain">
-            <mat-label>Cyber_Security</mat-label>
-            <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.Cyber_Security" name="Cyber_Security">
-              <mat-radio-button class="example-radio-button" [value]="true">
-                true
-              </mat-radio-button>
-              <mat-radio-button class="example-radio-button" [value]="false">
-                false
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-        <!-- <mat-form-field>
-          <mat-label>Cyber_Security</mat-label>
-          <input type="text" matInput  id="Cyber_Security" name="Cyber_Security" [(ngModel)]="local_data.Cyber_Security" placeholder="Enter Cyber_Security">
-        </mat-form-field> -->
-        <mat-form-field>
-          <mat-label>Justification</mat-label>
-          <input type="text" matInput  id="Justification" name="Justification" [(ngModel)]="local_data.Justification" placeholder="Enter Justification">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>RevisionNumber</mat-label>
-          <input type="text" matInput  id="RevisionNumber" name="RevisionNumber" [(ngModel)]="local_data.RevisionNumber" placeholder="Enter RevisionNumber">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>RevisionStatus</mat-label>
-          <input type="text" matInput  id="RevisionStatus" name="RevisionStatus" [(ngModel)]="local_data.RevisionStatus" placeholder="Enter RevisionStatus">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>DateInstalled</mat-label>
-            <input matInput [matDatepicker]="DateInstalled" [value]="local_data.DateInstalled" name = "DateInstalled"
-             [(ngModel)]="local_data.DateInstalled" >
-            <mat-datepicker-toggle matSuffix [for]="DateInstalled" ></mat-datepicker-toggle>
-            <mat-datepicker #DateInstalled name = "DateInstalled" ngDefaultControl [(ngModel)]="local_data.DateInstalled"></mat-datepicker>
+            <mat-label>CDAComponentDisplayOrderId</mat-label>
+            <input type="number" matInput  id="CDAComponentDisplayOrderId" name="CDAComponentDisplayOrderId" [(ngModel)]="local_data.CDAComponentDisplayOrderId" placeholder="Enter CDAComponentDisplayOrderId">
           </mat-form-field>
-        <mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>CDATag</mat-label>
+            <input type="text" matInput  id="CDATag" name="CDATag" [(ngModel)]="local_data.CDATag" placeholder="Enter CDATag">
+          </mat-form-field>
+      
+          <mat-form-field>
+              <mat-label>PlannedReplacementModificationDate</mat-label>
+              <input matInput [matDatepicker]="PlannedReplacementModificationDate" [value]="local_data.PlannedReplacementModificationDate" name = "PlannedReplacementModificationDate"
+               [(ngModel)]="local_data.PlannedReplacementModificationDate" >
+              <mat-datepicker-toggle matSuffix [for]="PlannedReplacementModificationDate" ></mat-datepicker-toggle>
+              <mat-datepicker #PlannedReplacementModificationDate name = "PlannedReplacementModificationDate" ngDefaultControl [(ngModel)]="local_data.PlannedReplacementModificationDate"></mat-datepicker>
+          </mat-form-field>
+      
+          <div class="radioMain">
+              <mat-label>HasthisComponentbeenEvaluated</mat-label>
+              <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.HasthisComponentbeenEvaluated" name="HasthisComponentbeenEvaluated">
+                <mat-radio-button class="example-radio-button" [value]="true">
+                  true
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="false">
+                  false
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+      
+          <mat-form-field>
+            <mat-label>EmergencyPlan</mat-label>
+            <input type="text" matInput  id="EmergencyPlan" name="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" placeholder="Enter EmergencyPlan">
+          </mat-form-field>
+       
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input type="text" matInput  id="Description" name="Description" [(ngModel)]="local_data.Description" placeholder="Enter Description">
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Room</mat-label>
+            <input type="text" matInput  id="Room" name="Room" [(ngModel)]="local_data.Room" placeholder="Enter Room">
+          </mat-form-field>
+          
+         
+        <!-- <mat-form-field>
           <mat-label>CI_ProtectionLevel</mat-label>
           <input type="text" matInput  id="CI_ProtectionLevel" name="CI_ProtectionLevel" [(ngModel)]="local_data.CI_ProtectionLevel" placeholder="Enter CI_ProtectionLevel">
         </mat-form-field>
@@ -430,10 +369,7 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>CMS</mat-label>
-          <input type="text" matInput  id="CMS" name="CMS" [(ngModel)]="local_data.CMS" placeholder="Enter CMS">
-        </mat-form-field> -->
+     
         <mat-form-field>
           <mat-label>CameraMonitored</mat-label>
           <input type="text" matInput  id="CameraMonitored" name="CameraMonitored" [(ngModel)]="local_data.CameraMonitored" placeholder="Enter CameraMonitored">
@@ -468,12 +404,8 @@
              [(ngModel)]="local_data.CreatedDate" >
             <mat-datepicker-toggle matSuffix [for]="CreatedDate" ></mat-datepicker-toggle>
             <mat-datepicker #CreatedDate name = "CreatedDate" ngDefaultControl [(ngModel)]="local_data.CreatedDate"></mat-datepicker>
-        </mat-form-field>
-        <!-- <mat-form-field>
-          <mat-label>CreatedDate</mat-label>
-          <input type="date" matInput  id="CreatedDate" name="CreatedDate" [(ngModel)]="local_data.CreatedDate" placeholder="Enter CreatedDate">
         </mat-form-field> -->
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>CriticalSystemId</mat-label>
           <input type="number" matInput  id="CriticalSystemId" name="CriticalSystemId" [(ngModel)]="local_data.CriticalSystemId" placeholder="Enter CriticalSystemId">
         </mat-form-field>
@@ -488,10 +420,6 @@
             <mat-datepicker-toggle matSuffix [for]="CurrentStatusDate" ></mat-datepicker-toggle>
             <mat-datepicker #CurrentStatusDate name = "CurrentStatusDate" ngDefaultControl [(ngModel)]="local_data.CurrentStatusDate"></mat-datepicker>
         </mat-form-field>
-        <!-- <mat-form-field>
-          <mat-label>CurrentStatusDate</mat-label>
-          <input type="date" matInput  id="CurrentStatusDate" name="CurrentStatusDate" [(ngModel)]="local_data.CurrentStatusDate" placeholder="Enter CurrentStatusDate">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>CyberControlPeriodicity</mat-label>
           <input type="text" matInput  id="CyberControlPeriodicity" name="CyberControlPeriodicity" [(ngModel)]="local_data.CyberControlPeriodicity" placeholder="Enter CyberControlPeriodicity">
@@ -519,12 +447,9 @@
         <mat-form-field>
           <mat-label>DREId</mat-label>
           <input type="number" matInput  id="DREId" name="DREId" [(ngModel)]="local_data.DREId" placeholder="Enter DREId">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>DesignConfigReferences</mat-label>
-          <input type="text" matInput  id="DesignConfigReferences" name="DesignConfigReferences" [(ngModel)]="local_data.DesignConfigReferences" placeholder="Enter DesignConfigReferences">
-        </mat-form-field>
-        <mat-form-field>
+        </mat-form-field> -->
+       
+        <!-- <mat-form-field>
           <mat-label>DigitalDisplayOrSignage</mat-label>
           <input type="text" matInput  id="DigitalDisplayOrSignage" name="DigitalDisplayOrSignage" [(ngModel)]="local_data.DigitalDisplayOrSignage" placeholder="Enter DigitalDisplayOrSignage">
         </mat-form-field>
@@ -539,10 +464,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>DigitalPathways</mat-label>
-          <input type="text" matInput  id="DigitalPathways" name="DigitalPathways" [(ngModel)]="local_data.DigitalPathways" placeholder="Enter DigitalPathways">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>DigitallyConnectedMaintToolsRequirement</mat-label>
           <input type="text" matInput  id="DigitallyConnectedMaintToolsRequirement" name="DigitallyConnectedMaintToolsRequirement" [(ngModel)]="local_data.DigitallyConnectedMaintToolsRequirement" placeholder="Enter DigitallyConnectedMaintToolsRequirement">
@@ -590,7 +511,7 @@
         <mat-form-field>
           <mat-label>FirewallSoftwareOrPacketFilteringSupportOrUse</mat-label>
           <input type="text" matInput  id="FirewallSoftwareOrPacketFilteringSupportOrUse" name="FWinSQATool" [(ngModel)]="local_data.FirewallSoftwareOrPacketFilteringSupportOrUse" placeholder="Enter FirewallSoftwareOrPacketFilteringSupportOrUse">
-        </mat-form-field>
+        </mat-form-field> -->
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -601,7 +522,7 @@
 
 
     <!--  stepform step 4 -->
-    <mat-step [stepControl]="form4.control">
+    <!-- <mat-step [stepControl]="form4.control">
       <form #form4="ngForm">
         <ng-template matStepLabel>Update Details Step 4</ng-template>
         <mat-form-field>
@@ -647,10 +568,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>HasremovableMedia</mat-label>
-          <input type="text" matInput  id="HasremovableMedia" name="HasremovableMedia" [(ngModel)]="local_data.HasremovableMedia" placeholder="Enter HasremovableMedia">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>II_ProtectionLevel</mat-label>
           <input type="text" matInput  id="II_ProtectionLevel" name="II_ProtectionLevel" [(ngModel)]="local_data.II_ProtectionLevel" placeholder="Enter II_ProtectionLevel">
@@ -666,10 +583,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>IMAA</mat-label>
-          <input type="text" matInput  id="IMAA" name="IMAA" [(ngModel)]="local_data.IMAA" placeholder="Enter IMAA">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>IPAddress</mat-label>
           <input type="text" matInput  id="IPAddress" name="IPAddress" [(ngModel)]="local_data.IPAddress" placeholder="Enter IPAddress">
@@ -760,10 +673,6 @@
             <mat-datepicker-toggle matSuffix [for]="ModifiedDate" ></mat-datepicker-toggle>
             <mat-datepicker #ModifiedDate name = "ModifiedDate" ngDefaultControl [(ngModel)]="local_data.ModifiedDate"></mat-datepicker>
         </mat-form-field>
-        <!-- <mat-form-field>
-          <mat-label>ModifiedDate</mat-label>
-          <input type="date" matInput  id="ModifiedDate" name="ModifiedDate" [(ngModel)]="local_data.ModifiedDate" placeholder="Enter ModifiedDate">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>MultipleAccountSupportConfiguration</mat-label>
           <input type="text" matInput  id="MultipleAccountSupportConfiguration" name="MultipleAccountSupportConfiguration" [(ngModel)]="local_data.MultipleAccountSupportConfiguration" placeholder="Enter MultipleAccountSupportConfiguration">
@@ -842,10 +751,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>PMD</mat-label>
-          <input type="text" matInput  id="PMD" name="PMD" [(ngModel)]="local_data.PMD" placeholder="Enter PMD">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>PM_WO_RWT_AR</mat-label>
           <input type="text" matInput  id="PM_WO_RWT_AR" name="PM_WO_RWT_AR" [(ngModel)]="local_data.PM_WO_RWT_AR" placeholder="Enter PM_WO_RWT_AR">
@@ -865,10 +770,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>PasswordCapable</mat-label>
-          <input type="text" matInput  id="PasswordCapable" name="PasswordCapable" [(ngModel)]="local_data.PasswordCapable" placeholder="Enter PasswordCapable">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>PasswordImplementation</mat-label>
           <input type="text" matInput  id="PasswordImplementation" name="PasswordImplementation" [(ngModel)]="local_data.PasswordImplementation" placeholder="Enter PasswordImplementation">
@@ -966,10 +867,6 @@
             <mat-datepicker-toggle matSuffix [for]="RecordStatusDate" ></mat-datepicker-toggle>
             <mat-datepicker #RecordStatusDate name = "RecordStatusDate" ngDefaultControl [(ngModel)]="local_data.RecordStatusDate"></mat-datepicker>
         </mat-form-field>
-        <!-- <mat-form-field>
-          <mat-label>RecordStatusDate</mat-label>
-          <input type="date" matInput  id="RecordStatusDate" name="RecordStatusDate" [(ngModel)]="local_data.RecordStatusDate" placeholder="Enter RecordStatusDate">
-        </mat-form-field> -->
         <mat-form-field>
           <mat-label>RemoteControlCapability</mat-label>
           <input type="text" matInput  id="RemoteControlCapability" name="RemoteControlCapability" [(ngModel)]="local_data.RemoteControlCapability" placeholder="Enter RemoteControlCapability">
@@ -1009,10 +906,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>SSEP_EOP</mat-label>
-          <input type="text" matInput  id="SSEP_EOP" name="SSEP_EOP" [(ngModel)]="local_data.SSEP_EOP" placeholder="Enter SSEP_EOP">
-        </mat-form-field> -->
         <div class="radioMain">
             <mat-label>SSEP_ITS_AugmentedQuality</mat-label>
             <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.SSEP_ITS_AugmentedQuality" name="SSEP_ITS_AugmentedQuality">
@@ -1024,10 +917,6 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-        <!-- <mat-form-field>
-          <mat-label>SSEP_ITS_AugmentedQuality</mat-label>
-          <input type="text" matInput  id="SSEP_ITS_AugmentedQuality" name="SSEP_ITS_AugmentedQuality" [(ngModel)]="local_data.SSEP_ITS_AugmentedQuality" placeholder="Enter SSEP_ITS_AugmentedQuality">
-        </mat-form-field> -->
         <div class="radioMain">
           <mat-label>SSEP_EP</mat-label>
           <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.SSEP_EP" name="SSEP_EP">
@@ -1089,9 +978,13 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
-    </mat-step>
+    </mat-step> -->
+
+
 <!-- step 5-->
-    <mat-step [stepControl]="form5.control">
+
+
+    <!-- <mat-step [stepControl]="form5.control">
       <form #form5="ngForm">
         <ng-template matStepLabel>Update Detail step 5</ng-template>
          <mat-form-field>
@@ -1203,11 +1096,12 @@
         </div>
        
         </form>
-    </mat-step>
-    <!-- <mat-step [stepControl]="form6.control">
+    </mat-step> -->
+     <mat-step [stepControl]="form6.control">
       <form #form6="ngForm">
-        <ng-template matStepLabel>Additional Param</ng-template>
-       <mat-form-field>
+          <ng-template matStepLabel>{{action}} Details</ng-template>
+        <!-- <ng-template matStepLabel>Additional Param</ng-template> -->
+      <!-- <mat-form-field>
           <mat-label>VendorRestrictions</mat-label>
           <input type="text" matInput  id="VendorRestrictions" name="VendorRestrictions" [(ngModel)]="local_data.VendorRestrictions" placeholder="Enter VendorRestrictions">
         </mat-form-field>
@@ -1235,7 +1129,7 @@
         </form>
         </mat-step> -->
     <!--  stepform step 4 additional params -->
-    <mat-step [stepControl]="form6.control">
+    <!-- <mat-step [stepControl]="form6.control">
       <form #form6="ngForm">
         <ng-template matStepLabel>Additional Param</ng-template>
         <mat-form-field>
@@ -1438,18 +1332,82 @@
           <mat-label>AdditionalParam50</mat-label>
           <input type="text" matInput id="AdditionalParam50" name="AdditionalParam50" [(ngModel)]="local_data.AdditionalParam50" placeholder="Enter AdditionalParam50">
         </mat-form-field> 
-        
+      -->
+      <mat-form-field>
+          <mat-label>Builiding</mat-label>
+          <input type="text" matInput  id="Builiding" name="Builiding" [(ngModel)]="local_data.Builiding" placeholder="Enter Builiding">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Elevation</mat-label>
+          <input type="text" matInput  id="Elevation" name="Elevation" [(ngModel)]="local_data.Elevation" placeholder="Enter Elevation">
+        </mat-form-field>
+     
+      <mat-form-field>
+        <mat-label>ColumnLine</mat-label>
+        <input type="text" matInput  id="ColumnLine" name="ColumnLine" [(ngModel)]="local_data.ColumnLine" placeholder="Enter ColumnLine">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Azimuth</mat-label>
+        <input type="text" matInput  id="Azimuth" name="Azimuth" [(ngModel)]="local_data.Azimuth" placeholder="Enter Azimuth">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Area</mat-label>
+        <input type="text" matInput  id="Area" name="Area" [(ngModel)]="local_data.Area" placeholder="Enter Area">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>PlantUnit</mat-label>
+        <input type="text" matInput  id="PlantUnit" name="PlantUnit" [(ngModel)]="local_data.PlantUnit" placeholder="Enter PlantUnit">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>CDATypeId</mat-label>
+        <input type="number" matInput  id="CDATypeId" name="CDATypeId" [(ngModel)]="local_data.CDATypeId" placeholder="Enter CDATypeId">
+      </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
-    </mat-step>
+    </mat-step> 
     
     <!--step 5 final step-->
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      
+     
+      <div class="radioMain">
+          <mat-label>Cyber_Security</mat-label>
+          <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.Cyber_Security" name="Cyber_Security">
+            <mat-radio-button class="example-radio-button" [value]="true">
+              true
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" [value]="false">
+              false
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      <mat-form-field>
+        <mat-label>Justification</mat-label>
+        <input type="text" matInput  id="Justification" name="Justification" [(ngModel)]="local_data.Justification" placeholder="Enter Justification">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>RevisionNumber</mat-label>
+        <input type="text" matInput  id="RevisionNumber" name="RevisionNumber" [(ngModel)]="local_data.RevisionNumber" placeholder="Enter RevisionNumber">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>RevisionStatus</mat-label>
+        <input type="text" matInput  id="RevisionStatus" name="RevisionStatus" [(ngModel)]="local_data.RevisionStatus" placeholder="Enter RevisionStatus">
+      </mat-form-field>
+      <mat-form-field>
+          <mat-label>DateInstalled</mat-label>
+          <input matInput [matDatepicker]="DateInstalled" [value]="local_data.DateInstalled" name = "DateInstalled"
+           [(ngModel)]="local_data.DateInstalled" >
+          <mat-datepicker-toggle matSuffix [for]="DateInstalled" ></mat-datepicker-toggle>
+          <mat-datepicker #DateInstalled name = "DateInstalled" ngDefaultControl [(ngModel)]="local_data.DateInstalled"></mat-datepicker>
+        </mat-form-field>
+      <mat-form-field>
+        <mat-label>DesignConfigReferences</mat-label>
+        <input type="text" matInput  id="DesignConfigReferences" name="DesignConfigReferences" [(ngModel)]="local_data.DesignConfigReferences" placeholder="Enter DesignConfigReferences">
+      </mat-form-field>
       <div class="radioMain">
           <mat-label>Reconciled</mat-label>
           <mat-radio-group class="example-radio-group" [(ngModel)]="local_data.Reconciled" name="Reconciled">
@@ -1461,10 +1419,6 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-      <!-- <mat-form-field>
-        <mat-label>Reconciled</mat-label>
-        <input type="text" matInput  id="Reconciled" name="Reconciled" [(ngModel)]="local_data.Reconciled" placeholder="Enter Reconciled">
-      </mat-form-field> -->
       <mat-form-field>
           <mat-label>ReconciledDate</mat-label>
           <input matInput [matDatepicker]="ReconciledDate" [value]="local_data.ReconciledDate" name = "ReconciledDate"
@@ -1472,10 +1426,6 @@
           <mat-datepicker-toggle matSuffix [for]="ReconciledDate" ></mat-datepicker-toggle>
           <mat-datepicker #ReconciledDate name = "ReconciledDate" ngDefaultControl [(ngModel)]="local_data.ReconciledDate"></mat-datepicker>
       </mat-form-field>
-      <!-- <mat-form-field>
-        <mat-label>ReconciledDate</mat-label>
-        <input type="text" matInput  id="ReconciledDate" name="ReconciledDate" [(ngModel)]="local_data.ReconciledDate" placeholder="Enter ReconciledDate">
-      </mat-form-field> -->
       <mat-form-field>
         <mat-label>ReconcilerName</mat-label>
         <input type="text" matInput  id="ReconcilerName" name="ReconcilerName" [(ngModel)]="local_data.ReconcilerName" placeholder="Enter ReconcilerName">
@@ -1486,7 +1436,7 @@
           placeholder="Enter CDAOrComponentType">
       </mat-form-field>
      
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-label>AdditionalPhysicalSecurityAttributes</mat-label>
         <input type="text" matInput  id="AdditionalPhysicalSecurityAttributes" name="AdditionalPhysicalSecurityAttributes" [(ngModel)]="local_data.AdditionalPhysicalSecurityAttributes"
           placeholder="Enter AdditionalPhysicalSecurityAttributes">
@@ -1542,11 +1492,6 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
-      <!-- <mat-form-field>
-        <mat-label>AuditCapable</mat-label>
-        <input type="text" matInput  id="AuditCapable" name="AuditCapable" [(ngModel)]="local_data.AuditCapable"
-          placeholder="Enter AuditCapable">
-      </mat-form-field> -->
       <mat-form-field>
         <mat-label>AuditLogCapability</mat-label>
         <input type="text" matInput  id="AuditLogCapability" name="AuditLogCapability" [(ngModel)]="local_data.AuditLogCapability"
@@ -1602,13 +1547,13 @@
         <mat-label>BackupsPerformed</mat-label>
         <input type="text" matInput  id="BackupsPerformed" name="BackupsPerformed" [(ngModel)]="local_data.BackupsPerformed"
           placeholder="Enter BackupsPerformed">
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field>
         <mat-label>Building</mat-label>
         <input type="text" matInput  id="Building" name="Building" [(ngModel)]="local_data.Building"
           placeholder="Enter Building">
       </mat-form-field>
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-label>VendorRestrictions</mat-label>
         <input type="text" matInput  id="VendorRestrictions" name="VendorRestrictions" [(ngModel)]="local_data.VendorRestrictions" placeholder="Enter VendorRestrictions">
       </mat-form-field>
@@ -1627,7 +1572,7 @@
       <mat-form-field>
         <mat-label>WirelessTypesList</mat-label>
         <input type="text" matInput  id="WirelessTypesList" name="WirelessTypesList" [(ngModel)]="local_data.WirelessTypesList" placeholder="Enter WirelessTypesList">
-      </mat-form-field>
+      </mat-form-field> -->
       <div>
         <div mat-dialog-actions align="end">
           <button mat-button  mat-flat-button color="warn" (click)="doAction()" mat-flat-button >{{action}}</button>
