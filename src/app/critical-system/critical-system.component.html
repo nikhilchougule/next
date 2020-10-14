@@ -48,10 +48,10 @@
                 </td>
               </ng-container>
               
-                <ng-container matColumnDef="LocationId">
+                <!-- <ng-container matColumnDef="LocationId">
                     <th mat-header-cell *matHeaderCellDef  mat-sort-header> LocationId </th>
                     <td mat-cell *matCellDef="let csd"> {{csd.LocationId}} </td>
-                  </ng-container>
+                  </ng-container> -->
 
                 <ng-container matColumnDef="Name">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header>Name </th>
@@ -64,20 +64,20 @@
                   <td mat-cell *matCellDef="let csd"  matTooltip="{{csd.SystemDescription}}"> {{csd.SystemDescription | WrapTextPipe}} </td>
                 </ng-container>
                
-                <ng-container matColumnDef="CriticalSystemId">
+                <!-- <ng-container matColumnDef="CriticalSystemId">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header> CriticalSystemId </th>
                   <td mat-cell *matCellDef="let csd" > {{csd.CriticalSystemId}} </td>
-                </ng-container>
+                </ng-container> -->
   
                 <ng-container matColumnDef="ApprovalStatus">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header> ApprovalStatus </th>
                   <td mat-cell *matCellDef="let csd"> {{csd.ApprovalStatus}} </td>
                 </ng-container>
-  
+<!--   
                  <ng-container matColumnDef="CategoryId">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header> CategoryId </th>
                   <td mat-cell *matCellDef="let csd"> {{csd.CategoryId}} </td>
-                </ng-container>
+                </ng-container> -->
                 
                 <ng-container matColumnDef="IdentificationApprovalStatus">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header> IdentificationApprovalStatus </th>
@@ -134,7 +134,7 @@
     
                 <ng-container matColumnDef="SSEPDecisionDate">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header> SSEPDecisionDate </th>
-                  <td mat-cell *matCellDef="let csd"> {{csd.SSEPDecisionDate}} </td>
+                  <td mat-cell *matCellDef="let csd"> {{csd.SSEPDecisionDate | date:'yyyy-MM-dd'}} </td>
                 </ng-container>
   
                 <ng-container matColumnDef="SSEPDecisionBy">
@@ -149,7 +149,7 @@
   
                 <ng-container matColumnDef="SSEPReviewDate">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header> SSEPReviewDate </th>
-                  <td mat-cell *matCellDef="let csd"> {{csd.SSEPReviewDate}} </td>
+                  <td mat-cell *matCellDef="let csd"> {{csd.SSEPReviewDate | date:'yyyy-MM-dd'}} </td>
                 </ng-container>
                 
                 <ng-container matColumnDef="SSEPReviewedBy">
@@ -164,7 +164,7 @@
                 
                 <ng-container matColumnDef="SSEPApprovedDate">
                   <th mat-header-cell *matHeaderCellDef  mat-sort-header> SSEPApprovedDate </th>
-                  <td mat-cell *matCellDef="let csd"> {{csd.SSEPApprovedDate}} </td>
+                  <td mat-cell *matCellDef="let csd"> {{csd.SSEPApprovedDate | date:'yyyy-MM-dd'}} </td>
                 </ng-container>
                 
                 <ng-container matColumnDef="SSEPApprovedBy">

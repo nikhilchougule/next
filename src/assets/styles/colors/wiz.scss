@@ -1,0 +1,79 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+
+$custom-collection: (
+    warning :  #FFC116,
+    success :  #0a630f,
+    danger:    #c00000,
+    600:#45556A,
+    500:#53BF8A,
+    contrast: (
+        warning :  #000000,
+        success :  #FFFFFF,
+        danger:    #FFFFFF,
+    )
+);
+$my-app-custom: mat-palette($custom-collection, custom);
+// $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+// $my-app-theme: map_merge($my-app-theme, (custom: $my-app-custom));
+// $custom: map-get($my-app-theme, custom);
+
+$primary: mat-palette($my-app-custom, 600);
+$accent: mat-palette($my-app-custom, 500);
+$warn: mat-palette($mat-pink, 500);
+$wiz-theme: mat-light-theme($primary, $accent, $warn);
+$themecolor: #45556A;
+$white:#fff;
+// $themecolor-alt: #26c6da;
+$themecolor-alt:#45556A;
+#snav {
+    .mat-nav-list .mat-list-item {
+        .mat-list-item-content {
+            &:hover {
+                > a {
+                    color: $themecolor;
+                }
+            }
+        }
+        &.selected > .mat-list-item-content > a {
+            background: $themecolor;
+            color: $white;
+        }
+    }
+}
+    /* This is for the navigation*/
+     #snav {
+        .mat-nav-list .mat-list-item {
+            a{
+                color:$sidebar-text;
+                mat-icon{
+                    color:$sidebar-icons;
+                }
+            }
+            &.selected .sub-item .mat-list-item-content a.selected{
+                 color:$themecolor;
+            }
+
+        }
+    }
+    .mat-toolbar {
+        color: #fff !important;
+    }
+    .mat-raised-button.mat-primary {
+        color:#fff;
+        background-color: #53BF8A
+    }
+    .mat-raised-button.mat-accent{
+        color: #fff;
+        background-color: $themecolor
+    }
+    .mat-expansion-panel.expansion-margin{
+        background-color: $themecolor
+    }
+
+

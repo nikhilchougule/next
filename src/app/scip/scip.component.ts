@@ -18,6 +18,7 @@ export class ScipComponent implements OnInit {
   dataSource: MatTableDataSource<IScips>;
   isLoadingResults = true;
   update: boolean = false;
+  showSSEP:boolean = false
   dataLength: number = 0;
   obj1 = {
     ControlOrRequirementId: null, 
@@ -62,7 +63,8 @@ UseAlternate: null
   @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
     @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['Action','ComplexityCategoryId', 'ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions', 'CommanControlExample',
+  displayedColumns: string[] =
+   ['Action','ComplexityCategoryId', 'ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions', 'CommanControlExample',
       'Decision', 'DecisionAnswerOptions', 'ImplementControl', 'Focus', 'Observation',
       'Purpose', 'UseAlternate', 'AppliesTo', 'Analysis', 'AlternateControlExample', 'ActiveFlag', 'AV1',
       'AV1_Degree', 'AV1_Justification', 'AV1_Value', 'AV2', 'AV2_Degree', 'AV2_Justification', 'AV2_Value',
@@ -85,6 +87,24 @@ UseAlternate: null
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+}
+viewScipsFields(){
+    this.showSSEP = !this.showSSEP;
+}
+getDisplayedColumns(){
+    // 'ComplexityCategoryId'
+    if(this.showSSEP){
+        return this.displayedColumns =  ['Action', 'ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions', 'CommanControlExample',
+        'Decision', 'DecisionAnswerOptions', 'ImplementControl', 'Focus', 'Observation',
+        'Purpose', 'UseAlternate', 'AppliesTo', 'Analysis', 'AlternateControlExample', 'ActiveFlag', 'AV1',
+        'AV1_Degree', 'AV1_Justification', 'AV1_Value', 'AV2', 'AV2_Degree', 'AV2_Justification', 'AV2_Value',
+        'AV3', 'AV3_Degree', 'AV3_Justification', 'AV3_Value', 'AV4', 'AV4_Degree', 'AV4_Justification', 'AV4_Value',
+        'AV5', 'AV5_Degree', 'AV5_Justification', 'AV5_Value'];
+        
+    }else{
+        return this.displayedColumns =  ['Action', 'ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions']
+        
+    }
 }
 openDialog(action: string, element: any) {
     element.action = action;

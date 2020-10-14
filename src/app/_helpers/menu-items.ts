@@ -225,6 +225,12 @@ const MENUITEMS = [
         type: 'link',
         icon: 'insert_chart'
     },
+    {
+        state: 'CDAList',
+        name: 'CDAList',
+        type: 'link',
+        icon: 'insert_chart'
+    },
     
     {
         state: 'apps',

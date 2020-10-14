@@ -47,7 +47,6 @@
     "handlebars": "^4.7.3",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "msal": "^1.4.0",
     "ng-apexcharts": "^1.2.1",
     "ng-chartist": "^4.1.0",
     "ng-multiselect-dropdown": "^0.2.10",
@@ -90,5 +89,13 @@
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "zlib": false,
+    "net": false,
+    "tls": false
   }
 }

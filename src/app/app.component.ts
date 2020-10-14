@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MsalService, BroadcastService } from '@azure/msal-angular';
 import { ScipService } from './_services/scip.service';
 
 @Component({
@@ -8,10 +7,14 @@ import { ScipService } from './_services/scip.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private broadcastService: BroadcastService, private authService: MsalService,private profile :ScipService) { }
+  data ;
+  constructor(private profile :ScipService) {
+  
+   }
 
-  ngOnInit() {
+   ngOnInit() {
     // this.login();
+
    }
 
   login() {

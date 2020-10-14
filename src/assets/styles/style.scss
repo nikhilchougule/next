@@ -62,6 +62,13 @@ File: scss
 }
   
 
+// Wiz Theme
+
+.wiz { 
+	@import 'colors/wiz'; 
+  	@include angular-material-theme($wiz-theme); 
+}
+
 $custom-typography: mat-typography-config( 
   $font-family: 'Poppins'
 ); 

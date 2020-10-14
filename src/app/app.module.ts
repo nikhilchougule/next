@@ -37,7 +37,6 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { LoginComponent } from './auth/login/login.component';
-import { MsalModule ,MsalInterceptor  } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppBreadcrumbComponent } from './ui-component/breadcrumb/breadcrumb.component';
 import { StoreModule } from '@ngrx/store';
@@ -59,6 +58,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AssessmentResultComponent } from './assessments/assessment-result/assessment-result.component';
 import { ControlCdaListComponent } from './control-cda-list/control-cda-list.component';
 import { CriticalSystemPipe } from './critical-system.pipe';
+import { ControlCsListComponent } from './control-cs-list/control-cs-list.component';
+import { CriticalDigitalAssetListComponent } from './critical-digital-asset-list/critical-digital-asset-list.component';
 
 @Injectable()
 export class MomentUtcDateAdapter extends MomentDateAdapter {
@@ -101,7 +102,6 @@ export const MY_FORMATS = {
       monthYearA11yLabel: 'YYYY'
   }
 };
-const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 @NgModule({
   declarations: [
@@ -135,7 +135,9 @@ WalkdownComponent,
 DashboardComponent,
 AssessmentResultComponent,
 ControlCdaListComponent,
-CriticalSystemPipe    
+CriticalSystemPipe,
+ControlCsListComponent,
+CriticalDigitalAssetListComponent    
   ],
   imports: [
     BrowserModule,
@@ -150,29 +152,7 @@ CriticalSystemPipe
     MatDialogModule,
     PerfectScrollbarModule,
     //----------active directory 
-    MsalModule.forRoot({
-      auth: {
-        clientId: '25d54303-7773-45fa-af2e-9f5ffafc1aa8', // This is your client ID
-        authority:  "https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a", // This is your tenant ID
-        redirectUri: 'http://localhost:4200/'// This is your redirect URI
-      },
-      cache: {
-        cacheLocation: 'localStorage',
-        storeAuthStateInCookie: isIE, // Set to true for Internet Explorer 11
-      },
-    }, {
-      popUp: !isIE,
-      consentScopes: [
-        'user.read',
-        'openid',
-        'profile',
-      ],
-      unprotectedResources: [],
-      protectedResourceMap: [
-        ['https://graph.microsoft.com/v1.0/me', ['user.read']]
-      ],
-      extraQueryParameters: {}
-    }),
+   
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AuthEffects]),
@@ -197,11 +177,7 @@ CriticalSystemPipe
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: DateAdapter, useClass: MomentUtcDateAdapter },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true
-  },
+    
   {
     provide:RouterStateSerializer,useClass:CustomSerializer
   },

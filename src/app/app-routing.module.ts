@@ -15,6 +15,8 @@ import { WalkdownComponent } from './walkdown/walkdown.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AssessmentResultComponent } from './assessments/assessment-result/assessment-result.component';
 import { ControlCdaListComponent } from './control-cda-list/control-cda-list.component';
+import { ControlCsListComponent } from './control-cs-list/control-cs-list.component';
+import { CriticalDigitalAssetListComponent } from './critical-digital-asset-list/critical-digital-asset-list.component';
 
 const routes: Routes = [
   {
@@ -136,6 +138,17 @@ const routes: Routes = [
           ]
         }  
      },
+     {
+      
+      path:'CDAList',
+      component:CriticalDigitalAssetListComponent,
+      data: {
+        title: 'CDAList',
+        urls: [
+          { title: 'CDAList' }
+        ]
+      }  
+   },
      {
        path:'apps',
        loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)

@@ -18,6 +18,7 @@ export class HomeComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   green = themeColor.green;
   blue = themeColor.blue;
+  wiz = themeColor.wiz;
   dark = false;
   minisidebar = false;
   boxed = themeLayout.boxed;
