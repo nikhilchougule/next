@@ -9,9 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControlName, FormControl } from '@angular/forms';
 import { AppState } from '../reducers';
 import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, auditTime, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import { isLoggedIn, isLoggedOut } from '../auth/auth.selector';
+import { MatStepper } from '@angular/material/stepper';
 @Component({
     selector: 'app-critical-system',
     templateUrl: './critical-system.component.html',
@@ -206,6 +207,8 @@ export class CriticalSystemComponent implements OnInit {
                 this.criticalSys.deleteCriticalSystemRecord(result.data).subscribe((res) => {
                     this.getCriticalSystemData();
                 })
+            }else{
+                this.getCriticalSystemData();
             }
         });
 
@@ -223,6 +226,7 @@ export class CriticalSystemComponent implements OnInit {
 })
 // tslint:disable-next-line: component-class-suffix
 export class CSDialogContent {
+    csForm: FormGroup;
     CSIdentificationApprovalStatus: any;
     csApprovalStatus: any;
     category: any;
@@ -230,6 +234,8 @@ export class CSDialogContent {
     local_data: any;
     obj:ICriticalSystem
     location:any;
+    private unsubscribe = new Subject<void>()
+
     constructor(
         public dialogRef: MatDialogRef<CSDialogContent>,
         // @Optional() is used to prevent error if no data is passed
@@ -249,8 +255,61 @@ export class CSDialogContent {
         this.csService.getCSIdentificationApprovalStatus().subscribe((res)=>{
             this.CSIdentificationApprovalStatus = res;
         })
-        
+        this.csForm = new FormGroup({
+            // 'LocationId':new FormControl(null),
+            'Name':new FormControl(null),
+            'SystemDescription':new FormControl(null),
+            'ApprovalStatus':new FormControl(null),
+            'CategoryId':new FormControl(null),
+            'IdentificationApprovalStatus':new FormControl(null),
+            'SSEPDetailedDescription':new FormControl(null),
+            'SSEPJustification':new FormControl(null),
+            'SSEPDecisionComment':new FormControl(null),
+            'SSEPDecisionDate':new FormControl(null),
+            'SSEPDecisionBy':new FormControl(null),
+            'SSEPReviewerComment':new FormControl(null),
+            'SSEPReviewDate':new FormControl(null),
+            'SSEPReviewedBy':new FormControl(null),
+            'SSEPApproverComment':new FormControl(null),
+            'SSEPApprovedDate':new FormControl(null),
+            'SSEPApprovedBy':new FormControl(null),
+            'SSEPFunction':new FormControl(null),
+            'EmergencyPlan':new FormControl(null),
+            'SafetyRelated':new FormControl(null),
+            'ImportantToSafety':new FormControl(null),
+            'ExtDescription':new FormControl(null),
+            'Security':new FormControl(null),
+            'SafetyOrImportantToSafety':new FormControl(null),
+            'Structure':new FormControl(null),
+
+        })
+
     }
+    ngOnInit() {
+        //     this.scipsForm.valueChanges.pipe(
+        //         switchMap(formValue =>  this.scip.addScipRecord(formValue)
+        // ),
+        //         takeUntil(this.unsubscribe)
+        //     ).subscribe(() => console.log('Saved'))
+      //for auto save
+
+        if(this.local_data.action == 'Update'){
+            this.csForm.valueChanges.pipe(auditTime(5000),takeUntil(this.unsubscribe)).subscribe(
+                formData => {
+                    console.log(formData)
+                    console.log(this.local_data)
+                    delete this.local_data.action;
+                     this.obj = this.local_data
+                this.csService.updateCriticalSystemRecord(this.obj).subscribe((res) => {
+                })
+                })
+        }
+      
+        
+        }
+        ngOnDestroy() {
+            this.unsubscribe.next()
+        }
     filterMyOptions(event){
         console.log(event);
         this.local_data.LocationId = event
@@ -258,16 +317,14 @@ export class CSDialogContent {
     dateChanged(event){
         console.log(event)
     }
+    callNextStepper(stepper:MatStepper){
+        console.log('call next step')
+        stepper.next();
+    }
     doAction() {
-    //     console.log(this.csForm.value)
-    //    if(this.action == 'Add'){
-    //     this.dialogRef.close({ event: this.action, data: this.csForm.value });
-    //    }else{
         delete this.local_data.action;
         this.obj = this.local_data
-        this.dialogRef.close({ event: this.action, data: this.obj });
-    //    }
-       
+        this.dialogRef.close({ event: this.action, data: this.obj });   
     }
 
     closeDialog() {

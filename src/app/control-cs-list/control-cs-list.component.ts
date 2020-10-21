@@ -10,7 +10,6 @@ import { ICriticalSystem } from '../_models/criticalSyst.interface'
 import { CriticalSystemService } from '../_services/critical-system.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-
 interface CsNode {
   ActiveFlag: Boolean
   Description: string

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Optional, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Optional, Inject, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -7,6 +7,10 @@ import { IScips } from '../_models/scips.interface'
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControlName, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil, auditTime } from 'rxjs/operators';
+
 @Component({
   selector: 'app-scip',
   templateUrl: './scip.component.html',
@@ -141,16 +145,22 @@ openDialog(action: string, element: any) {
   templateUrl: '../_helpers/scips-popup.html',
 })
 // tslint:disable-next-line: component-class-suffix
-export class ScipsDialogContent {
+export class ScipsDialogContent implements OnInit, OnDestroy {
+    alive: boolean;
   scipsForm: FormGroup;
   action: string;
   local_data: any;
   obj :IScips
+//   subscription = new Subscription;
+  private unsubscribe = new Subject<void>()
+
   constructor(
       public dialogRef: MatDialogRef<ScipsDialogContent>,
+      private scip:ScipService,
       // @Optional() is used to prevent error if no data is passed
       @Optional() @Inject(MAT_DIALOG_DATA) public data: IScips) {
       //  console.log(data);
+
       this.local_data = { ...data };
       console.log(this.local_data);
       this.action = this.local_data.action;
@@ -199,8 +209,27 @@ export class ScipsDialogContent {
          
       
   }
+  ngOnInit() {
+//     this.scipsForm.valueChanges.pipe(
+//         switchMap(formValue =>  this.scip.addScipRecord(formValue)
+// ),
+//         takeUntil(this.unsubscribe)
+//     ).subscribe(() => console.log('Saved'))
+this.scipsForm.valueChanges.pipe(auditTime(5000),takeUntil(this.unsubscribe)).subscribe(
+    formData => {
+        console.log(formData)
+        console.log(this.local_data)
+    this.scip.updateScipRecord(this.local_data).subscribe((res) => {
+    })
+    })
 
+}
+ngOnDestroy() {
+    this.unsubscribe.next()
+}
   doAction() {
+
+
     //   console.log(this.scipsForm.value)
     //   if(this.local_data.action == 'Add'){
     //       this.obj = this.scipsForm.value;

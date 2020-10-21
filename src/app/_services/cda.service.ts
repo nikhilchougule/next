@@ -2,7 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { ICDA } from '../_models/cda.interface';
-import { from } from 'rxjs';
+import { from, BehaviorSubject } from 'rxjs';
+
+export interface PeriodicElement {
+  Name: string,
+  critical_System: string,
+  Revision_status: number,
+  Date_Installed: string,
+  Cyber_Security:boolean,
+  Revision_Number:number,
+  Justification:string,
+  Another_attribute1:string,
+  Another_attribute2:string,
+  large_text:string
+}
 
 export const HTTP_OPTIONS = {
   headers: new HttpHeaders({
@@ -22,6 +35,22 @@ export class CdaService {
   constructor(private http: HttpClient) {
   }
 
+  list: PeriodicElement[] = [
+    { Name: 'CDA-1', critical_System: 'CS-1', Revision_status: 1, Date_Installed: '2018-04-18T00:00:00',Cyber_Security:true,Revision_Number:2,Justification:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',Another_attribute1:'Another_attribute11',Another_attribute2:'Another_attribute21',large_text:'Lorem Ipsum is simply dummy text of the printing and typesetting' },
+    { Name: 'CDA-2', critical_System: 'CS-2', Revision_status: 2, Date_Installed: '2018-05-18T00:00:00',Cyber_Security:false,Revision_Number:3,Justification:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',Another_attribute1:'Another_attribute12',Another_attribute2:'Another_attribute22',large_text:'Lorem Ipsum is simply dummy text of the printing and typesetting' },
+    { Name: 'CDA-3', critical_System: 'CS-3', Revision_status: 3, Date_Installed: '2018-06-18T00:00:00',Cyber_Security:true,Revision_Number:5,Justification:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',Another_attribute1:'Another_attribute13',Another_attribute2:'Another_attribute23',large_text:'Lorem Ipsum is simply dummy text of the printing and typesetting' },
+
+  ];
+  // { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  //   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  //   { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  //   { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  //   { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  //   { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  //   { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  //   { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  //   { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  list$: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject(this.list);
   getCriticalDigitalAssetsData() {
     return this.http.get(`${environment.apiUrl}/criticaldigitalassets`)
   }
@@ -33,6 +62,22 @@ export class CdaService {
   }
   addCriticalDigitalAssetsRecord(data:ICDA) {
     return this.http.post(`${environment.apiUrl}/criticaldigitalassets`, data)
+  }
+  
+  update(index, field, value) {
+    this.list = this.list.map((e, i) => {
+      if (index === i) {
+        return {
+          ...e,
+          [field]: value
+        }
+      }
+      return e;
+    });
+    this.list$.next(this.list);
+  }
+
+  getControl(index, fieldName) {
   }
 
 }

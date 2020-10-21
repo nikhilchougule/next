@@ -97,7 +97,9 @@ export class ChecklistDatabase {
 @Component({
   selector: 'app-critical-digital-asset-list',
   templateUrl: './critical-digital-asset-list.component.html',
-  styleUrls: ['./critical-digital-asset-list.component.scss']
+  styleUrls: ['./critical-digital-asset-list.component.scss'],
+  providers: [ChecklistDatabase]
+
 })
 export class CriticalDigitalAssetListComponent implements OnInit {
 

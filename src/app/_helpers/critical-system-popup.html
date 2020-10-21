@@ -5,11 +5,11 @@
   </h2>
 <div mat-dialog-content class="mat-typography" *ngIf="action != 'Delete'; else elseTemplate">
   <!-- 4 step stepform !-->
-  <!-- <form [formGroup]="csForm"> -->
+  <form [formGroup]="csForm">
     
   <mat-horizontal-stepper [linear]="true" #stepper>
-      <mat-step [stepControl]="form1.control">
-          <form #form1="ngForm">
+      <mat-step >
+          <!-- <form #form1="ngForm"> -->
     <!--step 1[stepControl]="csForm.get('form1')" formGroupName="form1" -->
     <!-- <mat-step > -->
         <ng-template matStepLabel>{{action}} Basic CS</ng-template>
@@ -18,7 +18,7 @@
          
           <mat-form-field>
               <mat-label>LocationId</mat-label>
-              <mat-select [(value)]="local_data.LocationId" name="LocationId"   (change)="filterMyOptions($event)" >
+              <mat-select [(value)]="local_data.LocationId" name="LocationId" >
                   <mat-option *ngFor="let location of location" [(value)]="location.LocationId"  >
                       {{location.LocationName}}
                     </mat-option>
@@ -26,16 +26,16 @@
             </mat-form-field>
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input type="text" matInput  id="Name" name="Name"  [(ngModel)]="local_data.Name" placeholder="Enter Name">
+          <input type="text" matInput  id="Name" name="Name" formControlName="Name"   [(ngModel)]="local_data.Name"   placeholder="Enter Name">
         </mat-form-field>
         <mat-form-field>
           <mat-label>SystemDescription</mat-label>
-          <input type="text" matInput  id="SystemDescription" name="SystemDescription"  [(ngModel)]="local_data.SystemDescription"
+          <input type="text" matInput  id="SystemDescription" name="SystemDescription"  [(ngModel)]="local_data.SystemDescription" formControlName="SystemDescription"
             placeholder="Enter SystemDescription">
         </mat-form-field>  
         <mat-form-field>
             <mat-label>ApprovalStatus</mat-label>
-            <mat-select [(value)]="local_data.ApprovalStatus"  name="ApprovalStatus">
+            <mat-select [(value)]="local_data.ApprovalStatus"  name="ApprovalStatus" formControlName="ApprovalStatus">
                 <mat-option *ngFor="let csApprovalStatus of csApprovalStatus" [(value)]="csApprovalStatus.CSApprovalStatusName"  >
                     {{csApprovalStatus.CSApprovalStatusName}}
                   </mat-option>
@@ -44,7 +44,7 @@
      
         <mat-form-field>
             <mat-label>CategoryId</mat-label>
-            <mat-select [(value)]="local_data.CategoryId" name="CategoryId" >
+            <mat-select [(value)]="local_data.CategoryId" name="CategoryId" formControlName="CategoryId">
                 <mat-option *ngFor="let category of category" [(value)]="category.CategoryId"  >
                     {{category.Name}}
                   </mat-option>
@@ -53,7 +53,7 @@
      
           <mat-form-field>
               <mat-label>IdentificationApprovalStatus</mat-label>
-              <mat-select [(value)]="local_data.IdentificationApprovalStatus" name="IdentificationApprovalStatus" >
+              <mat-select [(value)]="local_data.IdentificationApprovalStatus" name="IdentificationApprovalStatus" formControlName="IdentificationApprovalStatus" (selectionChange)="callNextStepper(stepper)">
                   <mat-option *ngFor="let CSIdentificationApprovalStatus of CSIdentificationApprovalStatus" [(value)]="CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName" >
                       {{CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName}}
                     </mat-option>
@@ -63,84 +63,84 @@
         <div>
           <button mat-button matStepperNext>Next</button>
         </div>
-      </form>
+      <!-- </form> -->
     </mat-step>
     <!--step 2 [stepControl]="csForm.get('form2')" formGroupName="form2" -->
-    <mat-step [stepControl]="form2.control">
-        <form #form2="ngForm">
+    <mat-step >
+        <!-- <form #form2="ngForm"> -->
         <ng-template matStepLabel>{{action}} SSEP</ng-template>
         <mat-form-field>
           <mat-label>SSEPDetailedDescription</mat-label>
-          <input type="text" matInput  id="SSEPDetailedDescription" name="SSEPDetailedDescription"   [(ngModel)]="local_data.SSEPDetailedDescription"
+          <input type="text" matInput  id="SSEPDetailedDescription" name="SSEPDetailedDescription"   [(ngModel)]="local_data.SSEPDetailedDescription" formControlName="SSEPDetailedDescription"
             placeholder="Enter SSEPDetailedDescription">
         </mat-form-field>
         <mat-form-field>
           <mat-label>SSEPJustification</mat-label>
-          <input type="text" matInput  id="SSEPJustification" name="SSEPJustification"  [(ngModel)]="local_data.SSEPJustification"
+          <input type="text" matInput  id="SSEPJustification" name="SSEPJustification"  [(ngModel)]="local_data.SSEPJustification" formControlName="SSEPJustification"
             placeholder="Enter SSEPJustification">
         </mat-form-field>
         <mat-form-field>
           <mat-label>SSEPDecisionComment</mat-label>
-          <input type="text" matInput  id="SSEPDecisionComment" name="SSEPDecisionComment"  [(ngModel)]="local_data.SSEPDecisionComment"
+          <input type="text" matInput  id="SSEPDecisionComment" name="SSEPDecisionComment"  [(ngModel)]="local_data.SSEPDecisionComment" formControlName="SSEPDecisionComment"
             placeholder="Enter SSEPDecisionComment">
         </mat-form-field>
           <mat-form-field>
             <mat-label>SSEPDecisionDate</mat-label>
             <input matInput [matDatepicker]="SSEPDecisionDate"   [value]="local_data.SSEPDecisionDate" name = "SSEPDecisionDate"
-             [(ngModel)]="local_data.SSEPDecisionDate" >
+             [(ngModel)]="local_data.SSEPDecisionDate" formControlName="SSEPDecisionDate">
             <mat-datepicker-toggle matSuffix [for]="SSEPDecisionDate" ></mat-datepicker-toggle>
-            <mat-datepicker #SSEPDecisionDate name = "SSEPDecisionDate" ngDefaultControl [(ngModel)]="local_data.SSEPDecisionDate"></mat-datepicker>
+            <mat-datepicker #SSEPDecisionDate name = "SSEPDecisionDate" ngDefaultControl [(ngModel)]="local_data.SSEPDecisionDate" formControlName="SSEPDecisionDate"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
           <mat-label>SSEPDecisionBy</mat-label>
-          <input type="text" matInput  id="SSEPDecisionBy" name="SSEPDecisionBy"  [(ngModel)]="local_data.SSEPDecisionBy" placeholder="Enter SSEPDecisionBy">
+          <input type="text" matInput  id="SSEPDecisionBy" name="SSEPDecisionBy"  [(ngModel)]="local_data.SSEPDecisionBy" formControlName="SSEPDecisionBy" placeholder="Enter SSEPDecisionBy">
         </mat-form-field>
         <mat-form-field>
           <mat-label>SSEPReviewerComment</mat-label>
-          <input type="text" matInput  id="SSEPReviewerComment" name="SSEPReviewerComment"  [(ngModel)]="local_data.SSEPReviewerComment"
-            placeholder="Enter SSEPReviewerComment">
+          <input type="text" matInput  id="SSEPReviewerComment" name="SSEPReviewerComment"  [(ngModel)]="local_data.SSEPReviewerComment" formControlName="SSEPReviewerComment"
+          (keyup)="callNextStepper(stepper)"  placeholder="Enter SSEPReviewerComment">
         </mat-form-field>
       
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
-        </form>
+        <!-- </form> -->
     </mat-step>
     <!--step 3 [stepControl]="csForm.get('form3')" formGroupName="form3"-->
-     <mat-step [stepControl]="form3.control">
-        <form #form3="ngForm">
+     <mat-step>
+        <!-- <form #form3="ngForm"> -->
         <ng-template matStepLabel>{{action}} SSEP</ng-template>
         <mat-form-field>
             <mat-label>SSEPReviewDate</mat-label>
             <input matInput [matDatepicker]="SSEPReviewDate"  [value]="local_data.SSEPReviewDate" name = "SSEPReviewDate"
-             [(ngModel)]="local_data.SSEPReviewDate" >
+             [(ngModel)]="local_data.SSEPReviewDate" formControlName="SSEPReviewDate">
             <mat-datepicker-toggle matSuffix [for]="SSEPReviewDate" ></mat-datepicker-toggle>
-            <mat-datepicker #SSEPReviewDate name = "SSEPReviewDate" ngDefaultControl [(ngModel)]="local_data.SSEPReviewDate"></mat-datepicker>
+            <mat-datepicker #SSEPReviewDate name = "SSEPReviewDate" ngDefaultControl [(ngModel)]="local_data.SSEPReviewDate" formControlName="SSEPReviewDate"></mat-datepicker>
         </mat-form-field>
           <mat-form-field>
             <mat-label>SSEPReviewedBy</mat-label>
-            <input type="text" matInput  id="SSEPReviewedBy" name="SSEPReviewedBy"  [(ngModel)]="local_data.SSEPReviewedBy" placeholder="Enter SSEPReviewedBy">
+            <input type="text" matInput  id="SSEPReviewedBy" name="SSEPReviewedBy"  [(ngModel)]="local_data.SSEPReviewedBy" formControlName="SSEPReviewedBy" placeholder="Enter SSEPReviewedBy">
           </mat-form-field>
           <mat-form-field>
             <mat-label>SSEPApproverComment</mat-label>
-            <input type="text" matInput  id="SSEPApproverComment" name="SSEPApproverComment"  [(ngModel)]="local_data.SSEPApproverComment"
+            <input type="text" matInput  id="SSEPApproverComment" name="SSEPApproverComment"  [(ngModel)]="local_data.SSEPApproverComment" formControlName="SSEPApproverComment"
               placeholder="Enter SSEPApproverComment">
           </mat-form-field>
           <mat-form-field>
             <mat-label>SSEPApprovedDate</mat-label>
             <input matInput [matDatepicker]="SSEPApprovedDate"  [value]="local_data.SSEPApprovedDate" name = "SSEPApprovedDate"
-             [(ngModel)]="local_data.SSEPApprovedDate" >
+             [(ngModel)]="local_data.SSEPApprovedDate" formControlName="SSEPApprovedDate" >
             <mat-datepicker-toggle matSuffix [for]="SSEPApprovedDate" ></mat-datepicker-toggle>
-            <mat-datepicker #SSEPApprovedDate name = "SSEPApprovedDate" ngDefaultControl [(ngModel)]="local_data.SSEPApprovedDate"></mat-datepicker>
+            <mat-datepicker #SSEPApprovedDate name = "SSEPApprovedDate" ngDefaultControl [(ngModel)]="local_data.SSEPApprovedDate" formControlName="SSEPApprovedDate"></mat-datepicker>
         </mat-form-field>
           <mat-form-field>
             <mat-label>SSEPApprovedBy</mat-label>
-            <input type="text" matInput  id="SSEPApprovedBy" name="SSEPApprovedBy"  [(ngModel)]="local_data.SSEPApprovedBy" placeholder="Enter SSEPApprovedBy">
+            <input type="text" matInput  id="SSEPApprovedBy" name="SSEPApprovedBy"  [(ngModel)]="local_data.SSEPApprovedBy" formControlName="SSEPApprovedBy" placeholder="Enter SSEPApprovedBy">
           </mat-form-field>
           <mat-form-field>
             <mat-label>SSEPFunction</mat-label>
-            <input type="text" matInput  id="SSEPFunction" name="SSEPFunction" [(ngModel)]="local_data.SSEPFunction" placeholder="Enter SSEPFunction">
+            <input type="text" matInput  id="SSEPFunction" name="SSEPFunction" [(ngModel)]="local_data.SSEPFunction" formControlName="SSEPFunction" placeholder="Enter SSEPFunction">
           </mat-form-field>
   
         <!-- <form #form3="ngForm">
@@ -347,14 +347,14 @@
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
-        </form>
+        <!-- </form> -->
     </mat-step> 
     <!--step 4[stepControl]="csForm.get('form4')" formGroupName="form4"-->
     <mat-step >
       <ng-template matStepLabel>Done</ng-template>
       <div class="radioMain">
           <mat-label>EmergencyPlan</mat-label>
-          <mat-radio-group class="example-radio-group" name="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" name="EmergencyPlan">
+          <mat-radio-group class="example-radio-group" name="EmergencyPlan" [(ngModel)]="local_data.EmergencyPlan" formControlName="EmergencyPlan" name="EmergencyPlan">
             <mat-radio-button class="example-radio-button" [value]="true">
               true
             </mat-radio-button>
@@ -365,7 +365,7 @@
         </div>
         <div class="radioMain">
           <mat-label>SafetyRelated</mat-label>
-          <mat-radio-group class="example-radio-group" name="SafetyRelated"  [(ngModel)]="local_data.SafetyRelated" name="SafetyRelated">
+          <mat-radio-group class="example-radio-group" name="SafetyRelated"  [(ngModel)]="local_data.SafetyRelated" formControlName="SafetyRelated" name="SafetyRelated">
             <mat-radio-button class="example-radio-button" [value]="true">
               true
             </mat-radio-button>
@@ -376,7 +376,7 @@
         </div>
         <div class="radioMain">
           <mat-label>ImportantToSafety</mat-label>
-          <mat-radio-group class="example-radio-group" name="ImportantToSafety" [(ngModel)]="local_data.ImportantToSafety" name="ImportantToSafety">
+          <mat-radio-group class="example-radio-group" name="ImportantToSafety" [(ngModel)]="local_data.ImportantToSafety" formControlName="ImportantToSafety" name="ImportantToSafety">
             <mat-radio-button class="example-radio-button" [value]="true">
               true
             </mat-radio-button>
@@ -387,13 +387,13 @@
         </div>
     <mat-form-field>
       <mat-label>ExtDescription</mat-label>
-      <input type="text" matInput  id="ExtDescription" name="ExtDescription"  [(ngModel)]="local_data.ExtDescription" placeholder="Enter ExtDescription">
+      <input type="text" matInput  id="ExtDescription" name="ExtDescription"  [(ngModel)]="local_data.ExtDescription" formControlName="ExtDescription" placeholder="Enter ExtDescription">
     </mat-form-field>
 
     <!-- <mat-form-field> -->
     <div class="radioMain">
       <mat-label>Security</mat-label>
-      <mat-radio-group class="example-radio-group" name="Security"  [(ngModel)]="local_data.Security" name="Security">
+      <mat-radio-group class="example-radio-group" name="Security"  [(ngModel)]="local_data.Security" formControlName="Security" name="Security">
         <mat-radio-button class="example-radio-button" [value]="true">
           true
         </mat-radio-button>
@@ -404,7 +404,7 @@
     </div>
     <div class="radioMain">
       <mat-label>SafetyOrImportantToSafety</mat-label>
-      <mat-radio-group class="example-radio-group" name="SafetyOrImportantToSafety"  [(ngModel)]="local_data.SafetyOrImportantToSafety" name="SafetyOrImportantToSafety">
+      <mat-radio-group class="example-radio-group" name="SafetyOrImportantToSafety"  [(ngModel)]="local_data.SafetyOrImportantToSafety" formControlName="SafetyOrImportantToSafety" name="SafetyOrImportantToSafety">
         <mat-radio-button class="example-radio-button" [value]="true">
           true
         </mat-radio-button>
@@ -415,7 +415,7 @@
     </div>
       <mat-form-field>
         <mat-label>Structure</mat-label>
-        <input type="text" matInput  id="Structure" name="Structure"  [(ngModel)]="local_data.Structure" placeholder="Enter Structure">
+        <input type="text" matInput  id="Structure" name="Structure"  [(ngModel)]="local_data.Structure" formControlName="Structure" placeholder="Enter Structure">
       </mat-form-field>
 
 <!-- 
@@ -506,7 +506,7 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-<!-- </form> -->
+</form>
 </div>
 <ng-template #elseTemplate>
   Sure to delete

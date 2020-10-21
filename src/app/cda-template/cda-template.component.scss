@@ -1,0 +1,28 @@
+.table{
+  border-spacing: unset;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  text-align: center;
+  border: 0.1px solid #dadada;
+  padding: 8px;
+  width: 150px;
+}
+.table th{
+  background-color: #eee;
+}
+.ul-cda-tem{
+  background: #ffffff;
+  list-style-type: none;
+  border: 1px solid #c7c5c5;
+  padding: 20px;
+  margin: 0 15px 0 0;
+}
+.ul-cda-tem li button{
+  width:100%
+}
+.main-btn-group{
+  text-align: right;
+}
+// .mat-form-field.example-full-width .mat-form-field-flex .mat-form-field-infix {
+//   width: unset !important;
+// }

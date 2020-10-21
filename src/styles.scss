@@ -10,3 +10,17 @@ tr.example-element-row:hover {
   .mat-typography .mat-form-field-infix {
     border-top: 0.14375em solid transparent !important;
 }
+.mat-form-field.example-full-width.cda-input-div .mat-form-field-flex .mat-form-field-infix {
+      width: unset !important;
+ }
+    
+ .mat-form-field.example-full-width.cda-input-div .mat-form-field-underline {
+
+         bottom: 0 !important;
+}
+.mat-form-field.example-full-width.cda-input-div .mat-form-field-appearance-legacy .mat-form-field-underline {
+    bottom: 0 !important;
+}
+.mat-form-field.example-full-width.cda-input-div .mat-form-field-wrapper {
+     padding-bottom: 0 !important; 
+}

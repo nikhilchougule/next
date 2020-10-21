@@ -60,6 +60,17 @@ import { ControlCdaListComponent } from './control-cda-list/control-cda-list.com
 import { CriticalSystemPipe } from './critical-system.pipe';
 import { ControlCsListComponent } from './control-cs-list/control-cs-list.component';
 import { CriticalDigitalAssetListComponent } from './critical-digital-asset-list/critical-digital-asset-list.component';
+import { AbilityModule } from '@casl/angular';
+import { PureAbility } from '@casl/ability';
+
+import { createAbility, AppAbility } from './_services/AppAbility';
+import { CdaTemplateComponent } from './cda-template/cda-template.component';
+import { EditableComponent } from './editable/editable.component';
+import { ViewModeDirective } from './editable/view-mode.directive';
+import { EditModeDirective } from './editable/edit-mode.directive';
+import {EditableOnEnterDirective} from './editable/edit-on-enter.directive';
+type Actions = 'create' | 'read' | 'update' | 'delete';
+type Subjects = 'cda' | 'cs' | 'scips'
 
 @Injectable()
 export class MomentUtcDateAdapter extends MomentDateAdapter {
@@ -118,6 +129,9 @@ export const MY_FORMATS = {
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,
+    ViewModeDirective,
+    EditModeDirective,
+    EditableOnEnterDirective,
 // ---------- dilog box ---------------------
     CdaDialogContent,
     CSDialogContent,
@@ -137,7 +151,9 @@ AssessmentResultComponent,
 ControlCdaListComponent,
 CriticalSystemPipe,
 ControlCsListComponent,
-CriticalDigitalAssetListComponent    
+CriticalDigitalAssetListComponent,
+CdaTemplateComponent,
+EditableComponent    
   ],
   imports: [
     BrowserModule,
@@ -162,6 +178,7 @@ CriticalDigitalAssetListComponent
         ChartistModule,
         ChartsModule,
         NgApexchartsModule,
+        AbilityModule
   ],
 
   
@@ -177,9 +194,12 @@ CriticalDigitalAssetListComponent
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: DateAdapter, useClass: MomentUtcDateAdapter },
-    
+     // `PureAbility` is injected by `able` and `can` pipes
+     { provide: AppAbility, useValue: new AppAbility() },
+     { provide: PureAbility, useExisting: AppAbility },
   {
     provide:RouterStateSerializer,useClass:CustomSerializer
+    
   },
 
   AuthGuard,

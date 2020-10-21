@@ -17,6 +17,7 @@ import { AssessmentResultComponent } from './assessments/assessment-result/asses
 import { ControlCdaListComponent } from './control-cda-list/control-cda-list.component';
 import { ControlCsListComponent } from './control-cs-list/control-cs-list.component';
 import { CriticalDigitalAssetListComponent } from './critical-digital-asset-list/critical-digital-asset-list.component';
+import { CdaTemplateComponent } from './cda-template/cda-template.component';
 
 const routes: Routes = [
   {
@@ -149,10 +150,20 @@ const routes: Routes = [
         ]
       }  
    },
-     {
+   {
+      path:'CDA-Template',
+      component:CdaTemplateComponent,
+      data: {
+        title: 'CDA-Template',
+        urls: [
+          { title: 'CDA-Template' }
+        ]
+      }  
+   },
+   {
        path:'apps',
        loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)
-     }
+   }
     ]
   },
   

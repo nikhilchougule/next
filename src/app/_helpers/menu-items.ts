@@ -231,7 +231,12 @@ const MENUITEMS = [
         type: 'link',
         icon: 'insert_chart'
     },
-    
+    {
+        state: 'CDA-Template',
+        name:'CDA-Template',
+        type: 'link',
+        icon:'av_timer'
+    },
     {
         state: 'apps',
         name: 'Apps',
