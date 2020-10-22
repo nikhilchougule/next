@@ -325,9 +325,37 @@ export class ViewCdaComponent implements OnInit {
     dataLength: number = 0;
     data: ICDA[];
     dropdowndata = [{value:true},{value:false},{value:'N/A'}]
+    filterSelectObj = [];
+    filterValues = {};
+
     constructor(private cda: CdaService, public dialog: MatDialog,private route: ActivatedRoute) {
 
 
+    // Object to create Filter for
+    this.filterSelectObj = [
+        {
+          name: 'Name',
+          columnProp: 'Name',
+          options: []
+        }, {
+          name: 'Location',
+          columnProp: 'Location',
+          options: []
+        }, {
+          name: 'ECode',
+          columnProp: 'ECode',
+          options: []
+        }, {
+          name: 'SerialNumber',
+          columnProp: 'SerialNumber',
+          options: []
+        }, {
+          name: 'EquipmentType',
+          columnProp: 'EquipmentType',
+          options: []
+        }
+      ]
+    
     }
     // @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;    
@@ -364,9 +392,77 @@ export class ViewCdaComponent implements OnInit {
         this.controls = new FormArray(toGroups);
 
         })
-
+        this.filterSelectObj.filter((o) => {
+            o.options = this.getFilterObject(this.data, o.columnProp);
+          });
+        this.dataSource.filterPredicate = this.createFilter();
+      
+      
     }
-    
+     // Called on Filter change
+  filterChange(filter, event) {
+      console.log(filter)
+      console.log(event)
+    //let filterValues = {}
+    this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
+    this.dataSource.filter = JSON.stringify(this.filterValues)
+  }
+
+     // Custom filter method fot Angular Material Datatable
+  createFilter() {
+    let filterFunction = function (data: any, filter: string): boolean {
+      let searchTerms = JSON.parse(filter);
+      let isFilterSet = false;
+      for (const col in searchTerms) {
+        if (searchTerms[col].toString() !== '') {
+          isFilterSet = true;
+        } else {
+          delete searchTerms[col];
+        }
+      }
+
+      console.log(searchTerms);
+
+      let nameSearch = () => {
+        let found = false;
+        if (isFilterSet) {
+          for (const col in searchTerms) {
+            searchTerms[col].trim().toLowerCase().split(' ').forEach(word => {
+              if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
+                found = true
+              }
+            });
+          }
+          return found
+        } else {
+          return true;
+        }
+      }
+      return nameSearch()
+    }
+    return filterFunction
+  }
+
+
+  // Reset table filters
+  resetFilters() {
+    this.filterValues = {}
+    this.filterSelectObj.forEach((value, key) => {
+      value.modelValue = undefined;
+    })
+    this.dataSource.filter = "";
+  }
+      // Get Uniqu values from columns to build filter
+  getFilterObject(fullObj, key) {
+    const uniqChk = [];
+    fullObj.filter((obj) => {
+      if (!uniqChk.includes(obj[key])) {
+        uniqChk.push(obj[key]);
+      }
+      return obj;
+    });
+    return uniqChk;
+  }
     getControl(index, fieldName) {
         const a = this.controls.at(index).get(fieldName) as FormControl;
         return this.controls.at(index).get(fieldName) as FormControl;

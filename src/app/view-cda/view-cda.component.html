@@ -26,6 +26,35 @@
       </mat-card>
     </div>
   </div>
+  <div fxLayout="row wrap" class="align-items-center">
+        <mat-card>
+            <mat-card-content>
+                <div fxFlex="100">
+
+      <mat-form-field *ngFor="let filter of filterSelectObj"  fxFlex="30" style="padding-left: 10px">
+        <mat-label>Filter {{filter.name}}</mat-label>
+        <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+          (change)="filterChange(filter,$event)">
+          <option value="">-- Select {{filter.name}} --</option>
+          <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+        </select>
+      </mat-form-field>
+    </div>
+    &nbsp;
+    <div fxFlex="100" class="text-right">
+        <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
+      </div>
+    </mat-card-content>
+    
+        </mat-card>
+        <!-- <mat-card>
+            <mat-card-content> -->
+       
+          <!-- </mat-card-content>
+          </mat-card> -->
+    
+  </div>
+  
   <div fxLayout="row wrap">
     <div fxFlex="100">
       <mat-card>
