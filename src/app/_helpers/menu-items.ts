@@ -183,60 +183,95 @@ const MENUITEMS = [
         type: 'link',
         icon: 'av_timer'
     },
+    
     {
-        state: 'critical-digital-asset',
-        name: 'DA',
+        state: 'CDAAttributes',
+        name:'CDA Attributes',
         type: 'link',
-        icon: 'border_all'
+        icon:'av_timer'
     },
-    {
-        state: 'critical-system',
-        name: 'CS',
-        type: 'link',
-        icon: 'border_all'
-    },
-    {
-        state: 'security-control-tree',
-        name: 'Security Controls',
-        type: 'link',
-        icon: 'brightness_7'
-    },
-    {
-        state: 'scip',
-        name: 'SCIP',
-        type: 'link',
-        icon: 'border_all'
-    },
+    
     {
         state: 'WalkDown',
-        name: 'Start Walkdown',
+        name: 'Walkdown',
         type: 'link',
         icon: 'content_copy'
     },
     {
         state: 'Assessment',
-        name: 'Start Assessment',
+        name: 'Assessment',
         type: 'link',
         icon: 'insert_chart'
     },
     {
-        state: 'SetUpDAList',
-        name: 'SetUpDAList',
+        state: '',
+        name: 'Documentation',
         type: 'link',
         icon: 'insert_chart'
     },
     {
-        state: 'CDAList',
-        name: 'CDAList',
+        state: '',
+        name: 'Configuration',
         type: 'link',
         icon: 'insert_chart'
     },
     {
-        state: 'CDA-Template',
-        name:'CDA-Template',
+        state: '',
+        name: 'Vulnerabilities',
         type: 'link',
-        icon:'av_timer'
+        icon: 'insert_chart'
     },
+    {
+        state: '',
+        name: 'Critical System',
+        type: 'link',
+        icon: 'insert_chart'
+    },
+    {
+        state: '',
+        name: 'Comments',
+        type: 'link',
+        icon: 'insert_chart'
+    },
+    {
+        state: 'CSDA',
+        name: 'SetUp',
+        type: 'sub',
+        icon: 'border_all',
+        children: [
+            {
+                state: 'cda',
+                name: 'DA',
+                type: 'link',
+                icon: 'border_all'
+            },
+            {
+                state: 'cs',
+                name: 'CS',
+                type: 'link',
+                icon: 'border_all'
+            },
+            {
+                state: 'security-control-tree',
+                name: 'Security Controls',
+                type: 'link',
+                icon: 'brightness_7'
+            },
+            {
+                state: 'scip',
+                name: 'SCIP',
+                type: 'link',
+                icon: 'border_all'
+            },
+            {
+                state: 'ControlList',
+                name: 'Control List',
+                type: 'link',
+                icon: 'insert_chart'
+            },
+        ]
+    },
+  
     {
         state: 'apps',
         name: 'Apps',
@@ -251,6 +286,7 @@ const MENUITEMS = [
             { state: 'ticketdetails', name: 'Ticket Details', type: 'link' }
         ]
     },
+    
    
   // {
     //     state: '',

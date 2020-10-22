@@ -44,58 +44,7 @@ const routes: Routes = [
           ]
         }
       },
-      {
-
-        path: 'critical-system',
-        component: CriticalSystemComponent,
-        resolve:{
-          items:csResolver
-        },
-        data: {
-          title: 'criticalSystem',
-          urls: [
-            { title: 'criticalSystem' }
-          ]
-        },
-        canActivate:[AuthGuard]
-
-      },
-      {
-        path: 'critical-digital-asset',
-        component: ViewCdaComponent,
-        resolve:{
-          items:cdaResolver
-        },
-        data: {
-          title: 'criticalDigitalAsset',
-          urls: [
-            { title: 'criticalDigitalAsset' }
-          ]
-        }
-      },
-      {
-        path:'security-control-tree',
-        component:SecurityControlTreeComponent,
-        data: {
-          title: 'securityControlTree',
-          urls: [
-            { title: 'securityControlTree' }
-          ]
-        }
-      },
-      {
-        path:'scip',
-        component:ScipComponent,
-        resolve:{
-          items:scipsResolver
-        },
-        data: {
-          title: 'Scip',
-          urls: [
-            { title: 'Scip' }
-          ]
-        }
-      },
+     
       {
         path:'WalkDown',
         component:WalkdownComponent,
@@ -139,26 +88,84 @@ const routes: Routes = [
           ]
         }  
      },
-     {
-      
-      path:'CDAList',
-      component:CriticalDigitalAssetListComponent,
+     
+   {
+      path:'CDAAttributes',
+      component:CdaTemplateComponent,
       data: {
-        title: 'CDAList',
+        title: 'CDA Attributes',
         urls: [
-          { title: 'CDAList' }
+          { title: 'CDA Attributes' }
         ]
       }  
    },
    {
-      path:'CDA-Template',
-      component:CdaTemplateComponent,
-      data: {
-        title: 'CDA-Template',
-        urls: [
-          { title: 'CDA-Template' }
-        ]
-      }  
+      path:'CSDA',
+      children:[
+        {
+
+          path: 'cs',
+          component: CriticalSystemComponent,
+          resolve:{
+            items:csResolver
+          },
+          data: {
+            title: 'criticalSystem',
+            urls: [
+              { title: 'criticalSystem' }
+            ]
+          },
+          canActivate:[AuthGuard]
+  
+        },
+        {
+          path: 'cda',
+          component: ViewCdaComponent,
+          resolve:{
+            items:cdaResolver
+          },
+          data: {
+            title: 'criticalDigitalAsset',
+            urls: [
+              { title: 'criticalDigitalAsset' }
+            ]
+          }
+        },
+        {
+          path:'security-control-tree',
+          component:SecurityControlTreeComponent,
+          data: {
+            title: 'securityControlTree',
+            urls: [
+              { title: 'securityControlTree' }
+            ]
+          }
+        },
+        {
+          path:'scip',
+          component:ScipComponent,
+          resolve:{
+            items:scipsResolver
+          },
+          data: {
+            title: 'Scip',
+            urls: [
+              { title: 'Scip' }
+            ]
+          }
+        },
+        {
+      
+          path:'ControlList',
+          component:CriticalDigitalAssetListComponent,
+          data: {
+            title: 'ControlList',
+            urls: [
+              { title: 'ControlList' }
+            ]
+          }  
+       },
+      ]
    },
    {
        path:'apps',

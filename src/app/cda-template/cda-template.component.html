@@ -1,6 +1,6 @@
 <div class="container">
     <div fxLayout="row wrap">
-        <div fxFlex.gt-lg="20" fxFlex.gt-md="20" fxFlex.gt-xs="20" fxFlex="20">
+        <!-- <div fxFlex.gt-lg="20" fxFlex.gt-md="20" fxFlex.gt-xs="20" fxFlex="20">
           <ul class="ul-cda-tem">
               <li><button mat-raised-button  class="m-t-5 m-b-5 m-r-5" color="primary" >Walkdown </button></li>
               <li><button mat-raised-button  class="m-t-5 m-b-5 m-r-5" color="primary" >Assessment</button></li>
@@ -13,9 +13,9 @@
           </ul>
      
 
-  </div>
-  <div fxFlex.gt-lg="80" fxFlex.gt-md="80" fxFlex.gt-xs="80" fxFlex="80">
-
+  </div> -->
+  <!-- <div fxFlex.gt-lg="80" fxFlex.gt-md="80" fxFlex.gt-xs="80" fxFlex="80"> -->
+    <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
   <table class="table">
     <thead>
       <tr>
@@ -222,7 +222,7 @@
   </table>
     <div class="main-btn-group">
         <button mat-raised-button  class="m-t-20 m-r-5" color="primary" (click)="nextRecord(index)">Next Record</button>
-        <button mat-raised-button  class="m-t-20 m-r-5" color="accent">Continue To Walkdown</button>
+        <button mat-raised-button  class="m-t-20 m-r-5" color="accent" [routerLink]="['/WalkDown']">Continue To Walkdown</button>
         <button mat-raised-button  class="m-t-20 m-r-5" color="accent" >Assign To</button>
     </div> 
 </div>
