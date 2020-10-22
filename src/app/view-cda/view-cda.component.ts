@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CdaService } from "../_services/cda.service";
 import { ICDA } from '../_models/cda.interface';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl, FormArray} from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { DateAdapter } from '@angular/material/core';
@@ -22,6 +22,7 @@ export interface DialogData {
 })
 
 export class ViewCdaComponent implements OnInit {
+    controls: FormArray;
     obj = {
        // CriticalDigitalAssetId: null,
        Name: "",
@@ -323,7 +324,7 @@ export class ViewCdaComponent implements OnInit {
     update: boolean = false;
     dataLength: number = 0;
     data: ICDA[];
-    
+    dropdowndata = [{value:true},{value:false},{value:'N/A'}]
     constructor(private cda: CdaService, public dialog: MatDialog,private route: ActivatedRoute) {
 
 
@@ -347,8 +348,28 @@ export class ViewCdaComponent implements OnInit {
     
             this.dataLength = this.data.length
             this.isLoadingResults = false;
+            const toGroups = this.data.map(entity => {
+                return new FormGroup({
+                    'Name': new FormControl(entity.Name, Validators.required),
+                    'Location':new FormControl(entity.Location),
+                    'IsDigital':new FormControl(entity.IsDigital),
+                    'ManualComponent':new FormControl(entity.ManualComponent),
+                    'ECode':new FormControl(entity.ECode),
+                    'SerialNumber':new FormControl(entity.SerialNumber),
+                    'EquipmentType':new FormControl(entity.EquipmentType),
+
+                })
+            }
+        ) 
+        this.controls = new FormArray(toGroups);
+
         })
 
+    }
+    
+    getControl(index, fieldName) {
+        const a = this.controls.at(index).get(fieldName) as FormControl;
+        return this.controls.at(index).get(fieldName) as FormControl;
     }
     getDigitalAssets(){
         this.cda.getCriticalDigitalAssetsData().subscribe((res: ICDA[]) => {
@@ -361,6 +382,15 @@ export class ViewCdaComponent implements OnInit {
             this.isLoadingResults = false;
         })
     }
+    updateFielddata(index, field, cda) {
+        const control = this.getControl(index, field);
+        if (control.valid) {
+            cda[field] = this.controls.at(index).get(field).value;
+        this.cda.updateCriticalDigitalAssetsRecord(cda).subscribe((res) => {
+            this.getDigitalAssets();
+        })
+    }
+}
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
@@ -371,14 +401,14 @@ export class ViewCdaComponent implements OnInit {
     getCDADisplayedColumns(){
         if(this.showAllFields){
            return this.displayedColumns =
-            [ 'Action','Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'Manufacturer', 'ModelNumber',
+            [ 'Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'Manufacturer', 'ModelNumber',
                 'CDAOwner', 'CDAProcessSoftware1OrRevision', 'CDAProcessSoftware2OrRevision', 'PlannedReplacementModificationDate', 'HasthisComponentbeenEvaluated',
                 'EmergencyPlan', 'Description', 'Room', 'Builiding', 'Elevation', 'ColumnLine', 'Azimuth', 'Area', 'PlantUnit', 'Cyber_Security', 'Justification', 'RevisionNumber',
-                'RevisionStatus', 'DateInstalled', 'Reconciled', 'ReconciledDate', 'ReconcilerName', 'CDAOrComponentType'];
+                'RevisionStatus', 'DateInstalled', 'Reconciled', 'ReconciledDate', 'ReconcilerName', 'CDAOrComponentType','Action'];
     
         }else{
             return this.displayedColumns =
-            [ 'Action','Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType'];
+            [ 'Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType'];
     
         }
     }
