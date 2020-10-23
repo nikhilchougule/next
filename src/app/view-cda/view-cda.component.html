@@ -1,7 +1,5 @@
-
 <div class="example-container mat-elevation-z8">
-  <div class="example-loading-shade"
-       *ngIf="isLoadingResults">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     <!-- <div class="example-rate-limit-reached"  *ngIf="isRateLimitReached">
       GitHub's API rate limit has been reached. It will be reset in one minute.
@@ -19,7 +17,7 @@
             </div>
             <div fxFlex.gt-md="75" class="text-right">
               <!--  [disabled]="!('create' | able: 'cda')" -->
-              <button mat-raised-button  color="primary"  (click)="openDialog('Add',obj)">Add Digital Assets</button>
+              <button mat-raised-button color="primary" (click)="openDialog('Add',obj)">Add Digital Assets</button>
             </div>
           </div>
         </mat-card-content>
@@ -27,197 +25,189 @@
     </div>
   </div>
   <div fxLayout="row wrap" class="align-items-center">
-        <mat-card>
-            <mat-card-content>
-                <div fxFlex="100">
+    <mat-card class="main-content">
+      <mat-card-content class="main-card-content">
+        <div fxFlex="100">
 
-      <mat-form-field *ngFor="let filter of filterSelectObj"  fxFlex="30" style="padding-left: 10px">
-        <mat-label>Filter {{filter.name}}</mat-label>
-        <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
-          (change)="filterChange(filter,$event)">
-          <option value="">-- Select {{filter.name}} --</option>
-          <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
-        </select>
-      </mat-form-field>
-    </div>
-    &nbsp;
-    <div fxFlex="100" class="text-right">
-        <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
-      </div>
-    </mat-card-content>
-    
-        </mat-card>
-        <!-- <mat-card>
-            <mat-card-content> -->
-       
-          <!-- </mat-card-content>
-          </mat-card> -->
-    
+          <mat-form-field *ngFor="let filter of filterSelectObj" fxFlex="30" style="padding-left: 10px">
+            <mat-label>Filter {{filter.name}}</mat-label>
+            <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue" (change)="filterChange(filter,$event)">
+              <option value="">-- Select {{filter.name}} --</option>
+              <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+        &nbsp;
+        <div fxFlex="100" class="text-right">
+          <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  
+
   <div fxLayout="row wrap">
     <div fxFlex="100">
       <mat-card>
         <mat-card-content>
-            <div class="view-ssep-right">
-                <button mat-raised-button  color="primary" (click)="viewDAFields()">View All DA Fields</button>
-              </div>
+          <div class="view-ssep-right">
+            <button mat-raised-button color="primary" (click)="viewDAFields()">View All DA Fields</button>
+          </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource" class="table employee-list no-wrap"
-            matSort  matSortDirection="desc">
+            <table mat-table [dataSource]="dataSource" class="table employee-list no-wrap" matSort matSortDirection="desc">
 
-            
+
               <ng-container matColumnDef="Name">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header >Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name </th>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.Name}} </td> -->
                 <td mat-cell *matCellDef="let cda;let index = index">
-                    <editable (update)="updateFielddata(index, 'Name',cda)">
-                      <ng-template viewMode>
-                        {{cda.Name || 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'Name')">
-                          <mat-error *ngIf="getControl(index, 'Name').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
+                  <editable (update)="updateFielddata(index, 'Name',cda)">
+                    <ng-template viewMode>
+                      {{cda.Name || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Name')">
+                        <mat-error *ngIf="getControl(index, 'Name').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
               </ng-container>
 
               <ng-container matColumnDef="Location">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header > Location Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Location Name </th>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.Location}} </td> -->
                 <td mat-cell *matCellDef="let cda;let index = index">
-                    <editable (update)="updateFielddata(index, 'Location',cda)">
-                      <ng-template viewMode>
-                        {{cda.Location || 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'Location')">
-                          <mat-error *ngIf="getControl(index, 'Location').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
+                  <editable (update)="updateFielddata(index, 'Location',cda)">
+                    <ng-template viewMode>
+                      {{cda.Location || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Location')">
+                        <mat-error *ngIf="getControl(index, 'Location').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
               </ng-container>
 
               <ng-container matColumnDef="IsDigital">
                 <th mat-header-cell *matHeaderCellDef> IsDigital </th>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.IsDigital}} </td> -->
                 <td mat-cell *matCellDef="let cda;let index = index">
-                    <editable (update)="updateFielddata(index, 'IsDigital',cda)">
-                      <ng-template viewMode>
-                        {{cda.IsDigital}}
-                      </ng-template>
-                      <ng-template editMode>
-                          <mat-form-field>
-                              <mat-select [value]= "getControl(index, 'IsDigital')"  name="IsDigital" [formControl]="getControl(index, 'IsDigital')">
-                                  <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value"  >
-                                      {{element.value}}
-                                    </mat-option>
-                              </mat-select>
-                              </mat-form-field>
-                        <!-- <mat-form-field class="example-full-width">
+                  <editable (update)="updateFielddata(index, 'IsDigital',cda)">
+                    <ng-template viewMode>
+                      {{cda.IsDigital}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'IsDigital')" name="IsDigital" [formControl]="getControl(index, 'IsDigital')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                     
+                    </ng-template>
+                  </editable>
+                </td>
+                 <!-- <mat-form-field class="example-full-width">
                           <input matInput [formControl]="getControl(index, 'IsDigital')">
                           <mat-error *ngIf="getControl(index, 'IsDigital').hasError('required')">
                             Field is
                             <strong>required</strong>
                           </mat-error>
                         </mat-form-field> -->
-                      </ng-template>
-                    </editable>
-                  </td>
               </ng-container>
-              
+
               <ng-container matColumnDef="ManualComponent">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ManualComponent </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ManualComponent </th>
                 <td mat-cell *matCellDef="let cda;let index = index">
-                    <editable (update)="updateFielddata(index, 'ManualComponent',cda)">
-                      <ng-template viewMode>
-                        {{cda.ManualComponent || 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'ManualComponent')">
-                          <mat-error *ngIf="getControl(index, 'ManualComponent').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
+                  <editable (update)="updateFielddata(index, 'ManualComponent',cda)">
+                    <ng-template viewMode>
+                      {{cda.ManualComponent || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'ManualComponent')">
+                        <mat-error *ngIf="getControl(index, 'ManualComponent').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.ManualComponent}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="ECode">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ECode </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ECode </th>
                 <td mat-cell *matCellDef="let cda;let index = index">
-                    <editable (update)="updateFielddata(index, 'ECode',cda)">
-                      <ng-template viewMode>
-                        {{cda.ECode || 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'ECode')">
-                          <mat-error *ngIf="getControl(index, 'ECode').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
+                  <editable (update)="updateFielddata(index, 'ECode',cda)">
+                    <ng-template viewMode>
+                      {{cda.ECode || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'ECode')">
+                        <mat-error *ngIf="getControl(index, 'ECode').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.ECode}} </td> -->
               </ng-container>
 
-               <ng-container matColumnDef="SerialNumber" >
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> SerialNumber </th>
+              <ng-container matColumnDef="SerialNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNumber </th>
                 <td mat-cell *matCellDef="let cda;let index = index">
-                    <editable (update)="updateFielddata(index, 'SerialNumber',cda)">
-                      <ng-template viewMode>
-                        {{cda.SerialNumber || 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'SerialNumber')">
-                          <mat-error *ngIf="getControl(index, 'SerialNumber').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
+                  <editable (update)="updateFielddata(index, 'SerialNumber',cda)">
+                    <ng-template viewMode>
+                      {{cda.SerialNumber || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'SerialNumber')">
+                        <mat-error *ngIf="getControl(index, 'SerialNumber').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.SerialNumber}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="EquipmentType">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> EquipmentType </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> EquipmentType </th>
                 <td mat-cell *matCellDef="let cda;let index = index">
-                    <editable (update)="updateFielddata(index, 'EquipmentType',cda)">
-                      <ng-template viewMode>
-                        {{cda.EquipmentType || 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'EquipmentType')">
-                          <mat-error *ngIf="getControl(index, 'EquipmentType').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
+                  <editable (update)="updateFielddata(index, 'EquipmentType',cda)">
+                    <ng-template viewMode>
+                      {{cda.EquipmentType || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'EquipmentType')">
+                        <mat-error *ngIf="getControl(index, 'EquipmentType').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.EquipmentType}} </td> -->
               </ng-container>
 
@@ -225,154 +215,573 @@
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDADefensiveSecurityLevelsLookupId </th>
                 <td mat-cell *matCellDef="let cda"> {{cda.CDADefensiveSecurityLevelsLookupId}} </td>
               </ng-container> -->
-              
+
               <ng-container matColumnDef="Manufacturer">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header>Manufacturer </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Manufacturer}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Manufacturer </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Manufacturer',cda)">
+                    <ng-template viewMode>
+                      {{cda.Manufacturer || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Manufacturer')">
+                        <mat-error *ngIf="getControl(index, 'Manufacturer').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Manufacturer}} </td> -->
               </ng-container>
-     
+
               <ng-container matColumnDef="ModelNumber">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ModelNumber </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.ModelNumber}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ModelNumber </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'ModelNumber',cda)">
+                    <ng-template viewMode>
+                      {{cda.ModelNumber || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'ModelNumber')">
+                        <mat-error *ngIf="getControl(index, 'ModelNumber').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.ModelNumber}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="CDAOwner">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAOwner </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.CDAOwner}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> CDAOwner </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'CDAOwner',cda)">
+                    <ng-template viewMode>
+                      {{cda.CDAOwner || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'CDAOwner')">
+                        <mat-error *ngIf="getControl(index, 'CDAOwner').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.CDAOwner}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="CDAProcessSoftware1OrRevision">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAProcessSoftware1OrRevision </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.CDAProcessSoftware1OrRevision}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> CDAProcessSoftware1OrRevision </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'CDAProcessSoftware1OrRevision',cda)">
+                    <ng-template viewMode>
+                      {{cda.CDAProcessSoftware1OrRevision || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'CDAProcessSoftware1OrRevision')">
+                        <mat-error *ngIf="getControl(index, 'CDAProcessSoftware1OrRevision').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.CDAProcessSoftware1OrRevision}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="CDAProcessSoftware2OrRevision">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAProcessSoftware2OrRevision </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.CDAProcessSoftware2OrRevision}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> CDAProcessSoftware2OrRevision </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'CDAProcessSoftware2OrRevision',cda)">
+                    <ng-template viewMode>
+                      {{cda.CDAProcessSoftware2OrRevision || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'CDAProcessSoftware2OrRevision')">
+                        <mat-error *ngIf="getControl(index, 'CDAProcessSoftware2OrRevision').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.CDAProcessSoftware2OrRevision}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="PlannedReplacementModificationDate">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> PlannedReplacementModificationDate </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.PlannedReplacementModificationDate}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> PlannedReplacementModificationDate </th>
+                <td mat-cell *matCellDef="let cda;let index = index;">
+                  <editable (update)="updateFielddata(index, 'PlannedReplacementModificationDate',cda)">
+                    <ng-template viewMode>
+                      {{cda.PlannedReplacementModificationDate || '0000-00-00'| date:'yyyy-MM-dd'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width cda-input-div">
+                        <input matInput [matDatepicker]="PlannedReplacementModificationDate" [formControl]="getControl(index, 'PlannedReplacementModificationDate')"
+                          [value]="getControl(index, 'PlannedReplacementModificationDate')">
+                        <mat-datepicker-toggle matSuffix [for]="PlannedReplacementModificationDate"></mat-datepicker-toggle>
+                        <mat-datepicker #PlannedReplacementModificationDate name="PlannedReplacementModificationDate" ngDefaultControl [formControl]="getControl(index, 'PlannedReplacementModificationDate')"></mat-datepicker>
+
+                        <mat-error *ngIf="getControl(index, 'PlannedReplacementModificationDate').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.PlannedReplacementModificationDate}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="HasthisComponentbeenEvaluated">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> HasthisComponentbeenEvaluated </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.HasthisComponentbeenEvaluated}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> HasthisComponentbeenEvaluated </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'HasthisComponentbeenEvaluated',cda)">
+                    <ng-template viewMode>
+                      {{cda.HasthisComponentbeenEvaluated}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'HasthisComponentbeenEvaluated')" name="HasthisComponentbeenEvaluated" [formControl]="getControl(index, 'HasthisComponentbeenEvaluated')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                     
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.HasthisComponentbeenEvaluated}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="EmergencyPlan">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> EmergencyPlan </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.EmergencyPlan}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> EmergencyPlan </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'EmergencyPlan',cda)">
+                    <ng-template viewMode>
+                      {{cda.EmergencyPlan || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'EmergencyPlan')">
+                        <mat-error *ngIf="getControl(index, 'EmergencyPlan').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.EmergencyPlan}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="Description">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Description </th>
-                <td mat-cell *matCellDef="let cda"  matTooltip="{{cda.Description}}"> {{cda.Description | WrapTextPipe}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Description',cda)">
+                    <ng-template viewMode>
+                      {{cda.Description || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Description')">
+                        <mat-error *ngIf="getControl(index, 'Description').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda" matTooltip="{{cda.Description}}"> {{cda.Description | WrapTextPipe}} </td> -->
               </ng-container>
-  
+
               <ng-container matColumnDef="Room">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Room </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Room}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Room </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Room',cda)">
+                    <ng-template viewMode>
+                      {{cda.Room || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Room')">
+                        <mat-error *ngIf="getControl(index, 'Room').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Room}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="Builiding">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Builiding </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Builiding}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Builiding </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Builiding',cda)">
+                    <ng-template viewMode>
+                      {{cda.Builiding || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Builiding')">
+                        <mat-error *ngIf="getControl(index, 'Builiding').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Builiding}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="Elevation">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Elevation </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Elevation}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Elevation </th>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Elevation}} </td> -->
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Elevation',cda)">
+                    <ng-template viewMode>
+                      {{cda.Elevation || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Elevation')">
+                        <mat-error *ngIf="getControl(index, 'Elevation').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
               </ng-container>
-,
+
               <ng-container matColumnDef="ColumnLine">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ColumnLine </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.ColumnLine}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ColumnLine </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'ColumnLine',cda)">
+                    <ng-template viewMode>
+                      {{cda.ColumnLine || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'ColumnLine')">
+                        <mat-error *ngIf="getControl(index, 'ColumnLine').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.ColumnLine}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="Azimuth">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Azimuth </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Azimuth}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Azimuth </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Azimuth',cda)">
+                    <ng-template viewMode>
+                      {{cda.Azimuth || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Azimuth')">
+                        <mat-error *ngIf="getControl(index, 'Azimuth').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Azimuth}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="Area">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Area </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Area}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Area </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Area',cda)">
+                    <ng-template viewMode>
+                      {{cda.Area || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Area')">
+                        <mat-error *ngIf="getControl(index, 'Area').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Area}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="PlantUnit">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> PlantUnit </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.PlantUnit}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> PlantUnit </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'PlantUnit',cda)">
+                    <ng-template viewMode>
+                      {{cda.PlantUnit || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'PlantUnit')">
+                        <mat-error *ngIf="getControl(index, 'PlantUnit').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.PlantUnit}} </td> -->
               </ng-container>
-              
+
               <!-- <ng-container matColumnDef="CDATypeId">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDATypeId </th>
                 <td mat-cell *matCellDef="let cda"> {{cda.CDATypeId}} </td>
               </ng-container>
                -->
               <ng-container matColumnDef="Cyber_Security">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Cyber_Security </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Cyber_Security}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cyber_Security </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'Cyber_Security',cda)">
+                    <ng-template viewMode>
+                      {{cda.Cyber_Security}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'Cyber_Security')" name="Cyber_Security" [formControl]="getControl(index, 'Cyber_Security')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                     
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Cyber_Security}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="Justification">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Justification </th>
-                <td mat-cell *matCellDef="let cda" matTooltip="{{cda.Justification}}"> {{cda.Justification | WrapTextPipe}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Justification </th>
+                <!-- <td mat-cell *matCellDef="let cda" matTooltip="{{cda.Justification}}"> {{cda.Justification | WrapTextPipe}} </td> -->
+                <td mat-cell *matCellDef="let cda;let index = index" matTooltip="{{cda.Justification}}">
+                  <editable (update)="updateFielddata(index, 'Justification',cda)">
+                    <ng-template viewMode>
+                      {{cda.Justification || 'N/A' | WrapTextPipe}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Justification')">
+                        <mat-error *ngIf="getControl(index, 'Justification').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
               </ng-container>
-  
+
               <ng-container matColumnDef="RevisionNumber">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> RevisionNumber </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.RevisionNumber}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> RevisionNumber </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'RevisionNumber',cda)">
+                    <ng-template viewMode>
+                      {{cda.RevisionNumber || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'RevisionNumber')">
+                        <mat-error *ngIf="getControl(index, 'RevisionNumber').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.RevisionNumber}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="RevisionStatus">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> RevisionStatus </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.RevisionStatus}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> RevisionStatus </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'RevisionStatus',cda)">
+                    <ng-template viewMode>
+                      {{cda.RevisionStatus || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'RevisionStatus')">
+                        <mat-error *ngIf="getControl(index, 'RevisionStatus').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.RevisionStatus}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="DateInstalled">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> DateInstalled </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.DateInstalled | date:'yyyy-MM-dd'}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> DateInstalled </th>
+                <td mat-cell *matCellDef="let cda;let index = index;">
+                  <editable (update)="updateFielddata(index, 'DateInstalled',cda)">
+                    <ng-template viewMode>
+                      {{cda.DateInstalled || '0000-00-00'| date:'yyyy-MM-dd'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width cda-input-div">
+                        <input matInput [matDatepicker]="DateInstalled" [formControl]="getControl(index, 'DateInstalled')" [value]="getControl(index, 'DateInstalled')">
+                        <mat-datepicker-toggle matSuffix [for]="DateInstalled"></mat-datepicker-toggle>
+                        <mat-datepicker #DateInstalled name="DateInstalled" ngDefaultControl [formControl]="getControl(index, 'DateInstalled')"></mat-datepicker>
+
+                        <mat-error *ngIf="getControl(index, 'DateInstalled').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.DateInstalled | date:'yyyy-MM-dd'}} </td> -->
               </ng-container>
 
 
               <ng-container matColumnDef="Reconciled">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Reconciled </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.Reconciled | date:'yyyy-MM-dd'}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Reconciled </th>
+                <td mat-cell *matCellDef="let cda;let index = index;">
+                  <editable (update)="updateFielddata(index, 'Reconciled',cda)">
+                    <ng-template viewMode>
+                      {{cda.Reconciled || '0000-00-00'| date:'yyyy-MM-dd'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width cda-input-div">
+                        <input matInput [matDatepicker]="Reconciled" [formControl]="getControl(index, 'Reconciled')" [value]="getControl(index, 'Reconciled')">
+                        <mat-datepicker-toggle matSuffix [for]="Reconciled"></mat-datepicker-toggle>
+                        <mat-datepicker #Reconciled name="Reconciled" ngDefaultControl [formControl]="getControl(index, 'Reconciled')"></mat-datepicker>
+
+                        <mat-error *ngIf="getControl(index, 'Reconciled').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.Reconciled | date:'yyyy-MM-dd'}} </td> -->
               </ng-container>
-         
+
               <ng-container matColumnDef="ReconciledDate">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ReconciledDate </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.ReconciledDate | date:'yyyy-MM-dd'}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ReconciledDate </th>
+                <td mat-cell *matCellDef="let cda;let index = index;">
+                  <editable (update)="updateFielddata(index, 'ReconciledDate',cda)">
+                    <ng-template viewMode>
+                      {{cda.ReconciledDate || '0000-00-00'| date:'yyyy-MM-dd'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width cda-input-div">
+                        <input matInput [matDatepicker]="ReconciledDate" [formControl]="getControl(index, 'ReconciledDate')" [value]="getControl(index, 'ReconciledDate')">
+                        <mat-datepicker-toggle matSuffix [for]="ReconciledDate"></mat-datepicker-toggle>
+                        <mat-datepicker #ReconciledDate name="ReconciledDate" ngDefaultControl [formControl]="getControl(index, 'ReconciledDate')"></mat-datepicker>
+
+                        <mat-error *ngIf="getControl(index, 'ReconciledDate').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.ReconciledDate | date:'yyyy-MM-dd'}} </td> -->
               </ng-container>
-              
+
               <ng-container matColumnDef="ReconcilerName">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> ReconcilerName </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.ReconcilerName}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ReconcilerName </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'ReconcilerName',cda)">
+                    <ng-template viewMode>
+                      {{cda.ReconcilerName || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'ReconcilerName')">
+                        <mat-error *ngIf="getControl(index, 'ReconcilerName').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.ReconcilerName}} </td> -->
               </ng-container>
               <ng-container matColumnDef="CDAOrComponentType">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDAOrComponentType </th>
-                <td mat-cell *matCellDef="let cda"> {{cda.CDAOrComponentType}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> CDAOrComponentType </th>
+                <td mat-cell *matCellDef="let cda;let index = index">
+                  <editable (update)="updateFielddata(index, 'CDAOrComponentType',cda)">
+                    <ng-template viewMode>
+                      {{cda.CDAOrComponentType || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'CDAOrComponentType')">
+                        <mat-error *ngIf="getControl(index, 'CDAOrComponentType').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+                <!-- <td mat-cell *matCellDef="let cda"> {{cda.CDAOrComponentType}} </td> -->
               </ng-container>
-              
+
               <!-- <ng-container matColumnDef="CDADisplayOrderId">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> CDADisplayOrderId </th>
                 <td mat-cell *matCellDef="let cda"> {{cda.CDADisplayOrderId}} </td>
               </ng-container>
                -->
-               <ng-container matColumnDef="Action">
-                  <th mat-header-cell *matHeaderCellDef  mat-sort-header> Action </th>
-                  <td mat-cell *matCellDef="let cda" class="action-link">
-                    <a (click)="openDialog('Update',cda)" class="marR10 m-r-10 cursor-pointer"><i class="fa fa-pencil"></i></a>
-                    <span><a (click)="openDialog('Delete',cda)" class="m-r-10 cursor-pointer">
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                <td mat-cell *matCellDef="let cda" class="action-link">
+                  <a (click)="openDialog('Update',cda)" class="marR10 m-r-10 cursor-pointer">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                  <span>
+                    <a (click)="openDialog('Delete',cda)" class="m-r-10 cursor-pointer">
                       <i class="fa fa-trash text-danger"></i>
-                    </a></span>           
-                  </td>
-                </ng-container>
-                
+                    </a>
+                  </span>
+                </td>
+              </ng-container>
 
-  
+
+
               <tr mat-header-row *matHeaderRowDef="getCDADisplayedColumns()"></tr>
               <tr mat-row *matRowDef="let row; columns: getCDADisplayedColumns();"></tr>
             </table>

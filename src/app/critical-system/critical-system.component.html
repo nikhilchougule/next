@@ -24,6 +24,28 @@
       </mat-card>
     </div>
   </div>
+  <div fxLayout="row wrap" class="align-items-center">
+      <mat-card class="main-content">
+        <mat-card-content class="main-card-content">
+          <div fxFlex="100">
+  
+            <mat-form-field *ngFor="let filter of filterSelectObj" fxFlex="30" style="padding-left: 10px">
+              <mat-label>Filter {{filter.name}}</mat-label>
+              <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue" (change)="filterChange(filter,$event)">
+                <option value="">-- Select {{filter.name}} --</option>
+                <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+              </select>
+            </mat-form-field>
+          </div>
+          &nbsp;
+          <div fxFlex="100" class="text-right">
+            <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+
   <div fxLayout="row wrap">
     <div fxFlex="100">
       <mat-card>
@@ -110,7 +132,7 @@
                 <td mat-cell *matCellDef="let csd;let index = index;">
                   <editable (update)="updateFielddata(index, 'ApprovalStatus',csd)">
                     <ng-template viewMode>
-                      {{csd.ApprovalStatus}}
+                      {{csd.ApprovalStatus || 'N/A'}}
                     </ng-template>
                     <ng-template editMode>
                         <mat-form-field>
@@ -226,8 +248,9 @@
                 <td mat-cell *matCellDef="let csd;let index = index;"  matTooltip="{{csd.Security}}">
                     <editable (update)="updateFielddata(index, 'Security',csd)">
                       <ng-template viewMode>
-                        {{csd.Security || 'N/A'}}
+                        {{csd.Security !== null ? csd.Security : 'N/A'}}
                       </ng-template>
+                   
                       <ng-template editMode>
                           <mat-form-field>
                               <mat-select [value]= "getControl(index, 'Security')"  name="Security" [formControl]="getControl(index, 'Security')">
@@ -254,7 +277,8 @@
                 <td mat-cell *matCellDef="let csd;let index = index;">
                     <editable (update)="updateFielddata(index, 'SafetyOrImportantToSafety',csd)">
                       <ng-template viewMode>
-                        {{csd.SafetyOrImportantToSafety}}
+                          {{csd.SafetyOrImportantToSafety !== null ? csd.SafetyOrImportantToSafety : 'N/A'}}
+
                       </ng-template>
                       <ng-template editMode>
                           <mat-form-field>
@@ -282,7 +306,8 @@
                 <td mat-cell *matCellDef="let csd;let index = index;">
                     <editable (update)="updateFielddata(index, 'EmergencyPlan',csd)">
                       <ng-template viewMode>
-                        {{csd.EmergencyPlan}}
+                          {{csd.EmergencyPlan !== null ? csd.EmergencyPlan : 'N/A'}}
+
                       </ng-template>
                       <ng-template editMode>
                           <mat-form-field>
@@ -310,7 +335,8 @@
                 <td mat-cell *matCellDef="let csd;let index = index;">
                     <editable (update)="updateFielddata(index, 'SafetyRelated',csd)">
                       <ng-template viewMode>
-                        {{csd.SafetyRelated}}
+                          {{csd.SafetyRelated !== null ? csd.SafetyRelated : 'N/A'}}
+
                       </ng-template>
                       <ng-template editMode>
                           <mat-form-field>
@@ -338,7 +364,7 @@
                 <td mat-cell *matCellDef="let csd;let index = index;">
                     <editable (update)="updateFielddata(index, 'ImportantToSafety',csd)">
                       <ng-template viewMode>
-                        {{csd.ImportantToSafety}}
+                          {{csd.ImportantToSafety !== null ? csd.ImportantToSafety : 'N/A'}}
                       </ng-template>
                       <ng-template editMode>
                           <mat-form-field>
@@ -429,7 +455,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPDecisionDate}}">
                   <editable (update)="updateFielddata(index, 'SSEPDecisionDate',csd)">
                       <ng-template viewMode>
-                        {{csd.SSEPDecisionDate | date:'yyyy-MM-dd'}}
+                        {{csd.SSEPDecisionDate || '0000-00-00'| date:'yyyy-MM-dd'}}
                       </ng-template>
                       <ng-template editMode>
                         <mat-form-field class="example-full-width cda-input-div">
@@ -453,7 +479,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;">
                       <editable (update)="updateFielddata(index, 'SSEPDecisionBy',csd)">
                         <ng-template viewMode>
-                          {{csd.SSEPDecisionBy}}
+                          {{csd.SSEPDecisionBy || 'N/A'}}
                         </ng-template>
                         <ng-template editMode>
                           <mat-form-field class="example-full-width">
@@ -474,7 +500,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPReviewerComment}}">
                       <editable (update)="updateFielddata(index, 'SSEPReviewerComment',csd)">
                         <ng-template viewMode>
-                          {{csd.SSEPReviewerComment | WrapTextPipe}}
+                          {{csd.SSEPReviewerComment || 'N/A' | WrapTextPipe}}
                         </ng-template>
                         <ng-template editMode>
                           <mat-form-field class="example-full-width">
@@ -495,7 +521,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;" >
                       <editable (update)="updateFielddata(index, 'SSEPReviewDate',csd)">
                           <ng-template viewMode>
-                            {{csd.SSEPReviewDate | date:'yyyy-MM-dd'}}
+                            {{csd.SSEPReviewDate  || '0000-00-00'| date:'yyyy-MM-dd'}}
                           </ng-template>
                           <ng-template editMode>
                             <mat-form-field class="example-full-width cda-input-div">
@@ -519,7 +545,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;">
                       <editable (update)="updateFielddata(index, 'SSEPReviewedBy',csd)">
                         <ng-template viewMode>
-                          {{csd.SSEPReviewedBy}}
+                          {{csd.SSEPReviewedBy || 'N/A'}}
                         </ng-template>
                         <ng-template editMode>
                           <mat-form-field class="example-full-width">
@@ -540,7 +566,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPApproverComment}}">
                       <editable (update)="updateFielddata(index, 'SSEPApproverComment',csd)">
                         <ng-template viewMode>
-                          {{csd.SSEPApproverComment | WrapTextPipe}}
+                          {{csd.SSEPApproverComment || 'N/A' | WrapTextPipe}}
                         </ng-template>
                         <ng-template editMode>
                           <mat-form-field class="example-full-width">
@@ -561,7 +587,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;" >
                       <editable (update)="updateFielddata(index, 'SSEPApprovedDate',csd)">
                           <ng-template viewMode>
-                            {{csd.SSEPApprovedDate | date:'yyyy-MM-dd'}}
+                            {{csd.SSEPApprovedDate || '0000-00-00' | date:'yyyy-MM-dd'}}
                           </ng-template>
                           <ng-template editMode>
                             <mat-form-field class="example-full-width cda-input-div">
@@ -585,7 +611,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;">
                       <editable (update)="updateFielddata(index, 'SSEPApprovedBy',csd)">
                         <ng-template viewMode>
-                          {{csd.SSEPApprovedBy}}
+                          {{csd.SSEPApprovedBy || 'N/A'}}
                         </ng-template>
                         <ng-template editMode>
                           <mat-form-field class="example-full-width">

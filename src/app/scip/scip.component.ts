@@ -98,7 +98,7 @@ viewScipsFields(){
 getDisplayedColumns(){
     // 'ComplexityCategoryId'
     if(this.showSSEP){
-        return this.displayedColumns =  ['Action', 'ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions', 'CommanControlExample',
+        return this.displayedColumns =  [ 'ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions', 'CommanControlExample',
         'Decision', 'DecisionAnswerOptions', 'ImplementControl', 'Focus', 'Observation',
         'Purpose', 'UseAlternate', 'AppliesTo', 'Analysis', 'AlternateControlExample', 'ActiveFlag', 'AV1',
         'AV1_Degree', 'AV1_Justification', 'AV1_Value', 'AV2', 'AV2_Degree', 'AV2_Justification', 'AV2_Value',
@@ -106,7 +106,7 @@ getDisplayedColumns(){
         'AV5', 'AV5_Degree', 'AV5_Justification', 'AV5_Value'];
         
     }else{
-        return this.displayedColumns =  ['Action', 'ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions']
+        return this.displayedColumns =  ['ControlOrRequirementId', 'ControlApplicability', 'CorrectiveAction', 'CorrectiveActionAnswerOptions']
         
     }
 }

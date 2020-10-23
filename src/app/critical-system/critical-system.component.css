@@ -1,3 +1,6 @@
 .view-ssep-right {
     text-align: right;
 }
+mat-card-content.main-card-content{
+    flex-wrap: wrap;
+  }
