@@ -13,6 +13,8 @@ import { map, auditTime, takeUntil } from 'rxjs/operators';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { isLoggedIn, isLoggedOut } from '../auth/auth.selector';
 import { MatStepper } from '@angular/material/stepper';
+import { AnyFn } from '@ngrx/store/src/selector';
+import { SelectionModel } from '@angular/cdk/collections';
 @Component({
     selector: 'app-critical-system',
     templateUrl: './critical-system.component.html',
@@ -20,10 +22,11 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class CriticalSystemComponent implements OnInit {
 
+    selectedArray = [];
+    bulkUpdate: boolean = false;
     controls: FormArray;
     allLocations;
     showSSEP: boolean = false
-    displayedColumns: string[]
     csForm: FormGroup;
     dataSource: MatTableDataSource<ICriticalSystem>;
     isLoadingResults = true;
@@ -32,6 +35,8 @@ export class CriticalSystemComponent implements OnInit {
     data: ICriticalSystem[];
     isLoggedIn$: Observable<boolean>;
     isLoggedOut$: Observable<boolean>;
+    displayedColumns: string[];
+
     obj = {
         Name: null,
         SystemDescription: null,
@@ -116,33 +121,49 @@ export class CriticalSystemComponent implements OnInit {
         SystemEngineer: null,
         SystemFunction: null,
     }
+
+
     filterSelectObj = [];
     filterValues = {};
+
     constructor(private criticalSys: CriticalSystemService, public dialog: MatDialog, private route: ActivatedRoute, private store: Store<AppState>) {
- // Object to create Filter for
- this.filterSelectObj = [
-    {
-      name: 'Name',
-      columnProp: 'Name',
-      options: []
-    }, {
-      name: 'ApprovalStatus',
-      columnProp: 'ApprovalStatus',
-      options: []
-    }, {
-      name: 'IdentificationApprovalStatus',
-      columnProp: 'IdentificationApprovalStatus',
-      options: []
-    }, {
-      name: 'Structure',
-      columnProp: 'Structure',
-      options: []
-    }, {
-      name: 'Security',
-      columnProp: 'Security',
-      options: []
-    }
-  ]
+
+        // Object to create Filter for
+        this.filterSelectObj = [
+            {
+                Name: 'Name',
+                columnProp: 'Name',
+                options: []
+            }, {
+                name: 'SystemDescription',
+                columnProp: 'SystemDescription',
+                options: []
+            }, {
+                Name: 'ApprovalStatus',
+                columnProp: 'ApprovalStatus',
+                options: []
+            },
+            {
+                Name: 'IdentificationApprovalStatus',
+                columnProp: 'IdentificationApprovalStatus',
+                options: []
+            },
+
+            //  {
+            //   name: 'ECode',
+            //   columnProp: 'ECode',
+            //   options: []
+            // }, {
+            //   name: 'SerialNumber',
+            //   columnProp: 'SerialNumber',
+            //   options: []
+            // }, {
+            //   name: 'EquipmentType',
+            //   columnProp: 'EquipmentType',
+            //   options: []
+            // }
+        ]
+
 
     }
     CSIdentificationApprovalStatus: any;
@@ -151,11 +172,19 @@ export class CriticalSystemComponent implements OnInit {
     action: string;
     local_data: any;
     location: any;
-    dropdowndata = [{value:true},{value:false},{value:'N/A'}]
+    dropdowndata = [{ value: true }, { value: false }, { value: 'N/A' }]
     searchText: any;
-    showAllFields:boolean = false;
-    
-    @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
+    showAllFields: boolean = false;
+    SystemDescription = new FormControl();
+    nameFilter = new FormControl();
+    ApprovalStatus = new FormControl();
+    IdentificationApprovalStatus = new FormControl();
+    Structure = new FormControl();
+    globalFilter = '';
+
+    selection = new SelectionModel<ICriticalSystem>(true, []);
+
+    // @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
     @ViewChild(MatSort) sort: MatSort;
 
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
@@ -184,16 +213,40 @@ export class CriticalSystemComponent implements OnInit {
             this.isLoadingResults = false;
             this.filterSelectObj.filter((o) => {
                 o.options = this.getFilterObject(this.data, o.columnProp);
-              });
+            });
             this.dataSource.filterPredicate = this.createFilter();
-          
+
+            // this.nameFilter.valueChanges.subscribe((nameFilterValue) => {
+            //     this.filteredValues['Name'] = nameFilterValue;
+            //     this.dataSource.filter = JSON.stringify(this.filteredValues);
+            //   });
+            //   this.SystemDescription.valueChanges.subscribe((nameFilterValue) => {
+            //     this.filteredValues['SystemDescription'] = nameFilterValue;
+            //     this.dataSource.filter = JSON.stringify(this.filteredValues);
+            //   });
+            //   this.ApprovalStatus.valueChanges.subscribe((nameFilterValue) => {
+            //     this.filteredValues['ApprovalStatus'] = nameFilterValue;
+            //     this.dataSource.filter = JSON.stringify(this.filteredValues);
+            //   });
+            //   this.IdentificationApprovalStatus.valueChanges.subscribe((nameFilterValue) => {
+            //     this.filteredValues['IdentificationApprovalStatus'] = nameFilterValue;
+            //     this.dataSource.filter = JSON.stringify(this.filteredValues);
+            //   });
+            //   this.Structure.valueChanges.subscribe((nameFilterValue) => {
+            //     this.filteredValues['Structure'] = nameFilterValue;
+            //     this.dataSource.filter = JSON.stringify(this.filteredValues);
+            //   });
+
+
+            //   this.dataSource.filterPredicate = this.customFilterPredicate();
+
             const toGroups = this.data.map(entity => {
                 return new FormGroup({
                     'CriticalSystemId': new FormControl(entity.CriticalSystemId),
                     'Name': new FormControl(entity.Name, Validators.required),
-                    'SystemDescription': new FormControl(entity.SystemDescription || 'n/a'),
-                    'ApprovalStatus': new FormControl(entity.ApprovalStatus || 'n/a'),
-                    'CategoryId': new FormControl(entity.CategoryId || 'n/a'),
+                    'SystemDescription': new FormControl(entity.SystemDescription),
+                    'ApprovalStatus': new FormControl(entity.ApprovalStatus),
+                    'CategoryId': new FormControl(entity.CategoryId),
                     'IdentificationApprovalStatus': new FormControl(entity.IdentificationApprovalStatus),
                     'SSEPDetailedDescription': new FormControl(entity.SSEPDetailedDescription),
                     'SSEPJustification': new FormControl(entity.SSEPJustification),
@@ -213,11 +266,13 @@ export class CriticalSystemComponent implements OnInit {
                     'ExtDescription': new FormControl(entity.ExtDescription),
                     'Security': new FormControl(entity.Security),
                     'SafetyOrImportantToSafety': new FormControl(entity.SafetyOrImportantToSafety),
-                    'Structure': new FormControl(entity.Structure || 'n/a'),
+                    'Structure': new FormControl(entity.Structure),
                 }, { updateOn: "blur" });
             });
 
             this.controls = new FormArray(toGroups);
+
+
             this.criticalSys.getLocations().subscribe((res) => {
                 this.location = res;
             })
@@ -230,9 +285,44 @@ export class CriticalSystemComponent implements OnInit {
             this.criticalSys.getCSIdentificationApprovalStatus().subscribe((res) => {
                 this.CSIdentificationApprovalStatus = res;
             })
-          
+
         })
-      
+
+    }
+    Update() {
+        this.bulkUpdate = !this.bulkUpdate
+    }
+    isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
+    }
+    masterToggle($event) {
+        if ($event.checked) {
+            this.onCompleteRow(this.dataSource);
+        }
+        this.isAllSelected() ?
+            this.selection.clear() :
+            this.dataSource.data.forEach(row => this.selection.select(row));
+    }
+
+    selectRow($event, dataSource) {
+        // console.log($event.checked);
+        if ($event.checked) {
+            this.selectedArray.push(dataSource)
+            console.log(this.selectedArray);
+        } else if (!$event.checked) {
+            var index = this.selectedArray.indexOf(dataSource.CriticalSystemId);
+            this.selectedArray.splice(index, 1);
+            console.log(this.selectedArray);
+
+        }
+    }
+
+    onCompleteRow(dataSource) {
+        dataSource.data.forEach(element => {
+            console.log(element.CriticalSystemId);
+        });
     }
     getCriticalSystemData() {
         this.criticalSys.getCriticalSystemData().subscribe((res: ICriticalSystem[]) => {
@@ -246,14 +336,33 @@ export class CriticalSystemComponent implements OnInit {
     }
 
     updateFielddata(index, field, csd) {
-        const control = this.getControl(index, field);
-        if (control.valid) {
-        csd[field] = this.controls.at(index).get(field).value;
-        this.criticalSys.updateCriticalSystemRecord(csd).subscribe((res) => {
-            this.getCriticalSystemData();
+        
+        if (this.bulkUpdate) {
+            if (this.selectedArray) {
+                const control = this.getControl(index, field);
+                this.selectedArray.forEach(element => {
+                    element[field] = this.controls.at(index).get(field).value;
+                    this.criticalSys.updateCriticalSystemRecord(element).subscribe((res) => {
+                        this.getCriticalSystemData();
+                    })
+                })
+        
+                    this.selectedArray = [];
+                
 
-        })
-    }
+            }
+        } else {
+            console.log(csd)
+            const control = this.getControl(index, field);
+            if (control.valid) {
+                csd[field] = this.controls.at(index).get(field).value;
+                this.criticalSys.updateCriticalSystemRecord(csd).subscribe((res) => {
+                    this.getCriticalSystemData();
+
+                })
+            }
+
+        }
         // const control = this.getControl(index, field);
         // if (control.valid) {
         //     // console.log(control)
@@ -271,73 +380,110 @@ export class CriticalSystemComponent implements OnInit {
         // }
 
     }
-      // Called on Filter change
-      filterChange(filter, event) {
+    // Called on Filter change
+    filterChange(filter, event) {
         console.log(filter)
         console.log(event)
-      //let filterValues = {}
-      this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
-      this.dataSource.filter = JSON.stringify(this.filterValues)
+        //let filterValues = {}
+        this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
+        this.dataSource.filter = JSON.stringify(this.filterValues)
     }
-  
-       // Custom filter method fot Angular Material Datatable
+
+    // Custom filter method fot Angular Material Datatable
     createFilter() {
-      let filterFunction = function (data: any, filter: string): boolean {
-        let searchTerms = JSON.parse(filter);
-        let isFilterSet = false;
-        for (const col in searchTerms) {
-          if (searchTerms[col].toString() !== '') {
-            isFilterSet = true;
-          } else {
-            delete searchTerms[col];
-          }
-        }
-  
-        console.log(searchTerms);
-  
-        let nameSearch = () => {
-          let found = false;
-          if (isFilterSet) {
+        let filterFunction = function (data: any, filter: string): boolean {
+            let searchTerms = JSON.parse(filter);
+            let isFilterSet = false;
             for (const col in searchTerms) {
-              searchTerms[col].trim().toLowerCase().split(' ').forEach(word => {
-                if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
-                  found = true
+                if (searchTerms[col].toString() !== '') {
+                    isFilterSet = true;
+                } else {
+                    delete searchTerms[col];
                 }
-              });
             }
-            return found
-          } else {
-            return true;
-          }
+
+
+            let nameSearch = () => {
+                let found = false;
+                if (isFilterSet) {
+                    for (const col in searchTerms) {
+                        searchTerms[col].trim().toLowerCase().split(' ').forEach(word => {
+                            if (data[col]) {
+                                if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
+                                    found = true
+                                }
+                            }
+
+                        });
+                    }
+                    return found
+                } else {
+                    return true;
+                }
+            }
+            return nameSearch()
         }
-        return nameSearch()
-      }
-      return filterFunction
+        return filterFunction
     }
-  
-  
+
+
     // Reset table filters
     resetFilters() {
-      this.filterValues = {}
-      this.filterSelectObj.forEach((value, key) => {
-        value.modelValue = undefined;
-      })
-      this.dataSource.filter = "";
+        this.filterValues = {}
+        this.filterSelectObj.forEach((value, key) => {
+            value.modelValue = undefined;
+        })
+        this.dataSource.filter = "";
     }
-        // Get Uniqu values from columns to build filter
+    // Get Uniqu values from columns to build filter
     getFilterObject(fullObj, key) {
-      const uniqChk = [];
-      fullObj.filter((obj) => {
-        if (!uniqChk.includes(obj[key])) {
-          uniqChk.push(obj[key]);
-        }
-        return obj;
-      });
-      return uniqChk;
+        const uniqChk = [];
+        fullObj.filter((obj) => {
+            if (!uniqChk.includes(obj[key])) {
+                uniqChk.push(obj[key]);
+            }
+            return obj;
+        });
+        return uniqChk;
     }
     getControl(index, fieldName) {
         const a = this.controls.at(index).get(fieldName) as FormControl;
         return this.controls.at(index).get(fieldName) as FormControl;
+    }
+
+    customFilterPredicate() {
+        const myFilterPredicate = (data: any, filter: string): boolean => {
+            var globalMatch = !this.globalFilter;
+
+            if (this.globalFilter) {
+                // search all text fields
+                globalMatch = data.Name.toString().trim().toLowerCase().indexOf(this.globalFilter.toLowerCase()) !== -1;
+            }
+
+            if (!globalMatch) {
+                return;
+            }
+
+            let searchString = JSON.parse(filter);
+            if (data.Name) {
+                return data.Name.toString().trim().toLowerCase().indexOf(searchString.Name.toLowerCase()) !== -1
+            }
+            if (data.SystemDescription) {
+                return data.SystemDescription.toString().trim().toLowerCase().indexOf(searchString.SystemDescription.toLowerCase()) !== -1;
+            }
+            if (data.ApprovalStatus) {
+                return data.ApprovalStatus.toString().trim().toLowerCase().indexOf(searchString.ApprovalStatus.toLowerCase()) !== -1;
+            } if (data.IdentificationApprovalStatus) {
+                return data.IdentificationApprovalStatus.toString().trim().toLowerCase().indexOf(searchString.IdentificationApprovalStatus.toLowerCase()) !== -1;
+            }
+            if (data.Structure) {
+                return data.Structure.toString().trim().toLowerCase().indexOf(searchString.Structure.toLowerCase()) !== -1
+
+            }
+
+
+        }
+        return myFilterPredicate;
     }
 
     applyFilter(filterValue: string) {
@@ -349,12 +495,12 @@ export class CriticalSystemComponent implements OnInit {
     //         'SSEPDecisionBy', 'SSEPReviewerComment', 'SSEPReviewDate', 'SSEPReviewedBy', 'SSEPApproverComment', 'SSEPApprovedDate', 'SSEPApprovedBy'];
     getDisplayedColumns() {
         if (this.showSSEP) {
-            return this.displayedColumns = [ 'Name', 'SystemDescription', 'ApprovalStatus',
+            return this.displayedColumns = ['select', 'Name', 'SystemDescription', 'ApprovalStatus',
                 'IdentificationApprovalStatus', 'Structure', 'SSEPDetailedDescription', 'Security', 'SafetyOrImportantToSafety',
                 'EmergencyPlan', 'SafetyRelated', 'ImportantToSafety', 'ExtDescription', 'SSEPJustification', 'SSEPDecisionComment', 'SSEPDecisionDate',
-                'SSEPDecisionBy', 'SSEPReviewerComment', 'SSEPReviewDate', 'SSEPReviewedBy', 'SSEPApproverComment', 'SSEPApprovedDate', 'SSEPApprovedBy','Action'];
+                'SSEPDecisionBy', 'SSEPReviewerComment', 'SSEPReviewDate', 'SSEPReviewedBy', 'SSEPApproverComment', 'SSEPApprovedDate', 'SSEPApprovedBy', 'Action'];
         } else {
-            return this.displayedColumns = [ 'Name', 'SystemDescription', 'ApprovalStatus',
+            return this.displayedColumns = ['select', 'Name', 'SystemDescription', 'ApprovalStatus',
                 'IdentificationApprovalStatus', 'Structure'];
 
         }

@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators, FormControl, FormArray} from '@angul
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { DateAdapter } from '@angular/material/core';
+import { SelectionModel } from '@angular/cdk/collections';
 
 
 export interface DialogData {
@@ -327,6 +328,7 @@ export class ViewCdaComponent implements OnInit {
     dropdowndata = [{value:true},{value:false},{value:'N/A'}]
     filterSelectObj = [];
     filterValues = {};
+    selection = new SelectionModel<ICDA>(true, []);
 
     constructor(private cda: CdaService, public dialog: MatDialog,private route: ActivatedRoute) {
 
@@ -362,7 +364,9 @@ export class ViewCdaComponent implements OnInit {
     searchText: any;
     showAllFields:boolean = false;
     displayedColumns: string[] ;
-
+    globalFilter = '';
+    selectedArray = [];
+    bulkUpdate:boolean = false;
 
     @ViewChild(MatPaginator, { static: true, }) paginator: MatPaginator = Object.create(null);
 
@@ -378,6 +382,7 @@ export class ViewCdaComponent implements OnInit {
             this.isLoadingResults = false;
             const toGroups = this.data.map(entity => {
                 return new FormGroup({
+                    'CriticalDigitalAssetId':new FormControl(entity.CriticalDigitalAssetId),
                     'Name': new FormControl(entity.Name, Validators.required),
                     'Location':new FormControl(entity.Location),
                     'IsDigital':new FormControl(entity.IsDigital),
@@ -425,6 +430,41 @@ export class ViewCdaComponent implements OnInit {
       
       
     }
+    isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
+    }
+    masterToggle($event) {
+        if ($event.checked) {
+            this.onCompleteRow(this.dataSource);
+        }
+        this.isAllSelected() ?
+            this.selection.clear() :
+            this.dataSource.data.forEach(row => this.selection.select(row));
+    }
+
+    selectRow($event, dataSource) {
+        // console.log($event.checked);
+        if ($event.checked) {
+            this.selectedArray.push(dataSource)
+            console.log(this.selectedArray);
+        } else if (!$event.checked) {
+            var index = this.selectedArray.indexOf(dataSource.CriticalDigitalAssetId);
+            this.selectedArray.splice(index, 1);
+            console.log(this.selectedArray);
+
+        }
+    }
+
+    onCompleteRow(dataSource) {
+        dataSource.data.forEach(element => {
+            console.log(element.CriticalDigitalAssetId);
+        });
+    }
+    Update() {
+        this.bulkUpdate = !this.bulkUpdate
+    }
      // Called on Filter change
   filterChange(filter, event) {
       console.log(filter)
@@ -454,9 +494,11 @@ export class ViewCdaComponent implements OnInit {
         if (isFilterSet) {
           for (const col in searchTerms) {
             searchTerms[col].trim().toLowerCase().split(' ').forEach(word => {
-              if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
+                if(data[col]){
+                if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
                 found = true
               }
+            }
             });
           }
           return found
@@ -505,17 +547,41 @@ export class ViewCdaComponent implements OnInit {
         })
     }
     updateFielddata(index, field, cda) {
-        const control = this.getControl(index, field);
-        if (control.valid) {
-            cda[field] = this.controls.at(index).get(field).value;
-        this.cda.updateCriticalDigitalAssetsRecord(cda).subscribe((res) => {
-            this.getDigitalAssets();
-        })
+        if (this.bulkUpdate) {
+            if (this.selectedArray) {
+                // const control = this.getControl(index, field);
+                this.selectedArray.forEach(element => {
+                    element[field] = this.controls.at(index).get(field).value;
+                    this.cda.updateCriticalDigitalAssetsRecord(element).subscribe((res) => {
+                        this.getDigitalAssets();
+                    })
+                })
+        
+                    this.selectedArray = [];
+                
+
+            }
+        } else {
+            console.log(cda)
+            const control = this.getControl(index, field);
+            if (control.valid) {
+                cda[field] = this.controls.at(index).get(field).value;
+                this.cda.updateCriticalDigitalAssetsRecord(cda).subscribe((res) => {
+                    this.getDigitalAssets();
+                })
+            }
+
+        }
+        
     }
+
+    // applyFilter(filterValue: string) {
+    //     this.dataSource.filter = filterValue.trim().toLowerCase();
+    // }
+    applyFilter(filter) {
+    this.globalFilter = filter;
+    this.dataSource.filter = this.globalFilter.trim().toLowerCase();
 }
-    applyFilter(filterValue: string) {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
     //   [ 'Action','Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'CDADefensiveSecurityLevelsLookupId', 'Manufacturer', 'ModelNumber',
     // 'CDAOwner', 'CDAProcessSoftware1OrRevision', 'CDAProcessSoftware2OrRevision', 'PlannedReplacementModificationDate', 'HasthisComponentbeenEvaluated',
     // 'EmergencyPlan', 'Description', 'Room', 'Builiding', 'Elevation', 'ColumnLine', 'Azimuth', 'Area', 'PlantUnit', 'CDATypeId', 'Cyber_Security', 'Justification', 'RevisionNumber',
@@ -523,14 +589,14 @@ export class ViewCdaComponent implements OnInit {
     getCDADisplayedColumns(){
         if(this.showAllFields){
            return this.displayedColumns =
-            [ 'Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'Manufacturer', 'ModelNumber',
+            ['select', 'Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType', 'Manufacturer', 'ModelNumber',
                 'CDAOwner', 'CDAProcessSoftware1OrRevision', 'CDAProcessSoftware2OrRevision', 'PlannedReplacementModificationDate', 'HasthisComponentbeenEvaluated',
                 'EmergencyPlan', 'Description', 'Room', 'Builiding', 'Elevation', 'ColumnLine', 'Azimuth', 'Area', 'PlantUnit', 'Cyber_Security', 'Justification', 'RevisionNumber',
                 'RevisionStatus', 'DateInstalled', 'Reconciled', 'ReconciledDate', 'ReconcilerName', 'CDAOrComponentType','Action'];
     
         }else{
             return this.displayedColumns =
-            [ 'Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType'];
+            ['select', 'Name', 'Location', 'IsDigital', 'ManualComponent', 'ECode', 'SerialNumber', 'EquipmentType'];
     
         }
     }

@@ -203,36 +203,36 @@ const MENUITEMS = [
         type: 'link',
         icon: 'insert_chart'
     },
-    {
-        state: '',
-        name: 'Documentation',
-        type: 'link',
-        icon: 'insert_chart'
-    },
-    {
-        state: '',
-        name: 'Configuration',
-        type: 'link',
-        icon: 'insert_chart'
-    },
-    {
-        state: '',
-        name: 'Vulnerabilities',
-        type: 'link',
-        icon: 'insert_chart'
-    },
-    {
-        state: '',
-        name: 'Critical System',
-        type: 'link',
-        icon: 'insert_chart'
-    },
-    {
-        state: '',
-        name: 'Comments',
-        type: 'link',
-        icon: 'insert_chart'
-    },
+    // {
+    //     state: '',
+    //     name: 'Documentation',
+    //     type: 'link',
+    //     icon: 'insert_chart'
+    // },
+    // {
+    //     state: '',
+    //     name: 'Configuration',
+    //     type: 'link',
+    //     icon: 'insert_chart'
+    // },
+    // {
+    //     state: '',
+    //     name: 'Vulnerabilities',
+    //     type: 'link',
+    //     icon: 'insert_chart'
+    // },
+    // {
+    //     state: '',
+    //     name: 'Critical System',
+    //     type: 'link',
+    //     icon: 'insert_chart'
+    // },
+    // {
+    //     state: '',
+    //     name: 'Comments',
+    //     type: 'link',
+    //     icon: 'insert_chart'
+    // },
     {
         state: 'CSDA',
         name: 'SetUp',

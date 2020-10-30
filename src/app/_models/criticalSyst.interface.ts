@@ -1,7 +1,8 @@
 export interface ICriticalSystem {
+    position:number
     LocationId:Number,
-    Name:String,
-    SystemDescription:String,
+    Name:string,
+    SystemDescription:string,
     CriticalSystemId:Number,
     ApprovalStatus:String,
     CategoryId:Number,

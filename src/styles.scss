@@ -11,12 +11,12 @@ tr.example-element-row:hover {
     border-top: 0.14375em solid transparent !important;
 }
 .mat-form-field.example-full-width.cda-input-div .mat-form-field-flex .mat-form-field-infix {
-      width: unset !important;
+    width: unset !important;
  }
     
  .mat-form-field.example-full-width.cda-input-div .mat-form-field-underline {
 
-         bottom: 0 !important;
+    bottom: 0 !important;
 }
 .mat-form-field.example-full-width.cda-input-div .mat-form-field-appearance-legacy .mat-form-field-underline {
     bottom: 0 !important;
@@ -24,3 +24,13 @@ tr.example-element-row:hover {
 .mat-form-field.example-full-width.cda-input-div .mat-form-field-wrapper {
      padding-bottom: 0 !important; 
 }
+.th-header .mat-sort-header-button{
+     display: unset !important; 
+     text-align: left ;
+}
+// {
+//         /* padding-left: 10px; */
+//         flex: 1 1 100%;
+//         box-sizing: border-box;
+//         /* max-width: 30%;
+// }

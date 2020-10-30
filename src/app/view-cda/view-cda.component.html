@@ -11,20 +11,23 @@
         <mat-card-content>
           <div fxLayout="row wrap" class="align-items-center">
             <div fxFlex.gt-md="25" fxFlex.gt-lg="25" fxFlex="100">
-              <mat-form-field>
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-              </mat-form-field>
+               <!-- (keyup)="applyFilter($event.target.value)" -->
+              <!-- <mat-form-field>
+                <input matInput [ngModel]="globalFilter" (ngModelChange)="applyFilter($event)"  placeholder="Filter">
+              </mat-form-field> -->
             </div>
             <div fxFlex.gt-md="75" class="text-right">
               <!--  [disabled]="!('create' | able: 'cda')" -->
               <button mat-raised-button color="primary" (click)="openDialog('Add',obj)">Add Digital Assets</button>
+              
+
             </div>
           </div>
         </mat-card-content>
       </mat-card>
     </div>
   </div>
-  <div fxLayout="row wrap" class="align-items-center">
+  <!-- <div fxLayout="row wrap" class="align-items-center">
     <mat-card class="main-content">
       <mat-card-content class="main-card-content">
         <div fxFlex="100">
@@ -43,21 +46,47 @@
         </div>
       </mat-card-content>
     </mat-card>
-  </div>
+  </div> -->
 
   <div fxLayout="row wrap">
     <div fxFlex="100">
       <mat-card>
         <mat-card-content>
           <div class="view-ssep-right">
-            <button mat-raised-button color="primary" (click)="viewDAFields()">View All DA Fields</button>
+            <button mat-raised-button class="m-r-10" color="primary" (click)="viewDAFields()">View All DA Fields</button>
+              <button mat-flat-button class="m-r-10" color="warn" (click)="resetFilters()">Reset</button>
+              <button mat-raised-button color="accent" (click)="Update()">Bulk Update</button>
+  
           </div>
           <div class="table-responsive">
             <table mat-table [dataSource]="dataSource" class="table employee-list no-wrap" matSort matSortDirection="desc">
 
+              <ng-container matColumnDef="select">
+                <div>
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox  (change)="$event ? masterToggle($event) : null" [disabled]="!bulkUpdate" [checked]="selection.hasValue() && isAllSelected() == true" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                      </th>
+                      <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" [disabled]="!bulkUpdate" (change)="$event ? selectRow($event, row) : null" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row) == true">
+                        </mat-checkbox>
+                      </td>
+                    </div>
+              </ng-container>
 
               <ng-container matColumnDef="Name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header">Name
+                    <div>
+                        <mat-form-field>
+                          <mat-label>Filter {{filterSelectObj[0]?.name}}</mat-label>
+                          <select matNativeControl name="{{filterSelectObj[0].columnProp}}" [(ngModel)]="filterSelectObj[0].modelValue" (change)="filterChange(filterSelectObj[0],$event)">
+                            <option value="">-- Select {{filterSelectObj[0]?.name}} --</option>
+                            <option [value]="item" *ngFor="let item of filterSelectObj[0].options">{{item}}</option>
+                          </select>
+                        </mat-form-field>
+    
+                      </div>  
+                </th>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.Name}} </td> -->
                 <td mat-cell *matCellDef="let cda;let index = index">
                   <editable (update)="updateFielddata(index, 'Name',cda)">
@@ -78,7 +107,18 @@
               </ng-container>
 
               <ng-container matColumnDef="Location">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Location Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header"> Location Name
+                    <div>
+                        <mat-form-field>
+                          <mat-label>Filter {{filterSelectObj[1]?.name}}</mat-label>
+                          <select matNativeControl name="{{filterSelectObj[1].columnProp}}" [(ngModel)]="filterSelectObj[1].modelValue" (change)="filterChange(filterSelectObj[1],$event)">
+                            <option value="">-- Select {{filterSelectObj[1]?.name}} --</option>
+                            <option [value]="item" *ngFor="let item of filterSelectObj[1].options">{{item}}</option>
+                          </select>
+                        </mat-form-field>
+    
+                      </div>    
+                </th>
                 <!-- <td mat-cell *matCellDef="let cda"> {{cda.Location}} </td> -->
                 <td mat-cell *matCellDef="let cda;let index = index">
                   <editable (update)="updateFielddata(index, 'Location',cda)">
@@ -149,7 +189,18 @@
               </ng-container>
 
               <ng-container matColumnDef="ECode">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> ECode </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header"> ECode 
+                    <div>
+                        <mat-form-field>
+                          <mat-label>Filter {{filterSelectObj[3]?.name}}</mat-label>
+                          <select matNativeControl name="{{filterSelectObj[3].columnProp}}" [(ngModel)]="filterSelectObj[3].modelValue" (change)="filterChange(filterSelectObj[3],$event)">
+                            <option value="">-- Select {{filterSelectObj[3]?.name}} --</option>
+                            <option [value]="item" *ngFor="let item of filterSelectObj[3].options">{{item}}</option>
+                          </select>
+                        </mat-form-field>
+    
+                      </div>  
+                </th>
                 <td mat-cell *matCellDef="let cda;let index = index">
                   <editable (update)="updateFielddata(index, 'ECode',cda)">
                     <ng-template viewMode>
@@ -170,7 +221,18 @@
               </ng-container>
 
               <ng-container matColumnDef="SerialNumber">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNumber </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header"> SerialNumber 
+                    <div>
+                        <mat-form-field>
+                          <mat-label>Filter {{filterSelectObj[3]?.name}}</mat-label>
+                          <select matNativeControl name="{{filterSelectObj[3].columnProp}}" [(ngModel)]="filterSelectObj[3].modelValue" (change)="filterChange(filterSelectObj[3],$event)">
+                            <option value="">-- Select {{filterSelectObj[3]?.name}} --</option>
+                            <option [value]="item" *ngFor="let item of filterSelectObj[3].options">{{item}}</option>
+                          </select>
+                        </mat-form-field>
+    
+                      </div>  
+                </th>
                 <td mat-cell *matCellDef="let cda;let index = index">
                   <editable (update)="updateFielddata(index, 'SerialNumber',cda)">
                     <ng-template viewMode>
@@ -191,7 +253,18 @@
               </ng-container>
 
               <ng-container matColumnDef="EquipmentType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> EquipmentType </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header"> EquipmentType 
+                    <div>
+                        <mat-form-field>
+                          <mat-label>Filter {{filterSelectObj[4]?.name}}</mat-label>
+                          <select matNativeControl name="{{filterSelectObj[4].columnProp}}" [(ngModel)]="filterSelectObj[4].modelValue" (change)="filterChange(filterSelectObj[4],$event)">
+                            <option value="">-- Select {{filterSelectObj[4]?.name}} --</option>
+                            <option [value]="item" *ngFor="let item of filterSelectObj[4].options">{{item}}</option>
+                          </select>
+                        </mat-form-field>
+    
+                      </div>  
+                </th>
                 <td mat-cell *matCellDef="let cda;let index = index">
                   <editable (update)="updateFielddata(index, 'EquipmentType',cda)">
                     <ng-template viewMode>

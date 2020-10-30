@@ -11,9 +11,9 @@
         <mat-card-content>
           <div fxLayout="row wrap" class="align-items-center">
             <div fxFlex.gt-md="25" fxFlex.gt-lg="25" fxFlex="100">
-              <mat-form-field>
+              <!-- <mat-form-field>
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
             <div fxFlex.gt-md="75" class="text-right">
               <!-- [disabled]="!('create' | able: 'cs')" -->
@@ -24,7 +24,7 @@
       </mat-card>
     </div>
   </div>
-  <div fxLayout="row wrap" class="align-items-center">
+  <!-- <div fxLayout="row wrap" class="align-items-center">
       <mat-card class="main-content">
         <mat-card-content class="main-card-content">
           <div fxFlex="100">
@@ -44,19 +44,47 @@
         </mat-card-content>
       </mat-card>
     </div>
-  
+   -->
 
   <div fxLayout="row wrap">
     <div fxFlex="100">
       <mat-card>
         <mat-card-content>
           <div class="view-ssep-right">
-            <button mat-raised-button color="primary" (click)="viewSSEP()">View SSEP</button>
+            <button mat-flat-button class="m-r-10" color="warn" (click)="resetFilters()">Reset</button>
+            <button mat-raised-button class="m-r-10" color="primary" (click)="viewSSEP()">View SSEP</button>
+            <button mat-raised-button color="accent" (click)="Update()">Bulk Update</button>
+
           </div>
           <div class="table-responsive">
 
 
             <table mat-table [dataSource]="dataSource" class="table employee-list no-wrap" matSort matSortDirection="desc">
+
+              <!-- Checkbox Column -->
+              <!-- <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox  (change)="$event ? masterToggle($event) : null" [checked]="selection.hasValue() && isAllSelected() == true" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectRow($event, row) : null" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row) == true">
+                  </mat-checkbox>
+                </td>
+              </ng-container> -->
+              
+              <ng-container matColumnDef="select">
+                <div>
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox  (change)="$event ? masterToggle($event) : null" [disabled]="!bulkUpdate" [checked]="selection.hasValue() && isAllSelected() == true" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                      </th>
+                      <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" [disabled]="!bulkUpdate" (change)="$event ? selectRow($event, row) : null" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row) == true">
+                        </mat-checkbox>
+                      </td>
+                    </div>
+              </ng-container>
               <ng-container matColumnDef="Action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let csd" class="action-link">
@@ -80,7 +108,23 @@
               <ng-container matColumnDef="Name">
                 <!-- <th mat-header-cell *matHeaderCellDef  mat-sort-header>Name </th>
                   <td mat-cell *matCellDef="let csd"> {{csd.Name}} </td> -->
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header">Name
+                  <div>
+                    <mat-form-field>
+                      <mat-label>Filter {{filterSelectObj[0]?.Name}}</mat-label>
+                      <select matNativeControl name="{{filterSelectObj[0].columnProp}}" [(ngModel)]="filterSelectObj[0].modelValue" (change)="filterChange(filterSelectObj[0],$event)">
+                        <option value="">-- Select {{filterSelectObj[0]?.Name}} --</option>
+                        <option [value]="item" *ngFor="let item of filterSelectObj[0].options">{{item}}</option>
+                      </select>
+                    </mat-form-field>
+
+                  </div>
+                  <!-- <div>
+                    <mat-form-field>
+                      <input matInput class="form-field" [formControl]="nameFilter" placeholder="Name Filter">
+                    </mat-form-field>
+                  </div> -->
+                </th>
                 <td mat-cell *matCellDef="let csd;let index = index">
                   <editable (update)="updateFielddata(index, 'Name',csd)">
                     <ng-template viewMode>
@@ -101,7 +145,23 @@
 
 
               <ng-container matColumnDef="SystemDescription">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> SystemDescription </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header"> SystemDescription
+                  <div>
+                    <mat-form-field>
+                      <mat-label>Filter {{filterSelectObj[1]?.Name}}</mat-label>
+                      <select matNativeControl name="{{filterSelectObj[1].columnProp}}" [(ngModel)]="filterSelectObj[1].modelValue" (change)="filterChange(filterSelectObj[1],$event)">
+                        <option value="">-- Select {{filterSelectObj[1]?.Name}} --</option>
+                        <option [value]="item" *ngFor="let item of filterSelectObj[1].options">{{item}}</option>
+                      </select>
+                    </mat-form-field>
+
+                  </div>
+                  <!-- <div>
+                        <mat-form-field>
+                          <input matInput class="form-field" [formControl]="SystemDescription" placeholder="Name Filter">
+                        </mat-form-field>
+                      </div> -->
+                </th>
                 <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SystemDescription}}">
                   <editable (update)="updateFielddata(index, 'SystemDescription',csd)">
                     <ng-template viewMode>
@@ -128,26 +188,40 @@
                 </ng-container> -->
 
               <ng-container matColumnDef="ApprovalStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> ApprovalStatus </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header"> ApprovalStatus
+                  <div>
+                    <mat-form-field>
+                      <mat-label>Filter {{filterSelectObj[2]?.Name}}</mat-label>
+                      <select matNativeControl name="{{filterSelectObj[2].columnProp}}" [(ngModel)]="filterSelectObj[2].modelValue" (change)="filterChange(filterSelectObj[2],$event)">
+                        <option value="">-- Select {{filterSelectObj[2]?.Name}} --</option>
+                        <option [value]="item" *ngFor="let item of filterSelectObj[2].options">{{item}}</option>
+                      </select>
+                    </mat-form-field>
+
+                  </div>
+                  <!-- <mat-form-field>
+                          <input matInput class="form-field" [formControl]="ApprovalStatus" placeholder="Name Filter">
+                        </mat-form-field> -->
+                </th>
                 <td mat-cell *matCellDef="let csd;let index = index;">
                   <editable (update)="updateFielddata(index, 'ApprovalStatus',csd)">
                     <ng-template viewMode>
                       {{csd.ApprovalStatus || 'N/A'}}
                     </ng-template>
                     <ng-template editMode>
-                        <mat-form-field>
-                            <mat-select [value]= "getControl(index, 'ApprovalStatus')"  name="ApprovalStatus" [formControl]="getControl(index, 'ApprovalStatus')">
-                                <mat-option *ngFor="let csApprovalStatus of csApprovalStatus" [(value)]="csApprovalStatus.CSApprovalStatusName"  >
-                                    {{csApprovalStatus.CSApprovalStatusName || 'N/A'}}
-                                  </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="getControl(index, 'ApprovalStatus').hasError('required')">
-                                Field is
-                                <strong>required</strong>
-                              </mat-error>
-                          </mat-form-field>
-                          
-<!-- 
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'ApprovalStatus')" name="ApprovalStatus" [formControl]="getControl(index, 'ApprovalStatus')">
+                          <mat-option *ngFor="let csApprovalStatus of csApprovalStatus" [(value)]="csApprovalStatus.CSApprovalStatusName">
+                            {{csApprovalStatus.CSApprovalStatusName || 'N/A'}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="getControl(index, 'ApprovalStatus').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+
+                      <!-- 
                       <mat-form-field class="example-full-width">
                         <input matInput [formControl]="getControl(index, 'ApprovalStatus')">
                         <mat-error *ngIf="getControl(index, 'ApprovalStatus').hasError('required')">
@@ -169,24 +243,40 @@
                 </ng-container> -->
 
               <ng-container matColumnDef="IdentificationApprovalStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> IdentificationApprovalStatus </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="th-header"> IdentificationApprovalStatus
+                  <div>
+                    <mat-form-field>
+                      <mat-label>Filter {{filterSelectObj[3]?.Name}}</mat-label>
+                      <select matNativeControl name="{{filterSelectObj[3].columnProp}}" [(ngModel)]="filterSelectObj[3].modelValue" (change)="filterChange(filterSelectObj[3],$event)">
+                        <option value="">-- Select {{filterSelectObj[3]?.Name}} --</option>
+                        <option [value]="item" *ngFor="let item of filterSelectObj[3].options">{{item}}</option>
+                      </select>
+                    </mat-form-field>
+
+                  </div>
+                  <!-- <div>
+                        <mat-form-field>
+                          <input matInput class="form-field" [formControl]="IdentificationApprovalStatus" placeholder="Name Filter">
+                        </mat-form-field>
+                      </div> -->
+                </th>
                 <td mat-cell *matCellDef="let csd;let index = index;">
                   <editable (update)="updateFielddata(index, 'IdentificationApprovalStatus',csd)">
                     <ng-template viewMode>
-                      {{csd.IdentificationApprovalStatus  || 'N/A'}}
+                      {{csd.IdentificationApprovalStatus || 'N/A'}}
                     </ng-template>
                     <ng-template editMode>
-                        <mat-form-field>
-                            <mat-select [value]= "getControl(index, 'IdentificationApprovalStatus')"  name="IdentificationApprovalStatus" [formControl]="getControl(index, 'IdentificationApprovalStatus')">
-                                <mat-option *ngFor="let CSIdentificationApprovalStatus of CSIdentificationApprovalStatus" [(value)]="CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName"   >
-                                    {{CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName}}
-                                  </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="getControl(index, 'ApprovalStatus').hasError('required')">
-                                Field is
-                                <strong>required</strong>
-                              </mat-error>
-                          </mat-form-field>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'IdentificationApprovalStatus')" name="IdentificationApprovalStatus" [formControl]="getControl(index, 'IdentificationApprovalStatus')">
+                          <mat-option *ngFor="let CSIdentificationApprovalStatus of CSIdentificationApprovalStatus" [(value)]="CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName">
+                            {{CSIdentificationApprovalStatus.CSIdentificationApprovalStatusName}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="getControl(index, 'ApprovalStatus').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
                       <!-- <mat-form-field class="example-full-width">
                         <input matInput [formControl]="getControl(index, 'IdentificationApprovalStatus')">
                         <mat-error *ngIf="getControl(index, 'IdentificationApprovalStatus').hasError('required')">
@@ -202,209 +292,215 @@
               </ng-container>
 
               <ng-container matColumnDef="Structure">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Structure </th>
-                <td mat-cell *matCellDef="let csd;let index = index;">
-                    <editable (update)="updateFielddata(index, 'Structure',csd)">
-                      <ng-template viewMode>
-                        {{csd.Structure || 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'Structure')">
-                          <mat-error *ngIf="getControl(index, 'Structure').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Structure
+                  <!-- <div>
+                        <mat-form-field>
+                          <input matInput class="form-field" [formControl]="Structure" placeholder="Name Filter">
                         </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
-  
+                      </div> -->
+                </th>
+                <td mat-cell *matCellDef="let csd;let index = index;">
+                  <editable (update)="updateFielddata(index, 'Structure',csd)">
+                    <ng-template viewMode>
+                      {{csd.Structure || 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'Structure')">
+                        <mat-error *ngIf="getControl(index, 'Structure').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+
                 <!-- <td mat-cell *matCellDef="let csd"> {{csd.Structure}} </td> -->
               </ng-container>
               <ng-container matColumnDef="SSEPDetailedDescription">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>SSEPDetailedDescription </th>
-                <td mat-cell *matCellDef="let csd;let index = index;"  matTooltip="{{csd.SSEPDetailedDescription}}">
-                    <editable (update)="updateFielddata(index, 'SSEPDetailedDescription',csd)">
-                      <ng-template viewMode>
-                        {{csd.SSEPDetailedDescription || 'N/A' | WrapTextPipe}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'SSEPDetailedDescription')">
-                          <mat-error *ngIf="getControl(index, 'SSEPDetailedDescription').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
-  
+                <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPDetailedDescription}}">
+                  <editable (update)="updateFielddata(index, 'SSEPDetailedDescription',csd)">
+                    <ng-template viewMode>
+                      {{csd.SSEPDetailedDescription || 'N/A' | WrapTextPipe}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'SSEPDetailedDescription')">
+                        <mat-error *ngIf="getControl(index, 'SSEPDetailedDescription').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
+
                 <!-- <td mat-cell *matCellDef="let csd" matTooltip="{{csd.SSEPDetailedDescription}}"> {{csd.SSEPDetailedDescription | WrapTextPipe}} </td> -->
               </ng-container>
               <ng-container matColumnDef="Security">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Security </th>
-                <td mat-cell *matCellDef="let csd;let index = index;"  matTooltip="{{csd.Security}}">
-                    <editable (update)="updateFielddata(index, 'Security',csd)">
-                      <ng-template viewMode>
-                        {{csd.Security !== null ? csd.Security : 'N/A'}}
-                      </ng-template>
-                   
-                      <ng-template editMode>
-                          <mat-form-field>
-                              <mat-select [value]= "getControl(index, 'Security')"  name="Security" [formControl]="getControl(index, 'Security')">
-                                  <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value"  >
-                                      {{element.value}}
-                                    </mat-option>
-                              </mat-select>
-                              </mat-form-field>
-                        <!-- <mat-form-field class="example-full-width">
+                <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.Security}}">
+                  <editable (update)="updateFielddata(index, 'Security',csd)">
+                    <ng-template viewMode>
+                      {{csd.Security !== null ? csd.Security : 'N/A'}}
+                    </ng-template>
+
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'Security')" name="Security" [formControl]="getControl(index, 'Security')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!-- <mat-form-field class="example-full-width">
                           <input matInput [formControl]="getControl(index, 'Security')">
                           <mat-error *ngIf="getControl(index, 'Security').hasError('required')">
                             Field is
                             <strong>required</strong>
                           </mat-error>
                         </mat-form-field> -->
-                      </ng-template>
-                    </editable>
-                  </td>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let csd"> {{csd.Security}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="SafetyOrImportantToSafety">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> SafetyOrImportantToSafety </th>
                 <td mat-cell *matCellDef="let csd;let index = index;">
-                    <editable (update)="updateFielddata(index, 'SafetyOrImportantToSafety',csd)">
-                      <ng-template viewMode>
-                          {{csd.SafetyOrImportantToSafety !== null ? csd.SafetyOrImportantToSafety : 'N/A'}}
+                  <editable (update)="updateFielddata(index, 'SafetyOrImportantToSafety',csd)">
+                    <ng-template viewMode>
+                      {{csd.SafetyOrImportantToSafety !== null ? csd.SafetyOrImportantToSafety : 'N/A'}}
 
-                      </ng-template>
-                      <ng-template editMode>
-                          <mat-form-field>
-                              <mat-select [value]= "getControl(index, 'SafetyOrImportantToSafety')"  name="SafetyOrImportantToSafety" [formControl]="getControl(index, 'SafetyOrImportantToSafety')">
-                                  <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value"  >
-                                      {{element.value}}
-                                    </mat-option>
-                              </mat-select>
-                              </mat-form-field>
-                        <!-- <mat-form-field class="example-full-width">
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'SafetyOrImportantToSafety')" name="SafetyOrImportantToSafety" [formControl]="getControl(index, 'SafetyOrImportantToSafety')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!-- <mat-form-field class="example-full-width">
                           <input matInput [formControl]="getControl(index, 'SafetyOrImportantToSafety')">
                           <mat-error *ngIf="getControl(index, 'SafetyOrImportantToSafety').hasError('required')">
                             Field is
                             <strong>required</strong>
                           </mat-error>
                         </mat-form-field> -->
-                      </ng-template>
-                    </editable>
-                  </td>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let csd"> {{csd.SafetyOrImportantToSafety}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="EmergencyPlan">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> EmergencyPlan </th>
                 <td mat-cell *matCellDef="let csd;let index = index;">
-                    <editable (update)="updateFielddata(index, 'EmergencyPlan',csd)">
-                      <ng-template viewMode>
-                          {{csd.EmergencyPlan !== null ? csd.EmergencyPlan : 'N/A'}}
+                  <editable (update)="updateFielddata(index, 'EmergencyPlan',csd)">
+                    <ng-template viewMode>
+                      {{csd.EmergencyPlan !== null ? csd.EmergencyPlan : 'N/A'}}
 
-                      </ng-template>
-                      <ng-template editMode>
-                          <mat-form-field>
-                              <mat-select [value]= "getControl(index, 'EmergencyPlan')"  name="EmergencyPlan" [formControl]="getControl(index, 'EmergencyPlan')">
-                                  <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value"  >
-                                      {{element.value}}
-                                    </mat-option>
-                              </mat-select>
-                              </mat-form-field>
-                        <!-- <mat-form-field class="example-full-width">
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'EmergencyPlan')" name="EmergencyPlan" [formControl]="getControl(index, 'EmergencyPlan')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!-- <mat-form-field class="example-full-width">
                           <input matInput [formControl]="getControl(index, 'EmergencyPlan')">
                           <mat-error *ngIf="getControl(index, 'EmergencyPlan').hasError('required')">
                             Field is
                             <strong>required</strong>
                           </mat-error>
                         </mat-form-field> -->
-                      </ng-template>
-                    </editable>
-                  </td>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let csd"> {{csd.EmergencyPlan}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="SafetyRelated">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> SafetyRelated </th>
                 <td mat-cell *matCellDef="let csd;let index = index;">
-                    <editable (update)="updateFielddata(index, 'SafetyRelated',csd)">
-                      <ng-template viewMode>
-                          {{csd.SafetyRelated !== null ? csd.SafetyRelated : 'N/A'}}
+                  <editable (update)="updateFielddata(index, 'SafetyRelated',csd)">
+                    <ng-template viewMode>
+                      {{csd.SafetyRelated !== null ? csd.SafetyRelated : 'N/A'}}
 
-                      </ng-template>
-                      <ng-template editMode>
-                          <mat-form-field>
-                              <mat-select [value]= "getControl(index, 'SafetyRelated')"  name="SafetyRelated" [formControl]="getControl(index, 'SafetyRelated')">
-                                  <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value"  >
-                                      {{element.value}}
-                                    </mat-option>
-                              </mat-select>
-                              </mat-form-field>
-                        <!-- <mat-form-field class="example-full-width">
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'SafetyRelated')" name="SafetyRelated" [formControl]="getControl(index, 'SafetyRelated')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!-- <mat-form-field class="example-full-width">
                           <input matInput [formControl]="getControl(index, 'SafetyRelated')">
                           <mat-error *ngIf="getControl(index, 'SafetyRelated').hasError('required')">
                             Field is
                             <strong>required</strong>
                           </mat-error>
                         </mat-form-field> -->
-                      </ng-template>
-                    </editable>
-                  </td>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let csd"> {{csd.SafetyRelated}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="ImportantToSafety">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ImportantToSafety </th>
                 <td mat-cell *matCellDef="let csd;let index = index;">
-                    <editable (update)="updateFielddata(index, 'ImportantToSafety',csd)">
-                      <ng-template viewMode>
-                          {{csd.ImportantToSafety !== null ? csd.ImportantToSafety : 'N/A'}}
-                      </ng-template>
-                      <ng-template editMode>
-                          <mat-form-field>
-                              <mat-select [value]= "getControl(index, 'ImportantToSafety')"  name="ImportantToSafety" [formControl]="getControl(index, 'ImportantToSafety')">
-                                  <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value"  >
-                                      {{element.value}}
-                                    </mat-option>
-                              </mat-select>
-                              </mat-form-field>
-                        <!-- <mat-form-field class="example-full-width">
+                  <editable (update)="updateFielddata(index, 'ImportantToSafety',csd)">
+                    <ng-template viewMode>
+                      {{csd.ImportantToSafety !== null ? csd.ImportantToSafety : 'N/A'}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field>
+                        <mat-select [value]="getControl(index, 'ImportantToSafety')" name="ImportantToSafety" [formControl]="getControl(index, 'ImportantToSafety')">
+                          <mat-option *ngFor="let element of dropdowndata" [(value)]="element.value">
+                            {{element.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!-- <mat-form-field class="example-full-width">
                           <input matInput [formControl]="getControl(index, 'ImportantToSafety')">
                           <mat-error *ngIf="getControl(index, 'ImportantToSafety').hasError('required')">
                             Field is
                             <strong>required</strong>
                           </mat-error>
                         </mat-form-field> -->
-                      </ng-template>
-                    </editable>
-                  </td>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let csd"> {{csd.ImportantToSafety}} </td> -->
               </ng-container>
 
               <ng-container matColumnDef="ExtDescription">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ExtDescription </th>
                 <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.ExtDescription}}">
-                    <editable (update)="updateFielddata(index, 'ExtDescription',csd)">
-                      <ng-template viewMode>
-                        {{csd.ExtDescription  || 'N/A' | WrapTextPipe}}
-                      </ng-template>
-                      <ng-template editMode>
-                        <mat-form-field class="example-full-width">
-                          <input matInput [formControl]="getControl(index, 'ExtDescription')">
-                          <mat-error *ngIf="getControl(index, 'ExtDescription').hasError('required')">
-                            Field is
-                            <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field>
-                      </ng-template>
-                    </editable>
-                  </td>
+                  <editable (update)="updateFielddata(index, 'ExtDescription',csd)">
+                    <ng-template viewMode>
+                      {{csd.ExtDescription || 'N/A' | WrapTextPipe}}
+                    </ng-template>
+                    <ng-template editMode>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [formControl]="getControl(index, 'ExtDescription')">
+                        <mat-error *ngIf="getControl(index, 'ExtDescription').hasError('required')">
+                          Field is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </ng-template>
+                  </editable>
+                </td>
                 <!-- <td mat-cell *matCellDef="let csd" matTooltip="{{csd.ExtDescription}}"> {{csd.ExtDescription | WrapTextPipe}} </td> -->
               </ng-container>
               <div>
@@ -413,7 +509,7 @@
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPJustification}}">
                     <editable (update)="updateFielddata(index, 'SSEPJustification',csd)">
                       <ng-template viewMode>
-                        {{csd.SSEPJustification  || 'N/A' | WrapTextPipe}}
+                        {{csd.SSEPJustification || 'N/A' | WrapTextPipe}}
                       </ng-template>
                       <ng-template editMode>
                         <mat-form-field class="example-full-width">
@@ -432,37 +528,37 @@
                 <ng-container matColumnDef="SSEPDecisionComment">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPDecisionComment </th>
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPDecisionComment}}">
-                      <editable (update)="updateFielddata(index, 'SSEPDecisionComment',csd)">
-                        <ng-template viewMode>
-                          {{csd.SSEPDecisionComment  || 'N/A'| WrapTextPipe}}
-                        </ng-template>
-                        <ng-template editMode>
-                          <mat-form-field class="example-full-width">
-                            <input matInput [formControl]="getControl(index, 'SSEPDecisionComment')">
-                            <mat-error *ngIf="getControl(index, 'SSEPDecisionComment').hasError('required')">
-                              Field is
-                              <strong>required</strong>
-                            </mat-error>
-                          </mat-form-field>
-                        </ng-template>
-                      </editable>
-                    </td>
+                    <editable (update)="updateFielddata(index, 'SSEPDecisionComment',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPDecisionComment || 'N/A'| WrapTextPipe}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width">
+                          <input matInput [formControl]="getControl(index, 'SSEPDecisionComment')">
+                          <mat-error *ngIf="getControl(index, 'SSEPDecisionComment').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd" matTooltip="{{csd.SSEPDecisionComment}}"> {{csd.SSEPDecisionComment | WrapTextPipe}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPDecisionDate">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPDecisionDate </th>
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPDecisionDate}}">
-                  <editable (update)="updateFielddata(index, 'SSEPDecisionDate',csd)">
+                    <editable (update)="updateFielddata(index, 'SSEPDecisionDate',csd)">
                       <ng-template viewMode>
                         {{csd.SSEPDecisionDate || '0000-00-00'| date:'yyyy-MM-dd'}}
                       </ng-template>
                       <ng-template editMode>
                         <mat-form-field class="example-full-width cda-input-div">
                           <input matInput [matDatepicker]="SSEPDecisionDate" [formControl]="getControl(index, 'SSEPDecisionDate')" [value]="getControl(index, 'SSEPDecisionDate')">
-                          <mat-datepicker-toggle matSuffix [for]="SSEPDecisionDate" ></mat-datepicker-toggle>
-                          <mat-datepicker #SSEPDecisionDate name = "SSEPDecisionDate" ngDefaultControl [formControl]="getControl(index, 'SSEPDecisionDate')"></mat-datepicker>
-          
+                          <mat-datepicker-toggle matSuffix [for]="SSEPDecisionDate"></mat-datepicker-toggle>
+                          <mat-datepicker #SSEPDecisionDate name="SSEPDecisionDate" ngDefaultControl [formControl]="getControl(index, 'SSEPDecisionDate')"></mat-datepicker>
+
                           <mat-error *ngIf="getControl(index, 'SSEPDecisionDate').hasError('required')">
                             Field is
                             <strong>required</strong>
@@ -470,160 +566,160 @@
                         </mat-form-field>
                       </ng-template>
                     </editable>
-                    </td>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd"> {{csd.SSEPDecisionDate | date:'yyyy-MM-dd'}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPDecisionBy">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPDecisionBy </th>
                   <td mat-cell *matCellDef="let csd;let index = index;">
-                      <editable (update)="updateFielddata(index, 'SSEPDecisionBy',csd)">
-                        <ng-template viewMode>
-                          {{csd.SSEPDecisionBy || 'N/A'}}
-                        </ng-template>
-                        <ng-template editMode>
-                          <mat-form-field class="example-full-width">
-                            <input matInput [formControl]="getControl(index, 'SSEPDecisionBy')">
-                            <mat-error *ngIf="getControl(index, 'SSEPDecisionBy').hasError('required')">
-                              Field is
-                              <strong>required</strong>
-                            </mat-error>
-                          </mat-form-field>
-                        </ng-template>
-                      </editable>
-                    </td>
+                    <editable (update)="updateFielddata(index, 'SSEPDecisionBy',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPDecisionBy || 'N/A'}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width">
+                          <input matInput [formControl]="getControl(index, 'SSEPDecisionBy')">
+                          <mat-error *ngIf="getControl(index, 'SSEPDecisionBy').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd"> {{csd.SSEPDecisionBy}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPReviewerComment">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPReviewerComment </th>
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPReviewerComment}}">
-                      <editable (update)="updateFielddata(index, 'SSEPReviewerComment',csd)">
-                        <ng-template viewMode>
-                          {{csd.SSEPReviewerComment || 'N/A' | WrapTextPipe}}
-                        </ng-template>
-                        <ng-template editMode>
-                          <mat-form-field class="example-full-width">
-                            <input matInput [formControl]="getControl(index, 'SSEPReviewerComment')">
-                            <mat-error *ngIf="getControl(index, 'SSEPReviewerComment').hasError('required')">
-                              Field is
-                              <strong>required</strong>
-                            </mat-error>
-                          </mat-form-field>
-                        </ng-template>
-                      </editable>
-                    </td>
+                    <editable (update)="updateFielddata(index, 'SSEPReviewerComment',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPReviewerComment || 'N/A' | WrapTextPipe}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width">
+                          <input matInput [formControl]="getControl(index, 'SSEPReviewerComment')">
+                          <mat-error *ngIf="getControl(index, 'SSEPReviewerComment').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd" matTooltip="{{csd.SSEPReviewerComment}}"> {{csd.SSEPReviewerComment | WrapTextPipe}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPReviewDate">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPReviewDate </th>
-                  <td mat-cell *matCellDef="let csd;let index = index;" >
-                      <editable (update)="updateFielddata(index, 'SSEPReviewDate',csd)">
-                          <ng-template viewMode>
-                            {{csd.SSEPReviewDate  || '0000-00-00'| date:'yyyy-MM-dd'}}
-                          </ng-template>
-                          <ng-template editMode>
-                            <mat-form-field class="example-full-width cda-input-div">
-                              <input matInput [matDatepicker]="SSEPReviewDate" [formControl]="getControl(index, 'SSEPReviewDate')" [value]="getControl(index, 'SSEPReviewDate')">
-                              <mat-datepicker-toggle matSuffix [for]="SSEPReviewDate" ></mat-datepicker-toggle>
-                              <mat-datepicker #SSEPReviewDate name = "SSEPReviewDate" ngDefaultControl [formControl]="getControl(index, 'SSEPReviewDate')"></mat-datepicker>
-              
-                              <mat-error *ngIf="getControl(index, 'SSEPReviewDate').hasError('required')">
-                                Field is
-                                <strong>required</strong>
-                              </mat-error>
-                            </mat-form-field>
-                          </ng-template>
-                        </editable>
-                        </td>
+                  <td mat-cell *matCellDef="let csd;let index = index;">
+                    <editable (update)="updateFielddata(index, 'SSEPReviewDate',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPReviewDate || '0000-00-00'| date:'yyyy-MM-dd'}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width cda-input-div">
+                          <input matInput [matDatepicker]="SSEPReviewDate" [formControl]="getControl(index, 'SSEPReviewDate')" [value]="getControl(index, 'SSEPReviewDate')">
+                          <mat-datepicker-toggle matSuffix [for]="SSEPReviewDate"></mat-datepicker-toggle>
+                          <mat-datepicker #SSEPReviewDate name="SSEPReviewDate" ngDefaultControl [formControl]="getControl(index, 'SSEPReviewDate')"></mat-datepicker>
+
+                          <mat-error *ngIf="getControl(index, 'SSEPReviewDate').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd"> {{csd.SSEPReviewDate | date:'yyyy-MM-dd'}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPReviewedBy">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPReviewedBy </th>
                   <td mat-cell *matCellDef="let csd;let index = index;">
-                      <editable (update)="updateFielddata(index, 'SSEPReviewedBy',csd)">
-                        <ng-template viewMode>
-                          {{csd.SSEPReviewedBy || 'N/A'}}
-                        </ng-template>
-                        <ng-template editMode>
-                          <mat-form-field class="example-full-width">
-                            <input matInput [formControl]="getControl(index, 'SSEPReviewedBy')">
-                            <mat-error *ngIf="getControl(index, 'SSEPReviewedBy').hasError('required')">
-                              Field is
-                              <strong>required</strong>
-                            </mat-error>
-                          </mat-form-field>
-                        </ng-template>
-                      </editable>
-                    </td>
+                    <editable (update)="updateFielddata(index, 'SSEPReviewedBy',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPReviewedBy || 'N/A'}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width">
+                          <input matInput [formControl]="getControl(index, 'SSEPReviewedBy')">
+                          <mat-error *ngIf="getControl(index, 'SSEPReviewedBy').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd"> {{csd.SSEPReviewedBy}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPApproverComment">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPApproverComment </th>
                   <td mat-cell *matCellDef="let csd;let index = index;" matTooltip="{{csd.SSEPApproverComment}}">
-                      <editable (update)="updateFielddata(index, 'SSEPApproverComment',csd)">
-                        <ng-template viewMode>
-                          {{csd.SSEPApproverComment || 'N/A' | WrapTextPipe}}
-                        </ng-template>
-                        <ng-template editMode>
-                          <mat-form-field class="example-full-width">
-                            <input matInput [formControl]="getControl(index, 'SSEPApproverComment')">
-                            <mat-error *ngIf="getControl(index, 'SSEPApproverComment').hasError('required')">
-                              Field is
-                              <strong>required</strong>
-                            </mat-error>
-                          </mat-form-field>
-                        </ng-template>
-                      </editable>
-                    </td>
+                    <editable (update)="updateFielddata(index, 'SSEPApproverComment',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPApproverComment || 'N/A' | WrapTextPipe}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width">
+                          <input matInput [formControl]="getControl(index, 'SSEPApproverComment')">
+                          <mat-error *ngIf="getControl(index, 'SSEPApproverComment').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd" matTooltip="{{csd.SSEPApproverComment}}"> {{csd.SSEPApproverComment | WrapTextPipe}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPApprovedDate">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPApprovedDate </th>
-                  <td mat-cell *matCellDef="let csd;let index = index;" >
-                      <editable (update)="updateFielddata(index, 'SSEPApprovedDate',csd)">
-                          <ng-template viewMode>
-                            {{csd.SSEPApprovedDate || '0000-00-00' | date:'yyyy-MM-dd'}}
-                          </ng-template>
-                          <ng-template editMode>
-                            <mat-form-field class="example-full-width cda-input-div">
-                              <input matInput [matDatepicker]="SSEPApprovedDate" [formControl]="getControl(index, 'SSEPApprovedDate')" [value]="getControl(index, 'SSEPApprovedDate')">
-                              <mat-datepicker-toggle matSuffix [for]="SSEPApprovedDate" ></mat-datepicker-toggle>
-                              <mat-datepicker #SSEPApprovedDate name = "SSEPApprovedDate" ngDefaultControl [formControl]="getControl(index, 'SSEPApprovedDate')"></mat-datepicker>
-              
-                              <mat-error *ngIf="getControl(index, 'SSEPApprovedDate').hasError('required')">
-                                Field is
-                                <strong>required</strong>
-                              </mat-error>
-                            </mat-form-field>
-                          </ng-template>
-                        </editable>
-                        </td>
+                  <td mat-cell *matCellDef="let csd;let index = index;">
+                    <editable (update)="updateFielddata(index, 'SSEPApprovedDate',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPApprovedDate || '0000-00-00' | date:'yyyy-MM-dd'}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width cda-input-div">
+                          <input matInput [matDatepicker]="SSEPApprovedDate" [formControl]="getControl(index, 'SSEPApprovedDate')" [value]="getControl(index, 'SSEPApprovedDate')">
+                          <mat-datepicker-toggle matSuffix [for]="SSEPApprovedDate"></mat-datepicker-toggle>
+                          <mat-datepicker #SSEPApprovedDate name="SSEPApprovedDate" ngDefaultControl [formControl]="getControl(index, 'SSEPApprovedDate')"></mat-datepicker>
+
+                          <mat-error *ngIf="getControl(index, 'SSEPApprovedDate').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd"> {{csd.SSEPApprovedDate | date:'yyyy-MM-dd'}} </td> -->
                 </ng-container>
 
                 <ng-container matColumnDef="SSEPApprovedBy">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> SSEPApprovedBy </th>
                   <td mat-cell *matCellDef="let csd;let index = index;">
-                      <editable (update)="updateFielddata(index, 'SSEPApprovedBy',csd)">
-                        <ng-template viewMode>
-                          {{csd.SSEPApprovedBy || 'N/A'}}
-                        </ng-template>
-                        <ng-template editMode>
-                          <mat-form-field class="example-full-width">
-                            <input matInput [formControl]="getControl(index, 'SSEPApprovedBy')">
-                            <mat-error *ngIf="getControl(index, 'SSEPApprovedBy').hasError('required')">
-                              Field is
-                              <strong>required</strong>
-                            </mat-error>
-                          </mat-form-field>
-                        </ng-template>
-                      </editable>
-                    </td>
+                    <editable (update)="updateFielddata(index, 'SSEPApprovedBy',csd)">
+                      <ng-template viewMode>
+                        {{csd.SSEPApprovedBy || 'N/A'}}
+                      </ng-template>
+                      <ng-template editMode>
+                        <mat-form-field class="example-full-width">
+                          <input matInput [formControl]="getControl(index, 'SSEPApprovedBy')">
+                          <mat-error *ngIf="getControl(index, 'SSEPApprovedBy').hasError('required')">
+                            Field is
+                            <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-template>
+                    </editable>
+                  </td>
                   <!-- <td mat-cell *matCellDef="let csd"> {{csd.SSEPApprovedBy}} </td> -->
                 </ng-container>
               </div>
