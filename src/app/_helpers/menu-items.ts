@@ -234,6 +234,12 @@ const MENUITEMS = [
     //     icon: 'insert_chart'
     // },
     {
+        state: 'Report',
+        name: 'Report',
+        type: 'link',
+        icon: 'insert_chart'
+    },  
+    {
         state: 'CSDA',
         name: 'SetUp',
         type: 'sub',

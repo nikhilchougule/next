@@ -18,6 +18,7 @@ import { ControlCdaListComponent } from './control-cda-list/control-cda-list.com
 import { ControlCsListComponent } from './control-cs-list/control-cs-list.component';
 import { CriticalDigitalAssetListComponent } from './critical-digital-asset-list/critical-digital-asset-list.component';
 import { CdaTemplateComponent } from './cda-template/cda-template.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,17 @@ const routes: Routes = [
         ]
       }  
    },
+   {
+    path:'Report',
+    component:ReportsComponent,
+    data: {
+      title: 'Report',
+      urls: [
+        { title: 'Report' }
+      ]
+    }  
+ },
+   
    {
       path:'CSDA',
       children:[

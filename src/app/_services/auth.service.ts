@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUser,Role } from '../_models/user.interface';
-import {createAbility,defineAbilitiesFor, AppAbility} from '../_services/AppAbility';
-import { Ability, AbilityBuilder } from '@casl/ability';
+// import {createAbility,defineAbilitiesFor, AppAbility} from '../_services/AppAbility';
+// import { Ability, AbilityBuilder } from '@casl/ability';
 
 const users: IUser[] = [
   { id: 1, username: 'admin', password: 'admin', firstName: 'Admin', lastName: 'User', role: Role.Admin },
@@ -13,14 +13,14 @@ const users: IUser[] = [
 })
 
 export class AuthService {
-
-  constructor(private ability: Ability) {}
+//private ability: Ability
+  constructor() {}
   login(username,password){
     const user = users.find(x => x.username === username && x.password === password);
     if (!user) return 'user not exist';
     // createAbility(user.role);
     // defineAbilitiesFor(user.role)
-  this.updateAbility(user) 
+  // this.updateAbility(user) 
     
     return {
         id: user.id,
@@ -31,18 +31,18 @@ export class AuthService {
         token: `fake-jwt-token.${user.id}`
     };
   }
-  private updateAbility(user) {
-    // const { can, rules } = new AbilityBuilder();
-    const { can, rules,cannot } = new AbilityBuilder<AppAbility>();
+  // private updateAbility(user) {
+  //   // const { can, rules } = new AbilityBuilder();
+  //   const { can, rules,cannot } = new AbilityBuilder<AppAbility>();
 
-    if (user.role === 'Admin') {
-      can('manage', 'all');
-    } else {
-      can('read', 'all');
-    }
+  //   if (user.role === 'Admin') {
+  //     can('manage', 'all');
+  //   } else {
+  //     can('read', 'all');
+  //   }
  
-    this.ability.update(rules);
-  }
+  //   this.ability.update(rules);
+  // }
  
 //   private defineAbility(user) {
 //     const { can, cannot, rules } = new AbilityBuilder(Ability);
