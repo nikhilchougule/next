@@ -1,6 +1,27 @@
-<button mat-raised-button color="primary"  (click)="exportAsXLSX()">Export</button>
-<!-- <input style="display: none" type="file" (change)="onFileUpload($event)" #selectFile>
-<button (click)="selectFile.click()">Select File</button> -->
+ <div fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <div fxLayout="row wrap" class="align-items-center">
+            <div fxFlex.gt-md="25" fxFlex.gt-lg="25" fxFlex="100">
+                <button mat-raised-button color="primary"  (click)="exportAsXLSX()">Export</button>
+
+              <!-- <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              </mat-form-field> -->
+            </div>
+            <div fxFlex.gt-md="75" class="text-right">
+              <!-- [disabled]="!('create' | able: 'cs')" -->
+
+              <input style="display: none" type="file" (change)="onFileUpload($event)" #selectFile>
+              <button mat-raised-button color="warn" (click)="selectFile.click()">Select File</button>            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+
 <div fxLayout="row wrap">
     <div fxFlex="100">
       <mat-card>
