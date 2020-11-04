@@ -15,6 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
+  selecetdFile: any;
     displayedColumns: string[];
     data: IScips[];
     scipForm: FormGroup;
@@ -23,7 +24,8 @@ export class ReportsComponent implements OnInit {
     update: boolean = false;
     showSSEP:boolean = false
     dataLength: number = 0;
-  
+    fileToUpload: File = null;
+
   constructor(private excelService:ReportService,private scip:ScipService,public dialog: MatDialog,private route: ActivatedRoute) { }
   @ViewChild(MatTable, { static: true }) table: MatTable<any> = Object.create(null);
     @ViewChild(MatSort) sort: MatSort;
@@ -46,6 +48,18 @@ export class ReportsComponent implements OnInit {
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.data, 'sample');
  }
+ handleFileInput(files: FileList) {
+  this.fileToUpload = files.item(0);
+}
+onFileUpload(event){
+  this.selecetdFile = event.target.files[0];
+  this.excelService.OnUploadFile(this.selecetdFile).subscribe()
+  // const reader = new FileReader();
+  // reader.onload = () => {
+  // this.imagePreview = reader.result;
+  // };
+  // reader.readAsDataURL(this.selecetdFile);
+  }
  viewScipsFields(){
   this.showSSEP = !this.showSSEP;
 }

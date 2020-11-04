@@ -15,6 +15,7 @@ import { isLoggedIn, isLoggedOut } from '../auth/auth.selector';
 import { MatStepper } from '@angular/material/stepper';
 import { AnyFn } from '@ngrx/store/src/selector';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ReportService } from '../_services/report.service';
 @Component({
     selector: 'app-critical-system',
     templateUrl: './critical-system.component.html',
@@ -126,7 +127,7 @@ export class CriticalSystemComponent implements OnInit {
     filterSelectObj = [];
     filterValues = {};
 
-    constructor(private criticalSys: CriticalSystemService, public dialog: MatDialog, private route: ActivatedRoute, private store: Store<AppState>) {
+    constructor(private excelService:ReportService,private criticalSys: CriticalSystemService, public dialog: MatDialog, private route: ActivatedRoute, private store: Store<AppState>) {
 
         // Object to create Filter for
         this.filterSelectObj = [
@@ -547,6 +548,9 @@ export class CriticalSystemComponent implements OnInit {
 
     }
 
+    exportAsXLSX():void {
+        this.excelService.exportAsExcelFile(this.data, 'sample');
+     }
 
 }
 

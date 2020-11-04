@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { DateAdapter } from '@angular/material/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ReportService } from '../_services/report.service';
 
 
 export interface DialogData {
@@ -330,7 +331,7 @@ export class ViewCdaComponent implements OnInit {
     filterValues = {};
     selection = new SelectionModel<ICDA>(true, []);
 
-    constructor(private cda: CdaService, public dialog: MatDialog,private route: ActivatedRoute) {
+    constructor(private excelService:ReportService,private cda: CdaService, public dialog: MatDialog,private route: ActivatedRoute) {
 
 
     // Object to create Filter for
@@ -430,6 +431,9 @@ export class ViewCdaComponent implements OnInit {
       
       
     }
+    exportAsXLSX():void {
+        this.excelService.exportAsExcelFile(this.data, 'sample');
+     }
     isAllSelected() {
         const numSelected = this.selection.selected.length;
         const numRows = this.dataSource.data.length;

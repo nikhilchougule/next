@@ -11,6 +11,8 @@
         <mat-card-content>
           <div fxLayout="row wrap" class="align-items-center">
             <div fxFlex.gt-md="25" fxFlex.gt-lg="25" fxFlex="100">
+                <button mat-raised-button color="primary"  (click)="exportAsXLSX()">Export</button>
+
                <!-- (keyup)="applyFilter($event.target.value)" -->
               <!-- <mat-form-field>
                 <input matInput [ngModel]="globalFilter" (ngModelChange)="applyFilter($event)"  placeholder="Filter">
