@@ -70,8 +70,10 @@ File: scss
 }
 
 $custom-typography: mat-typography-config( 
-  $font-family: 'Poppins'
+  $font-family: 'Helvetica'
+  
 ); 
+//Helvetica
 @include mat-core($custom-typography);
 
 
